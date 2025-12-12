@@ -21,13 +21,13 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <Navbar />
-      <Hero />
+      {/* <Hero />
       <About />
       <Services />
       <SolarCalculator />
       <Portfolio />
       <Contact />
-      <Footer />
+      <Footer /> */}
     </div>
   );
 };
