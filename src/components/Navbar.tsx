@@ -1,139 +1,228 @@
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Menu, X, Sun } from "lucide-react";
+import { useState, useEffect } from "react";
+import { 
+  Menu, X, ChevronDown, LogOut, User, Settings, FileText, 
+  Home, Info, Package, Folder, Phone 
+} from "lucide-react";
+import logo from "/logo(1).png";
+import { useNavigate } from "react-router-dom";
+
+// User type
+interface UserData {
+  role: "admin" | "vendor" | "guest";
+  name?: string;
+  email?: string;
+}
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isAdminDropdownOpen, setIsAdminDropdownOpen] = useState(false);
+  const [user, setUser] = useState<UserData>({ role: "guest" });
 
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-      setIsOpen(false);
-    }
+  const navigate = useNavigate();
+
+  // Detect scroll
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Load user role from localStorage
+  useEffect(() => {
+    const savedRole = localStorage.getItem("userRole") as UserData["role"] | null;
+    if (savedRole) setUser({ role: savedRole });
+  }, []);
+
+  // Navigation helper
+  const goToPage = (path: string) => {
+    navigate(path);
+    setIsOpen(false);
+    setIsAdminDropdownOpen(false);
   };
 
+  const handleAdminLogin = () => goToPage("/admin-login");
+  const handleVendorLogin = () => goToPage("/vendor-login");
+  const handleVendorRegistration = () => goToPage("/vendor-registration");
+
+  const handleLogout = () => {
+    localStorage.clear();
+    setUser({ role: "guest" });
+    navigate("/");
+  };
+
+  const menuItems = [
+    { name: "Home", path: "/", icon: <Home className="w-5 h-5" /> },
+    { name: "About Us", path: "/about", icon: <Info className="w-5 h-5" /> },
+    { name: "Products", path: "/products", icon: <Package className="w-5 h-5" /> },
+    { name: "Projects", path: "/projects", icon: <Folder className="w-5 h-5" /> },
+    { name: "Contact Us", path: "/contact", icon: <Phone className="w-5 h-5" /> },
+    { name: "Careers", path: "/career ", icon: <FileText className="w-5 h-5" /> },
+  ];
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        isScrolled
+          ? "bg-black/90 backdrop-blur-xl shadow-xl border-b border-gray-800"
+          : "bg-gradient-to-b from-black/80 to-transparent"
+      }`}
+    >
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          <div className="flex items-center space-x-2 animate-fade-in">
-            <Sun className="h-8 w-8 text-primary animate-pulse-glow" />
-            <span className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-              SolarWave
-            </span>
+        <div className="flex items-center justify-between h-20">
+          
+          {/* LOGO */}
+          <div className="flex items-center space-x-3 cursor-pointer" onClick={() => navigate("/")}>
+            <img
+              src={logo}
+              alt="Logo"
+              className="h-16 w-auto p-2 bg-white rounded-xl border border-gray-700 shadow-md hover:scale-105 transition-transform"
+            />
           </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            <button
-              onClick={() => scrollToSection("home")}
-              className="text-foreground hover:text-primary transition-colors"
-            >
-              Home
-            </button>
-            <button
-              onClick={() => scrollToSection("about")}
-              className="text-foreground hover:text-primary transition-colors"
-            >
-              About
-            </button>
-            <button
-              onClick={() => scrollToSection("services")}
-              className="text-foreground hover:text-primary transition-colors"
-            >
-              Services
-            </button>
-            <button
-              onClick={() => scrollToSection("calculator")}
-              className="text-foreground hover:text-primary transition-colors"
-            >
-              Calculator
-            </button>
-            <button
-              onClick={() => scrollToSection("portfolio")}
-              className="text-foreground hover:text-primary transition-colors"
-            >
-              Portfolio
-            </button>
-            <button
-              onClick={() => scrollToSection("contact")}
-              className="text-foreground hover:text-primary transition-colors"
-            >
-              Contact
-            </button>
-            <Button 
-              onClick={() => scrollToSection("calculator")}
-              className="bg-primary hover:bg-primary/90 animate-pulse-glow"
-            >
-              Get Started
-            </Button>
-          </div>
+          {/* DESKTOP MENU */}
+          <div className="hidden lg:flex items-center space-x-2">
+            {menuItems.map((item) => (
+              <button
+                key={item.name}
+                onClick={() => goToPage(item.path)}
+                className="relative group px-4 py-2 text-gray-300 hover:text-gold transition"
+              >
+                <div className="flex items-center space-x-2">
+                  <span className="opacity-70 group-hover:opacity-100">{item.icon}</span>
+                  <span>{item.name}</span>
+                </div>
+                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gold transition-all duration-300 group-hover:w-3/4"></span>
+              </button>
+            ))}
 
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden"
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label="Toggle menu"
-          >
-            {isOpen ? (
-              <X className="h-6 w-6 text-foreground" />
-            ) : (
-              <Menu className="h-6 w-6 text-foreground" />
+            {/* ADMIN + VENDOR DROPDOWN (when NOT logged in as admin) */}
+            {user.role !== "admin" && (
+              <div className="relative">
+                <button
+                  onClick={() => setIsAdminDropdownOpen(!isAdminDropdownOpen)}
+                  className="px-5 py-2.5 rounded-lg bg-gray-900 border border-gray-700 hover:border-gold transition-all flex items-center space-x-2 group"
+                >
+                  <User className="w-4 h-4 text-gold" />
+                  <span className="text-white">Login</span>
+                  <ChevronDown
+                    className={`w-4 h-4 text-gold transition-transform ${
+                      isAdminDropdownOpen ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+
+                {isAdminDropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-60 bg-black/95 border border-gray-800 rounded-xl shadow-xl backdrop-blur-xl py-2 z-50">
+                    <button
+                      onClick={handleAdminLogin}
+                      className="w-full px-4 py-3 text-left text-gray-300 hover:text-white hover:bg-gray-800/40"
+                    >
+                      🛠 Admin Login
+                    </button>
+                    <button
+                      onClick={handleVendorLogin}
+                      className="w-full px-4 py-3 text-left text-gray-300 hover:text-white hover:bg-gray-800/40"
+                    >
+                      👤 Vendor Login
+                    </button>
+                 
+                  </div>
+                )}
+              </div>
             )}
+
+            {/* ADMIN PANEL BUTTON (visible only to admin) */}
+            {user.role === "admin" && (
+              <button
+                onClick={() => navigate("/admin-dashboard")}
+                className="px-5 py-2.5 text-white bg-red-900/40 border border-red-600 rounded-lg hover:bg-red-900/60 transition"
+              >
+                Admin Panel
+              </button>
+            )}
+
+            {/* LOGOUT */}
+            {user.role !== "guest" && (
+              <button
+                onClick={handleLogout}
+                className="ml-2 px-5 py-2 text-red-300 hover:text-red-200 hover:bg-red-900/20 rounded-lg transition"
+              >
+                Logout
+              </button>
+            )}
+          </div>
+
+          {/* MOBILE MENU BUTTON */}
+          <button
+            className="lg:hidden p-2 bg-gray-900 rounded-lg border border-gray-700"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            {isOpen ? <X className="text-gold" /> : <Menu className="text-gold" />}
           </button>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* MOBILE MENU */}
         {isOpen && (
-          <div className="md:hidden py-4 animate-fade-in">
-            <div className="flex flex-col space-y-4">
-              <button
-                onClick={() => scrollToSection("home")}
-                className="text-foreground hover:text-primary transition-colors text-left"
-              >
-                Home
-              </button>
-              <button
-                onClick={() => scrollToSection("about")}
-                className="text-foreground hover:text-primary transition-colors text-left"
-              >
-                About
-              </button>
-              <button
-                onClick={() => scrollToSection("services")}
-                className="text-foreground hover:text-primary transition-colors text-left"
-              >
-                Services
-              </button>
-              <button
-                onClick={() => scrollToSection("calculator")}
-                className="text-foreground hover:text-primary transition-colors text-left"
-              >
-                Calculator
-              </button>
-              <button
-                onClick={() => scrollToSection("portfolio")}
-                className="text-foreground hover:text-primary transition-colors text-left"
-              >
-                Portfolio
-              </button>
-              <button
-                onClick={() => scrollToSection("contact")}
-                className="text-foreground hover:text-primary transition-colors text-left"
-              >
-                Contact
-              </button>
-              <Button 
-                onClick={() => scrollToSection("calculator")}
-                className="bg-primary hover:bg-primary/90 w-full"
-              >
-                Get Started
-              </Button>
+          <div className="lg:hidden py-6 border-t border-gray-800 bg-black/95 backdrop-blur-xl">
+            <div className="flex flex-col space-y-2">
+              
+              {menuItems.map((item) => (
+                <button
+                  key={item.name}
+                  onClick={() => goToPage(item.path)}
+                  className="flex items-center space-x-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800/40 rounded-lg"
+                >
+                  {item.icon}
+                  <span>{item.name}</span>
+                </button>
+              ))}
+
+              {/* LOGIN DROPDOWN FOR MOBILE */}
+              <div className="border-t border-gray-800 pt-4">
+                <h3 className="text-gold text-sm uppercase px-4">Login Options</h3>
+
+                <button
+                  onClick={handleAdminLogin}
+                  className="w-full px-4 py-3 text-left text-gray-300 hover:bg-gray-800/40 rounded-lg"
+                >
+                  🛠 Admin Login
+                </button>
+                <button
+                  onClick={handleVendorLogin}
+                  className="w-full px-4 py-3 text-left text-gray-300 hover:bg-gray-800/40 rounded-lg"
+                >
+                  👤 Vendor Login
+                </button>
+                <button
+                  onClick={handleVendorRegistration}
+                  className="w-full px-4 py-3 text-left text-gray-300 hover:bg-gray-800/40 rounded-lg"
+                >
+                  📝 Vendor Registration
+                </button>
+              </div>
+
+              {/* LOGOUT FOR MOBILE */}
+              {user.role !== "guest" && (
+                <button
+                  onClick={handleLogout}
+                  className="px-4 py-3 text-left text-red-400 hover:bg-red-900/30 rounded-lg mt-4"
+                >
+                  Logout
+                </button>
+              )}
             </div>
           </div>
         )}
       </div>
+
+      {/* CLICK OUTSIDE DROPDOWN TO CLOSE */}
+      {isAdminDropdownOpen && (
+        <div
+          className="fixed inset-0 z-40"
+          onClick={() => setIsAdminDropdownOpen(false)}
+        />
+      )}
     </nav>
   );
 };

@@ -1,17 +1,17 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sun, Zap } from "lucide-react";
-import heroImage from "@/assets/hero-solar.jpg"
+import heroImage from "@/assets/hero-solar.jpg";
 
 const Hero = () => {
   const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
     }
   };
 
   return (
-    <section
+    <section 
       id="home"
       className="relative min-h-screen flex items-center pt-20 overflow-hidden"
     >
@@ -19,48 +19,44 @@ const Hero = () => {
       <div className="absolute inset-0 z-0">
         <img
           src={heroImage}
-          alt="Solar"
-          className="w-full h-full object-cover scale-105 animate-[pulse_7s_ease-in-out_infinite]"
+          alt="Solar Panels"
+     
         />
-        {/* YOUR ORIGINAL OVERLAY */}
-        <div className="absolute inset-0 bg-gradient-to-r from-background/50 via-background/50 to-background/30" />
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/20" />
       </div>
 
-      {/* Decorative Floating Light */}
-      <div className="absolute top-20 left-20 w-16 h-16 bg-yellow-300/20 rounded-full blur-xl animate-float" />
+      {/* Floating Gold Light */}
+      <div className="absolute top-20 left-20 w-24 h-24 bg-[#D4AF37]/25 rounded-full blur-2xl animate-float" />
 
-      {/* Content */}
+      {/* Content Area */}
       <div className="container mx-auto px-4 z-10">
         <div className="max-w-3xl text-left">
-          
-          {/* Subtitle */}
-          <div className="flex items-center space-x-2 mb-6 animate-fade-in">
-            <Zap className="h-6 w-6 text-accent animate-pulse" />
-            <span className="text-accent font-semibold tracking-wide">
-              Clean Energy Solutions
-            </span>
-          </div>
 
-          {/* Main Heading */}
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in-up leading-tight">
-            Power Your Future with{" "}
-            <span className="text-[#f98b26]">
-              Solar Energy
+          {/* Subtitle */}
+  
+
+          {/* Heading */}
+          <h1 className="text-5xl md:text-7xl font-extrabold mb-6 leading-tight text-white">
+            Power Your World with{" "}
+            <span className="text-[#D4AF37]">
+              Premium Solar Energy
             </span>
           </h1>
 
           {/* Description */}
-          <p className="text-xl text-muted-foreground mb-8 animate-fade-in-up max-w-xl">
-            Transform your home or business with cutting-edge solar technology.
-            Save money, reduce your carbon footprint, and invest in a sustainable future.
+          <p className="text-xl text-gray-300 mb-8 animate-fade-in-up max-w-xl">
+            Experience high-end solar engineering designed for maximum durability,
+            peak performance, and long-lasting energy independence.
           </p>
 
-          {/* Buttons (Left aligned) */}
+          {/* CTA buttons */}
           <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up">
+
             <Button
               size="lg"
               onClick={() => scrollToSection("calculator")}
-              className="bg-primary hover:bg-primary/90 text-black group animate-pulse-glow"
+              className="bg-[#D4AF37] hover:bg-[#b8952f] text-black font-semibold shadow-xl group"
             >
               Calculate Savings
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
@@ -70,35 +66,38 @@ const Hero = () => {
               size="lg"
               variant="outline"
               onClick={() => scrollToSection("about")}
-              className="border-2 hover:bg-primary/10"
+              className="border-2 border-[#F7E99E] text-[#F7E99E] hover:bg-[#F7E99E]/10"
             >
               <Sun className="mr-2 h-5 w-5" />
               Learn More
             </Button>
+
           </div>
 
-          {/* Stats (Left aligned) */}
-          <div className="grid grid-cols-3 gap-6 mt-16 animate-fade-in-up">
+          {/* Stats */}
+          <div className="grid grid-cols-3 gap-6 mt-16 animate-fade-in-up text-white">
             <div>
-              <div className="text-3xl md:text-4xl font-bold text-black mb-1">500+</div>
-              <div className="text-sm text-muted-foreground">Projects Completed</div>
+              <div className="text-3xl md:text-4xl font-bold text-[#D4AF37]">500+</div>
+              <div className="text-sm text-gray-300">Premium Installations</div>
             </div>
             <div>
-              <div className="text-3xl md:text-4xl font-bold text-black mb-1">98%</div>
-              <div className="text-sm text-muted-foreground">Customer Satisfaction</div>
+              <div className="text-3xl md:text-4xl font-bold text-[#D4AF37]">98%</div>
+              <div className="text-sm text-gray-300">Client Satisfaction</div>
             </div>
             <div>
-              <div className="text-3xl md:text-4xl font-bold text-black mb-1">25+</div>
-              <div className="text-sm text-muted-foreground">Years Experience</div>
+              <div className="text-3xl md:text-4xl font-bold text-[#D4AF37]">25+</div>
+              <div className="text-sm text-gray-300">Years Expertise</div>
             </div>
           </div>
+
         </div>
       </div>
 
-      {/* Floating Sun Icon */}
-      <div className="absolute bottom-10 right-10 animate-float opacity-25">
-        <Sun className="h-28 w-28 text-primary" />
+      {/* Floating Sun */}
+      <div className="absolute bottom-10 right-10 animate-float opacity-20">
+        <Sun className="h-32 w-32 text-[#D4AF37]" />
       </div>
+
     </section>
   );
 };
