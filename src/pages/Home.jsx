@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sun, Zap, Phone, Mail, MapPin, Award, Shield, Clock, ChevronLeft, ChevronRight, TrendingUp, Leaf, DollarSign, CheckCircle2, Star } from "lucide-react";
 import { useState, useEffect } from "react";
+import heroImage from "../assets/hero-solar.jpg";
 
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -119,7 +120,14 @@ const Home = () => {
     <>
       {/* Hero Section */}
       <section id="home" className="relative min-h-screen flex items-center pt-20 overflow-hidden  bg-black/80">
-        <div className="absolute inset-0 bg-black/80"></div>
+         <div className="absolute inset-0 z-0">
+          <img
+            src={heroImage}
+            alt="Solar background"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/40 to-yellow-900/40"></div>
+        </div>
         
         {/* Content */}
         <div className="container mx-auto px-4 pt-4 sm:px-6 lg:px-8 z-10">
@@ -128,9 +136,9 @@ const Home = () => {
               {/* Left Content */}
               <div className={`space-y-8 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
                 {/* Subtitle */}
-                <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-orange-500/20 to-yellow-500/20 backdrop-blur-sm border border-orange-500/30 px-4 py-2 rounded-full">
-                  <Zap className="h-5 w-5 text-orange-400" />
-                  <span className="text-orange-300 font-semibold tracking-wide text-sm">
+                <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-yellow-500/20 to-yellow-500/20 backdrop-blur-sm border border-orange-500/30 px-4 py-2 rounded-full">
+                  <Zap className="h-5 w-5 text-yellow-400" />
+                  <span className="text-yellow-300 font-semibold tracking-wide text-sm">
                     #1 Clean Energy Provider in Your Area
                   </span>
                 </div>
@@ -138,7 +146,7 @@ const Home = () => {
                 {/* Main Heading */}
                 <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight text-white">
                   Power Your Future with{" "}
-                  <span className="bg-gradient-to-r from-orange-400 via-yellow-400 to-orange-500 bg-clip-text text-transparent">
+                  <span className="bg-yellow-400 via-yellow-400 to-orange-500 bg-clip-text text-transparent">
                     Solar Energy
                   </span>
                 </h1>
@@ -157,8 +165,8 @@ const Home = () => {
                         key={index} 
                         className="flex items-center space-x-3 text-gray-200"
                       >
-                        <div className="p-2 bg-gradient-to-br from-orange-500/20 to-yellow-500/20 rounded-lg">
-                          <BenefitIcon className="h-5 w-5 text-orange-400" />
+                        <div className="p-2 bg-gradient-to-br from-yellow-500/20 to-yellow-500/20 rounded-lg">
+                          <BenefitIcon className="h-5 w-5 text-yellow-400" />
                         </div>
                         <span className="text-sm font-medium">{benefit.text}</span>
                       </div>
@@ -170,7 +178,7 @@ const Home = () => {
                 <div className="flex flex-col sm:flex-row gap-4 pt-8">
                   <Button
                     size="lg"
-                    className="bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-600 text-white font-semibold shadow-lg hover:shadow-orange-500/25 transition-all duration-300"
+                    className="bg-gradient-to-r from-yellow-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-600 text-white font-semibold shadow-lg hover:shadow-orange-500/25 transition-all duration-300"
                   >
                     Calculate Your Savings
                     <ArrowRight className="ml-2 h-5 w-5" />
@@ -178,7 +186,7 @@ const Home = () => {
                   <Button
                     size="lg"
                     variant="outline"
-                    className="border-2 border-orange-500 text-orange-400 hover:bg-orange-500/10 font-semibold shadow-lg transition-all duration-300"
+                    className="border-2 border-yellow-500 text-black-400 hover:bg-yellow-500/10 font-semibold shadow-lg transition-all duration-300"
                   >
                     <Phone className="mr-2 h-5 w-5" />
                     Book Free Consultation
@@ -200,9 +208,9 @@ const Home = () => {
               </div>
 
               {/* Right Content - Stats Cards */}
-              <div className={`relative ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+              {/* <div className={`relative ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
                 <div className="grid grid-cols-2 gap-6">
-                  {/* Large Featured Card */}
+                  Large Featured Card
                   <div className="col-span-2 bg-gradient-to-br from-orange-500/20 to-yellow-500/20 backdrop-blur-sm p-8 rounded-2xl border border-orange-500/20">
                     <div className="flex items-center justify-between mb-6">
                       <Award className="h-12 w-12 text-orange-400" />
@@ -212,7 +220,7 @@ const Home = () => {
                     <p className="text-orange-200 text-lg">Successful Solar Installations</p>
                   </div>
 
-                  {/* Small Cards */}
+                  Small Cards
                   <div className="bg-black/40 backdrop-blur-sm p-6 rounded-2xl border border-blue-500/20">
                     <div className="bg-gradient-to-br from-blue-500/30 to-cyan-500/30 w-12 h-12 rounded-xl flex items-center justify-center mb-4">
                       <span className="text-2xl font-bold text-white">98%</span>
@@ -227,7 +235,7 @@ const Home = () => {
                     <p className="text-gray-300 font-medium">Years Experience</p>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

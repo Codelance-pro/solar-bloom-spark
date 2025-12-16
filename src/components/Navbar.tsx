@@ -64,8 +64,8 @@ const Navbar = () => {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? "bg-black/90 backdrop-blur-xl shadow-xl border-b border-gray-800"
-          : "bg-gradient-to-b from-black/80 to-transparent"
+          ? "bg-white/90 backdrop-blur-xl shadow-xl border-b border-gray-800"
+          : "bg-gradient-to-b from-white/50 to-transparent"
       }`}
     >
       <div className="container mx-auto px-4">
@@ -76,7 +76,7 @@ const Navbar = () => {
             <img
               src={logo}
               alt="Logo"
-              className="h-16 w-auto p-2 bg-white rounded-xl border border-gray-700 shadow-md hover:scale-105 transition-transform"
+              className="h-32 w-auto p-2  hover:scale-105 transition-transform"
             />
           </div>
 
@@ -89,8 +89,8 @@ const Navbar = () => {
                 className="relative group px-4 py-2 text-gray-300 hover:text-gold transition"
               >
                 <div className="flex items-center space-x-2">
-                  <span className="opacity-70 group-hover:opacity-100">{item.icon}</span>
-                  <span>{item.name}</span>
+                  <span className=" text-black font-semibold opacity-70 group-hover:opacity-100">{item.icon}</span>
+                  <span className="text-black font-semibold">{item.name}</span>
                 </div>
                 <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gold transition-all duration-300 group-hover:w-3/4"></span>
               </button>
