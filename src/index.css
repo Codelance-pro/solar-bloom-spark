@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+*{
+  scrollbar-width: thin;
+  scrollbar-color: hsl(45 93% 47%) hsl(0 0% 13%);
+  scroll-behavior: auto;
+}
+
 @layer base {
  :root {
   --background: 50 35% 90%;

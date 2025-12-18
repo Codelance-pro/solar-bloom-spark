@@ -364,15 +364,15 @@ const Products: React.FC = () => {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-black pt-24 pb-20 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-b from-amber-50 via-yellow-50 to-amber-100  pt-24 pb-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         
         {/* Header Section */}
         <div className="text-center mb-16 animate-fade-in-up mt-3">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-black mb-6">
             Solar <span className="text-gold">Products</span>
           </h1>
-          <p className="text-xl text-silver max-w-3xl mx-auto">
+          <p className="text-xl text-yellow-600 max-w-3xl mx-auto">
             High-quality solar components and professional services for your renewable energy needs
           </p>
         </div>
@@ -381,16 +381,16 @@ const Products: React.FC = () => {
         <div className="mb-12">
           <div className="flex flex-col md:flex-row gap-4 mb-8">
             <div className="flex-1 relative">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-silver" />
+              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-black" />
               <input
                 type="text"
                 placeholder="Search products, categories, or specifications..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 bg-gray-800/50 border border-gray-700 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/20 transition-all duration-300"
+                className="w-full pl-12 pr-4 py-3 bg-black-800/50 border border-gray-700 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/20 transition-all duration-300"
               />
             </div>
-            <button className="flex items-center justify-center px-6 py-3 bg-gradient-to-r from-gray-800 to-gray-900 border border-gray-700 rounded-xl text-white hover:border-gold hover:shadow-glow transition-all duration-300">
+            <button className="flex items-center justify-center px-6 py-3 bg-gradient-to-r from-gray-800 to-gray-900 border border-gray-700 rounded-xl text-yellow-300 hover:border-gold hover:shadow-glow transition-all duration-300">
               <Filter className="w-5 h-5 mr-2" />
               Advanced Filters
             </button>
@@ -401,15 +401,15 @@ const Products: React.FC = () => {
         <section className="mb-20">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h2 className="text-3xl font-bold text-white">Product Categories</h2>
-              <p className="text-silver mt-2">Browse our comprehensive range of solar products</p>
+              <h2 className="text-3xl font-bold text-black">Product Categories</h2>
+              <p className="text-yellow-600 mt-2">Browse our comprehensive range of solar products</p>
             </div>
             <button 
               onClick={() => setSelectedCategory('all')}
               className={`px-6 py-2 rounded-lg font-medium transition-all duration-300 ${
                 selectedCategory === 'all' 
-                  ? 'bg-gradient-to-r from-gold to-yellow-600 text-white' 
-                  : 'bg-gray-800/50 text-white hover:bg-gray-700 border border-gray-700'
+                  ? 'bg-gradient-to-r from-gold to-yellow-600 text-black' 
+                  : 'bg-black-800/50 text-black hover:bg-gray-700 border border-gray-700'
               }`}
             >
               View All
@@ -424,7 +424,7 @@ const Products: React.FC = () => {
                 className={`group relative overflow-hidden rounded-2xl p-6 text-left transition-all duration-500 hover:-translate-y-2 ${
                   selectedCategory === category.name
                     ? 'bg-gradient-to-br from-gray-800 to-gray-900 border-2 border-gold shadow-glow'
-                    : 'bg-gradient-to-br from-gray-800/50 to-gray-900/50 border border-gray-700 hover:border-gold/50 hover:shadow-lg'
+                    : 'bg-gradient-to-br from-white-800/50 to-yellow-900/50 border border-gray-700  '
                 }`}
               >
                 <div className="flex items-start justify-between mb-4">
@@ -433,23 +433,23 @@ const Products: React.FC = () => {
                   </div>
                   <span className={`px-3 py-1 text-sm rounded-full ${
                     selectedCategory === category.name 
-                      ? 'bg-gold text-black font-semibold' 
+                      ? 'bg-yellow-600 text-black font-semibold' 
                       : 'bg-gray-700 text-silver'
                   }`}>
                     {category.count} items
                   </span>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-gold transition-colors duration-300">
+                <h3 className="text-xl font-bold text-black mb-2 group-hover:text-gold transition-colors duration-300">
                   {category.name}
                 </h3>
-                <p className="text-silver text-sm mb-4">{category.description}</p>
+                <p className="text-black text-sm mb-4">{category.description}</p>
                 <div className="flex items-center text-gold font-medium">
                   <span>View Products</span>
                   <ArrowRight className="w-4 h-4 ml-2 transform group-hover:translate-x-2 transition-transform duration-300" />
                 </div>
                 
                 {/* Hover effect background */}
-                <div className="absolute inset-0 bg-gradient-to-r from-gold/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                {/* <div className="absolute inset-0 bg-gradient-to-r from-gold/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div> */}
               </button>
             ))}
           </div>
@@ -459,15 +459,15 @@ const Products: React.FC = () => {
         <section className="mb-20">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h2 className="text-3xl font-bold text-white">
+              <h2 className="text-3xl font-bold text-yellow-600">
                 {selectedCategory === 'all' ? 'All Products' : selectedCategory}
               </h2>
-              <p className="text-silver mt-2">
+              <p className="text-black mt-2">
                 {filteredProducts.length} products found
               </p>
             </div>
             <div className="flex items-center space-x-4">
-              <span className="text-silver">Sort by:</span>
+              <span className="text-black">Sort by:</span>
               <select className="bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-2 focus:outline-none focus:border-gold">
                 <option>Featured</option>
                 <option>Price: Low to High</option>

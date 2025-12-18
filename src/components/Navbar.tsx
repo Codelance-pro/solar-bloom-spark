@@ -64,7 +64,7 @@ const Navbar = () => {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? "bg-white/90 backdrop-blur-xl shadow-xl border-b border-gray-800"
+          ? "bg-transparent backdrop-blur-xl shadow-xl "
           : "bg-gradient-to-b from-white/50 to-transparent"
       }`}
     >
@@ -76,7 +76,7 @@ const Navbar = () => {
             <img
               src={logo}
               alt="Logo"
-              className="h-32 w-auto p-2  hover:scale-105 transition-transform"
+              className="h-20 w-40 p-2  hover:scale-105 transition-transform"
             />
           </div>
 
