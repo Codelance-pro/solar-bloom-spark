@@ -14,6 +14,7 @@ import Contact from "./pages/Contact";
 import CertificatePage from "./pages/CertificatePage";
 import SustainabilityImpact from "./pages/SustainabilityImpact";
 import Careers from "./pages/Careers";
+import ScrollToTop from "./components/ScrollToTop";
 
 
 
@@ -26,6 +27,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Navbar/>
+        <ScrollToTop/>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
