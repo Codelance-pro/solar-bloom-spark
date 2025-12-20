@@ -38,7 +38,7 @@ const SolarCalculator = () => {
   };
 
   return (
-    <section id="calculator" className="py-24 bg-muted/30">
+    <section id="calculator" className="pt-32 pb-16 bg-gradient-to-b from-amber-50 via-yellow-50 to-amber-100 min-h-screen">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16 animate-fade-in-up">
           <Calculator className="h-16 w-16 text-primary mx-auto mb-4" />

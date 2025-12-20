@@ -39,7 +39,7 @@ const SolarCalculator = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-orange-50 to-amber-50">
+    <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-orange-50 to-amber-50 pt-20">
       {/* Header */}
       <div className="bg-gradient-to-r from-yellow-500 via-amber-500 to-orange-500 py-8 shadow-lg">
         <div className="container mx-auto px-4">

@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import {
   Menu, X, ChevronDown, LogOut, User, Settings, FileText,
-  Home, Info, Package, Folder, Phone, BookOpen
+  Home, Info, Package, Folder, Phone, BookOpen,ShoppingBag,
+  Calculator
 } from "lucide-react";
 import logo from "/logo(1).png";
 import { useNavigate } from "react-router-dom";
@@ -55,11 +56,12 @@ const Navbar = () => {
 
   const menuItems = [
     { name: "Home", path: "/", icon: <Home className="w-5 h-5" /> },
-    { name: "About Us", path: "/about", icon: <Info className="w-5 h-5" /> },
+    { name: "SolarCalculator", path: "/calculator", icon: <Calculator className="w-5 h-5" /> },    
+      { name: "Careers", path: "/career ", icon: <FileText className="w-5 h-5" /> },
     { name: "Products", path: "/products", icon: <Package className="w-5 h-5" /> },
     { name: "Projects", path: "/projects", icon: <Folder className="w-5 h-5" /> },
-    { name: "Contact Us", path: "/contact", icon: <Phone className="w-5 h-5" /> },
-    { name: "Careers", path: "/career ", icon: <FileText className="w-5 h-5" /> },
+    { name: "Blogs", path: "/blog", icon: <ShoppingBag className="w-5 h-5" /> },
+    { name: "About Us", path: "/about", icon: <Info className="w-5 h-5" /> },
   ];
 
   return (
@@ -83,8 +85,8 @@ const Navbar = () => {
 
           {/* DESKTOP MENU */}
           <div className="hidden lg:flex items-center space-x-2">
-            {menuItems.map((item) => {
-              // Special handling for Projects - make it a dropdown
+            {/* {menuItems.map((item) => {
+             
               if (item.name === "Projects") {
                 return (
                   <div key={item.name} className="relative">
@@ -139,7 +141,25 @@ const Navbar = () => {
                   <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gold transition-all duration-300 group-hover:w-3/4"></span>
                 </button>
               );
-            })}
+            })} */}
+
+            {
+              menuItems.map((item) => {
+                return (
+                  <button
+                    key={item.name}
+                    onClick={() => goToPage(item.path)}
+                    className="relative group px-4 py-2 text-gray-300 hover:text-gold transition"
+                  >
+                    <div className="flex items-center space-x-2">
+                      <span className=" text-black font-semibold opacity-70 group-hover:opacity-100">{item.icon}</span>
+                      <span className="text-black font-semibold">{item.name}</span>
+                    </div>
+                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gold transition-all duration-300 group-hover:w-3/4"></span>
+                  </button>
+                );
+              })
+            }
 
             {/* ADMIN + VENDOR DROPDOWN (when NOT logged in as admin) */}
             {user.role !== "admin" && (

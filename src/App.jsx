@@ -16,6 +16,7 @@ import SustainabilityImpact from "./pages/SustainabilityImpact";
 import Careers from "./pages/Careers";
 import ScrollToTop from "./components/ScrollToTop";
 import Blog from "./pages/Blog"
+import SolarCalculator from "./pages/SolarCaculator";
 
 
 const queryClient = new QueryClient();
@@ -38,6 +39,7 @@ const App = () => (
           <Route path="/sustainability" element={<SustainabilityImpact />} />
           <Route path="/career" element={<Careers />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/calculator" element={<SolarCalculator />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />
