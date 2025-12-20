@@ -15,7 +15,7 @@ import CertificatePage from "./pages/CertificatePage";
 import SustainabilityImpact from "./pages/SustainabilityImpact";
 import Careers from "./pages/Careers";
 import ScrollToTop from "./components/ScrollToTop";
-
+import Blog from "./pages/Blog"
 
 
 const queryClient = new QueryClient();
@@ -26,8 +26,8 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Navbar/>
-        <ScrollToTop/>
+        <Navbar />
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -37,9 +37,10 @@ const App = () => (
           <Route path="/certificates" element={<CertificatePage />} />
           <Route path="/sustainability" element={<SustainabilityImpact />} />
           <Route path="/career" element={<Careers />} />
+          <Route path="/blog" element={<Blog />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-        <Footer/>
+        <Footer />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { 
-  Menu, X, ChevronDown, LogOut, User, Settings, FileText, 
-  Home, Info, Package, Folder, Phone 
+import {
+  Menu, X, ChevronDown, LogOut, User, Settings, FileText,
+  Home, Info, Package, Folder, Phone, BookOpen
 } from "lucide-react";
 import logo from "/logo(1).png";
 import { useNavigate } from "react-router-dom";
@@ -17,6 +17,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isAdminDropdownOpen, setIsAdminDropdownOpen] = useState(false);
+  const [isProjectsDropdownOpen, setIsProjectsDropdownOpen] = useState(false);
   const [user, setUser] = useState<UserData>({ role: "guest" });
 
   const navigate = useNavigate();
@@ -39,6 +40,7 @@ const Navbar = () => {
     navigate(path);
     setIsOpen(false);
     setIsAdminDropdownOpen(false);
+    setIsProjectsDropdownOpen(false);
   };
 
   const handleAdminLogin = () => goToPage("/admin-login");
@@ -62,15 +64,14 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled
-          ? "bg-transparent backdrop-blur-xl shadow-xl "
-          : "bg-gradient-to-b from-white/50 to-transparent"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
+        ? "bg-transparent backdrop-blur-xl shadow-xl "
+        : "bg-gradient-to-b from-white/50 to-transparent"
+        }`}
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
-          
+
           {/* LOGO */}
           <div className="flex items-center space-x-3 cursor-pointer" onClick={() => navigate("/")}>
             <img
@@ -82,19 +83,63 @@ const Navbar = () => {
 
           {/* DESKTOP MENU */}
           <div className="hidden lg:flex items-center space-x-2">
-            {menuItems.map((item) => (
-              <button
-                key={item.name}
-                onClick={() => goToPage(item.path)}
-                className="relative group px-4 py-2 text-gray-300 hover:text-gold transition"
-              >
-                <div className="flex items-center space-x-2">
-                  <span className=" text-black font-semibold opacity-70 group-hover:opacity-100">{item.icon}</span>
-                  <span className="text-black font-semibold">{item.name}</span>
-                </div>
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gold transition-all duration-300 group-hover:w-3/4"></span>
-              </button>
-            ))}
+            {menuItems.map((item) => {
+              // Special handling for Projects - make it a dropdown
+              if (item.name === "Projects") {
+                return (
+                  <div key={item.name} className="relative">
+                    <button
+                      onClick={() => setIsProjectsDropdownOpen(!isProjectsDropdownOpen)}
+                      className="relative group px-4 py-2 text-gray-300 hover:text-gold transition"
+                    >
+                      <div className="flex items-center space-x-2">
+                        <span className="text-black font-semibold opacity-70 group-hover:opacity-100">{item.icon}</span>
+                        <span className="text-black font-semibold">{item.name}</span>
+                        <ChevronDown
+                          className={`w-4 h-4 text-black transition-transform ${isProjectsDropdownOpen ? "rotate-180" : ""
+                            }`}
+                        />
+                      </div>
+                      <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gold transition-all duration-300 group-hover:w-3/4"></span>
+                    </button>
+
+                    {isProjectsDropdownOpen && (
+                      <div className="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-xl shadow-xl py-2 z-50">
+                        <button
+                          onClick={() => goToPage("/projects")}
+                          className="w-full px-4 py-3 text-left text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 flex items-center space-x-2 transition-colors"
+                        >
+                          <Folder className="w-4 h-4" />
+                          <span>Projects</span>
+                        </button>
+                        <button
+                          onClick={() => goToPage("/blog")}
+                          className="w-full px-4 py-3 text-left text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 flex items-center space-x-2 transition-colors"
+                        >
+                          <BookOpen className="w-4 h-4" />
+                          <span>Blog</span>
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                );
+              }
+
+              // Regular menu items
+              return (
+                <button
+                  key={item.name}
+                  onClick={() => goToPage(item.path)}
+                  className="relative group px-4 py-2 text-gray-300 hover:text-gold transition"
+                >
+                  <div className="flex items-center space-x-2">
+                    <span className=" text-black font-semibold opacity-70 group-hover:opacity-100">{item.icon}</span>
+                    <span className="text-black font-semibold">{item.name}</span>
+                  </div>
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gold transition-all duration-300 group-hover:w-3/4"></span>
+                </button>
+              );
+            })}
 
             {/* ADMIN + VENDOR DROPDOWN (when NOT logged in as admin) */}
             {user.role !== "admin" && (
@@ -106,9 +151,8 @@ const Navbar = () => {
                   <User className="w-4 h-4 text-gold" />
                   <span className="text-white">Login</span>
                   <ChevronDown
-                    className={`w-4 h-4 text-gold transition-transform ${
-                      isAdminDropdownOpen ? "rotate-180" : ""
-                    }`}
+                    className={`w-4 h-4 text-gold transition-transform ${isAdminDropdownOpen ? "rotate-180" : ""
+                      }`}
                   />
                 </button>
 
@@ -126,7 +170,7 @@ const Navbar = () => {
                     >
                       👤 Vendor Login
                     </button>
-                 
+
                   </div>
                 )}
               </div>
@@ -166,7 +210,7 @@ const Navbar = () => {
         {isOpen && (
           <div className="lg:hidden py-6 border-t border-gray-800 bg-black/95 backdrop-blur-xl">
             <div className="flex flex-col space-y-2">
-              
+
               {menuItems.map((item) => (
                 <button
                   key={item.name}
@@ -177,6 +221,15 @@ const Navbar = () => {
                   <span>{item.name}</span>
                 </button>
               ))}
+
+              {/* Blog Link in Mobile Menu */}
+              <button
+                onClick={() => goToPage("/blog")}
+                className="flex items-center space-x-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800/40 rounded-lg ml-4"
+              >
+                <BookOpen className="w-5 h-5" />
+                <span>Blog</span>
+              </button>
 
               {/* LOGIN DROPDOWN FOR MOBILE */}
               <div className="border-t border-gray-800 pt-4">
@@ -221,6 +274,12 @@ const Navbar = () => {
         <div
           className="fixed inset-0 z-40"
           onClick={() => setIsAdminDropdownOpen(false)}
+        />
+      )}
+      {isProjectsDropdownOpen && (
+        <div
+          className="fixed inset-0 z-40"
+          onClick={() => setIsProjectsDropdownOpen(false)}
         />
       )}
     </nav>

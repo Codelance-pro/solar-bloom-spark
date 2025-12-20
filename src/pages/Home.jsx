@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sun, Zap, Phone, Mail, MapPin, Award, Shield, Clock, ChevronLeft, ChevronRight, TrendingUp, Leaf, DollarSign, CheckCircle2, Star } from "lucide-react";
+import { ArrowRight, Sun, Zap, Phone, Mail, MapPin, Award, Shield, Clock, ChevronLeft, ChevronRight, TrendingUp, Leaf, DollarSign, CheckCircle2, Star, Calculator, Battery, Home as HomeIcon } from "lucide-react";
 import { useState, useEffect } from "react";
 import heroImage from "@/assets/hero-solar.jpg";
 
@@ -7,6 +7,13 @@ const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const [scrollY, setScrollY] = useState(0);
+
+  // Solar Calculator States
+  const [location, setLocation] = useState("");
+  const [monthlyBill, setMonthlyBill] = useState("");
+  const [consumerType, setConsumerType] = useState("residential");
+  const [roofArea, setRoofArea] = useState("");
+  const [results, setResults] = useState(null);
 
   const bannerSlides = [
     {
@@ -30,30 +37,30 @@ const Home = () => {
   ];
 
   const services = [
-    { 
-      name: "Residential Solar", 
-      icon: "🏠", 
+    {
+      name: "Residential Solar",
+      icon: "🏠",
       link: "#services",
       desc: "Custom home solutions",
       color: "from-yellow-500 to-amber-600"
     },
-    { 
-      name: "Commercial Solar", 
-      icon: "🏢", 
+    {
+      name: "Commercial Solar",
+      icon: "🏢",
       link: "#services",
       desc: "Business energy systems",
       color: "from-amber-500 to-yellow-600"
     },
-    { 
-      name: "Solar Maintenance", 
-      icon: "🔧", 
+    {
+      name: "Solar Maintenance",
+      icon: "🔧",
       link: "#services",
       desc: "Expert care & support",
       color: "from-yellow-400 to-amber-500"
     },
-    { 
-      name: "Battery Storage", 
-      icon: "🔋", 
+    {
+      name: "Battery Storage",
+      icon: "🔋",
       link: "#services",
       desc: "Energy independence",
       color: "from-amber-600 to-yellow-500"
@@ -61,23 +68,23 @@ const Home = () => {
   ];
 
   const highlights = [
-    { 
-      icon: Award, 
-      title: "Certified Experts", 
+    {
+      icon: Award,
+      title: "Certified Experts",
       desc: "Licensed & Insured Professionals with 25+ Years Experience",
       colorClass: "from-yellow-500 to-yellow-600",
       bgClass: "bg-black/40"
     },
-    { 
-      icon: Shield, 
-      title: "25 Year Warranty", 
+    {
+      icon: Shield,
+      title: "25 Year Warranty",
       desc: "Comprehensive Coverage on All Equipment & Installation",
       colorClass: "from-amber-500 to-amber-600",
       bgClass: "bg-black/40"
     },
-    { 
-      icon: Clock, 
-      title: "Quick Installation", 
+    {
+      icon: Clock,
+      title: "Quick Installation",
       desc: "Most Projects Completed in Just 1-3 Days",
       colorClass: "from-yellow-600 to-amber-600",
       bgClass: "bg-black/40"
@@ -109,10 +116,10 @@ const Home = () => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % bannerSlides.length);
     }, 5000);
-    
+
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener('scroll', handleScroll);
-    
+
     return () => {
       clearInterval(timer);
       window.removeEventListener('scroll', handleScroll);
@@ -121,6 +128,37 @@ const Home = () => {
 
   const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % bannerSlides.length);
   const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + bannerSlides.length) % bannerSlides.length);
+
+  // Solar Calculator Function
+  const calculateSavings = () => {
+    const bill = parseFloat(monthlyBill);
+    const area = parseFloat(roofArea);
+
+    if (isNaN(bill) || isNaN(area)) return;
+
+    // Calculation based on Indian solar standards
+    const systemSize = Math.min((bill * 12) / 1200, area / 100); // kW
+    const monthlyGeneration = systemSize * 120; // Units per month
+    const monthlySavings = monthlyGeneration * 7; // ₹7 per unit average
+    const annualSavings = monthlySavings * 12;
+    const systemCost = systemSize * 50000; // ₹50,000 per kW
+    const paybackPeriod = systemCost / annualSavings;
+    const co2Reduction = systemSize * 1.2;
+    const subsidy = Math.min(systemSize * 18000, 78000); // Govt subsidy
+
+    setResults({
+      systemSize: Math.round(systemSize * 10) / 10,
+      monthlyGeneration: Math.round(monthlyGeneration),
+      monthlySavings: Math.round(monthlySavings),
+      annualSavings: Math.round(annualSavings),
+      systemCost: Math.round(systemCost),
+      netCost: Math.round(systemCost - subsidy),
+      subsidy: Math.round(subsidy),
+      paybackPeriod: Math.round(paybackPeriod * 10) / 10,
+      co2Reduction: Math.round(co2Reduction * 10) / 10,
+      lifetimeSavings: Math.round(annualSavings * 25)
+    });
+  };
 
   const SlideIcon = bannerSlides[currentSlide].icon;
 
@@ -205,7 +243,7 @@ const Home = () => {
 
       {/* Hero Section */}
       <section id="home" className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-gradient-to-br from-amber-50 via-yellow-50 to-amber-100">
-         {/* <div className="absolute inset-0 z-0">
+        {/* <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/20 via-amber-300/30 to-yellow-500/20"></div>
           
           
@@ -220,7 +258,7 @@ const Home = () => {
           }}></div>
         </div> */}
 
-         <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 z-0">
           <img
             src={heroImage}
             alt="Solar background"
@@ -228,7 +266,7 @@ const Home = () => {
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/40 to-yellow-900/40"></div>
         </div>
-        
+
         {/* Content */}
         <div className="container mx-auto px-4 pt-4 sm:px-6 lg:px-8 z-10">
           <div className="max-w-7xl mx-auto">
@@ -261,10 +299,10 @@ const Home = () => {
                   {benefits.map((benefit, index) => {
                     const BenefitIcon = benefit.icon;
                     return (
-                      <div 
-                        key={index} 
+                      <div
+                        key={index}
                         className={`flex items-center space-x-3 text-white/90 animate-bounce-in hover-lift`}
-                        style={{animationDelay: `${0.3 + index * 0.1}s`, opacity: 0}}
+                        style={{ animationDelay: `${0.3 + index * 0.1}s`, opacity: 0 }}
                       >
                         <div className="p-2 bg-gradient-to-br from-yellow-200 to-amber-200 rounded-lg shadow-sm">
                           <BenefitIcon className="h-5 w-5 text-yellow-700" />
@@ -358,9 +396,8 @@ const Home = () => {
                 <button
                   key={index}
                   onClick={() => setCurrentSlide(index)}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    index === currentSlide ? "w-10 bg-white" : "w-2 bg-white/50 hover:bg-white/70"
-                  }`}
+                  className={`h-2 rounded-full transition-all duration-300 ${index === currentSlide ? "w-10 bg-white" : "w-2 bg-white/50 hover:bg-white/70"
+                    }`}
                   aria-label={`Go to slide ${index + 1}`}
                 />
               ))}
@@ -373,8 +410,8 @@ const Home = () => {
       <section className="py-16 md:py-24 bg-gradient-to-b from-yellow-50 to-amber-50 relative overflow-hidden">
         {/* Animated Background */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-yellow-300/10 rounded-full blur-3xl animate-float"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-amber-300/10 rounded-full blur-3xl animate-float" style={{animationDelay: '1.5s'}}></div>
-        
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-amber-300/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '1.5s' }}></div>
+
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl mx-auto text-center mb-16 animate-fade-in-up">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 text-gray-900">
@@ -393,7 +430,7 @@ const Home = () => {
                   <div
                     key={index}
                     className="group relative bg-white rounded-2xl p-8 border-2 border-yellow-200 hover:border-yellow-400 hover:shadow-xl hover:shadow-yellow-200/50 transition-all duration-300 hover-lift animate-bounce-in"
-                    style={{animationDelay: `${index * 0.2}s`, opacity: 0}}
+                    style={{ animationDelay: `${index * 0.2}s`, opacity: 0 }}
                   >
                     <div className="relative z-10">
                       <div className={`inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br ${highlight.colorClass} rounded-xl mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
@@ -421,9 +458,9 @@ const Home = () => {
       <section className="py-16 md:py-24 bg-gradient-to-b from-amber-50 to-yellow-100 relative overflow-hidden">
         <div className="absolute inset-0 opacity-30">
           <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-yellow-400/20 rounded-full blur-3xl animate-float"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-amber-400/20 rounded-full blur-3xl animate-float" style={{animationDelay: '2s'}}></div>
+          <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-amber-400/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }}></div>
         </div>
-        
+
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl mx-auto text-center mb-16 animate-fade-in-up">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 text-gray-900">
@@ -441,7 +478,7 @@ const Home = () => {
                   key={index}
                   href={service.link}
                   className="group relative bg-white p-8 rounded-2xl border-2 border-yellow-200 hover:border-yellow-400 hover:shadow-xl hover:shadow-yellow-200/50 transition-all duration-300 hover-lift animate-bounce-in"
-                  style={{animationDelay: `${index * 0.15}s`, opacity: 0}}
+                  style={{ animationDelay: `${index * 0.15}s`, opacity: 0 }}
                 >
                   <div className="relative z-10 text-center">
                     <div className="text-5xl mb-6 inline-block group-hover:scale-125 transition-transform duration-300">
@@ -473,16 +510,239 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Solar Calculator Section */}
+      <section id="calculator" className="py-16 md:py-24 bg-gradient-to-br from-yellow-50 via-orange-50 to-amber-50 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-yellow-300/10 rounded-full blur-3xl animate-float"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-amber-300/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '1.5s' }}></div>
+
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          {/* Section Header */}
+          <div className="max-w-3xl mx-auto text-center mb-12 animate-fade-in-up">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-yellow-500 to-amber-600 rounded-full mb-6 shadow-xl animate-pulse">
+              <Calculator className="h-8 w-8 text-white" />
+            </div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 text-gray-900">
+              Calculate Your <span className="bg-gradient-to-r from-yellow-600 to-amber-600 bg-clip-text text-transparent">Solar Savings</span>
+            </h2>
+            <p className="text-lg md:text-xl text-gray-700">
+              Get instant estimates for your solar system size and potential savings
+            </p>
+          </div>
+
+          {/* Calculator Card */}
+          <div className="max-w-6xl mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden border-4 border-yellow-400 animate-fade-in-up">
+            <div className="bg-gradient-to-r from-yellow-400 to-amber-400 py-4 px-6">
+              <div className="flex items-center space-x-2">
+                <Calculator className="h-6 w-6 text-yellow-900" />
+                <h3 className="text-2xl font-bold text-yellow-900">Enter Your Details</h3>
+              </div>
+            </div>
+
+            <div className="p-6 md:p-8">
+              <div className="grid md:grid-cols-2 gap-8">
+                {/* Input Section */}
+                <div className="space-y-6">
+                  {/* Location */}
+                  <div>
+                    <label className="flex items-center text-gray-700 font-semibold mb-2">
+                      <MapPin className="h-5 w-5 mr-2 text-yellow-600" />
+                      Location / Address
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Enter your location"
+                      value={location}
+                      onChange={(e) => setLocation(e.target.value)}
+                      className="w-full px-4 py-3 border-2 border-yellow-300 rounded-lg focus:outline-none focus:border-yellow-500 transition"
+                    />
+                  </div>
+
+                  {/* Monthly Bill */}
+                  <div>
+                    <label className="flex items-center text-gray-700 font-semibold mb-2">
+                      <DollarSign className="h-5 w-5 mr-2 text-yellow-600" />
+                      Monthly Electricity Bill (₹)
+                    </label>
+                    <input
+                      type="number"
+                      placeholder="e.g., 4000"
+                      value={monthlyBill}
+                      onChange={(e) => setMonthlyBill(e.target.value)}
+                      className="w-full px-4 py-3 border-2 border-yellow-300 rounded-lg focus:outline-none focus:border-yellow-500 transition"
+                    />
+                  </div>
+
+                  {/* Consumer Type */}
+                  <div>
+                    <label className="flex items-center text-gray-700 font-semibold mb-2">
+                      <HomeIcon className="h-5 w-5 mr-2 text-yellow-600" />
+                      Consumer Type
+                    </label>
+                    <select
+                      value={consumerType}
+                      onChange={(e) => setConsumerType(e.target.value)}
+                      className="w-full px-4 py-3 border-2 border-yellow-300 rounded-lg focus:outline-none focus:border-yellow-500 transition"
+                    >
+                      <option value="residential">Residential</option>
+                      <option value="commercial">Commercial</option>
+                      <option value="industrial">Industrial</option>
+                    </select>
+                  </div>
+
+                  {/* Roof Area */}
+                  <div>
+                    <label className="flex items-center text-gray-700 font-semibold mb-2">
+                      <HomeIcon className="h-5 w-5 mr-2 text-yellow-600" />
+                      Available Roof Area (sq ft)
+                    </label>
+                    <input
+                      type="number"
+                      placeholder="e.g., 500"
+                      value={roofArea}
+                      onChange={(e) => setRoofArea(e.target.value)}
+                      className="w-full px-4 py-3 border-2 border-yellow-300 rounded-lg focus:outline-none focus:border-yellow-500 transition"
+                    />
+                  </div>
+
+                  <button
+                    onClick={calculateSavings}
+                    className="w-full bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white font-bold py-4 rounded-lg shadow-lg transform hover:scale-105 transition duration-200 flex items-center justify-center space-x-2"
+                  >
+                    <Calculator className="h-5 w-5" />
+                    <span>Calculate Solar Potential</span>
+                  </button>
+                </div>
+
+                {/* Results Section */}
+                <div>
+                  {results ? (
+                    <div className="space-y-4">
+                      {/* System Size */}
+                      <div className="bg-gradient-to-br from-yellow-100 to-amber-100 rounded-xl p-6 border-2 border-yellow-300 shadow-md">
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="flex items-center space-x-2">
+                            <Zap className="h-6 w-6 text-yellow-700" />
+                            <span className="font-semibold text-gray-700">Recommended System Size</span>
+                          </div>
+                        </div>
+                        <div className="text-4xl font-bold text-yellow-700">{results.systemSize} kW</div>
+                        <div className="text-sm text-gray-600 mt-1">Rooftop Solar System</div>
+                      </div>
+
+                      {/* Monthly Generation */}
+                      <div className="bg-gradient-to-br from-orange-100 to-yellow-100 rounded-xl p-5 border-2 border-orange-300 shadow-md">
+                        <div className="flex items-center space-x-2 mb-1">
+                          <Battery className="h-5 w-5 text-orange-700" />
+                          <span className="font-semibold text-gray-700 text-sm">Monthly Generation</span>
+                        </div>
+                        <div className="text-2xl font-bold text-orange-700">{results.monthlyGeneration} Units</div>
+                      </div>
+
+                      {/* Monthly Savings */}
+                      <div className="bg-gradient-to-br from-amber-100 to-yellow-100 rounded-xl p-5 border-2 border-amber-300 shadow-md">
+                        <div className="flex items-center space-x-2 mb-1">
+                          <DollarSign className="h-5 w-5 text-amber-700" />
+                          <span className="font-semibold text-gray-700 text-sm">Monthly Savings</span>
+                        </div>
+                        <div className="text-2xl font-bold text-amber-700">₹{results.monthlySavings.toLocaleString()}</div>
+                      </div>
+
+                      {/* Annual Savings */}
+                      <div className="bg-gradient-to-br from-yellow-200 to-amber-200 rounded-xl p-6 border-2 border-yellow-400 shadow-lg">
+                        <div className="flex items-center space-x-2 mb-2">
+                          <TrendingUp className="h-6 w-6 text-yellow-800" />
+                          <span className="font-semibold text-gray-700">Annual Savings</span>
+                        </div>
+                        <div className="text-3xl font-bold text-yellow-800">₹{results.annualSavings.toLocaleString()}</div>
+                        <div className="text-sm text-gray-600 mt-2">25-Year Savings: ₹{(results.lifetimeSavings / 100000).toFixed(1)} Lakhs</div>
+                      </div>
+
+                      {/* System Cost */}
+                      <div className="bg-white rounded-xl p-5 border-2 border-gray-300 shadow-md">
+                        <div className="grid grid-cols-2 gap-4 text-sm">
+                          <div>
+                            <div className="text-gray-600">System Cost</div>
+                            <div className="font-bold text-gray-800">₹{results.systemCost.toLocaleString()}</div>
+                          </div>
+                          <div>
+                            <div className="text-gray-600">Govt. Subsidy</div>
+                            <div className="font-bold text-green-600">- ₹{results.subsidy.toLocaleString()}</div>
+                          </div>
+                          <div>
+                            <div className="text-gray-600">Net Cost</div>
+                            <div className="font-bold text-blue-600">₹{results.netCost.toLocaleString()}</div>
+                          </div>
+                          <div>
+                            <div className="text-gray-600">Payback Period</div>
+                            <div className="font-bold text-purple-600">{results.paybackPeriod} years</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* CO2 Reduction */}
+                      <div className="bg-gradient-to-br from-green-100 to-emerald-100 rounded-xl p-5 border-2 border-green-300 shadow-md">
+                        <div className="text-sm font-semibold text-gray-700 mb-1">Environmental Impact</div>
+                        <div className="text-xl font-bold text-green-700">{results.co2Reduction} tons CO₂/year</div>
+                        <div className="text-xs text-gray-600 mt-1">= {Math.round(results.co2Reduction * 50)} trees planted</div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col items-center justify-center h-full text-center p-8">
+                      <Sun className="h-24 w-24 text-yellow-300 mb-4 animate-pulse" />
+                      <p className="text-gray-500 text-lg font-medium">Enter your details to calculate</p>
+                      <p className="text-gray-400 text-sm mt-2">Get instant estimates for your solar system</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Info Cards */}
+          <div className="max-w-6xl mx-auto mt-8 grid md:grid-cols-3 gap-6">
+            <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-yellow-300 hover-lift">
+              <div className="flex items-center space-x-3 mb-3">
+                <div className="bg-yellow-400 p-3 rounded-full">
+                  <Zap className="h-6 w-6 text-white" />
+                </div>
+                <h3 className="font-bold text-gray-800">Zero Investment</h3>
+              </div>
+              <p className="text-gray-600 text-sm">Start with zero upfront cost through various financing options</p>
+            </div>
+
+            <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-orange-300 hover-lift">
+              <div className="flex items-center space-x-3 mb-3">
+                <div className="bg-orange-400 p-3 rounded-full">
+                  <TrendingUp className="h-6 w-6 text-white" />
+                </div>
+                <h3 className="font-bold text-gray-800">25-Year Warranty</h3>
+              </div>
+              <p className="text-gray-600 text-sm">Long-term performance guarantee on panels and inverters</p>
+            </div>
+
+            <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-amber-300 hover-lift">
+              <div className="flex items-center space-x-3 mb-3">
+                <div className="bg-amber-400 p-3 rounded-full">
+                  <Sun className="h-6 w-6 text-white" />
+                </div>
+                <h3 className="font-bold text-gray-800">Net Metering</h3>
+              </div>
+              <p className="text-gray-600 text-sm">Sell excess power back to grid and reduce bills to zero</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Contact Section */}
       <section className="py-16 md:py-24 bg-gradient-to-br from-yellow-400 via-amber-400 to-yellow-500 relative overflow-hidden">
         {/* Animated Particles */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-10 left-10 w-4 h-4 bg-white/30 rounded-full animate-float"></div>
-          <div className="absolute top-20 right-20 w-6 h-6 bg-white/20 rounded-full animate-float" style={{animationDelay: '0.5s'}}></div>
-          <div className="absolute bottom-20 left-1/4 w-5 h-5 bg-white/25 rounded-full animate-float" style={{animationDelay: '1s'}}></div>
-          <div className="absolute bottom-40 right-1/3 w-3 h-3 bg-white/30 rounded-full animate-float" style={{animationDelay: '1.5s'}}></div>
+          <div className="absolute top-20 right-20 w-6 h-6 bg-white/20 rounded-full animate-float" style={{ animationDelay: '0.5s' }}></div>
+          <div className="absolute bottom-20 left-1/4 w-5 h-5 bg-white/25 rounded-full animate-float" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute bottom-40 right-1/3 w-3 h-3 bg-white/30 rounded-full animate-float" style={{ animationDelay: '1.5s' }}></div>
         </div>
-        
+
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16 animate-fade-in-up">
@@ -502,7 +762,7 @@ const Home = () => {
                     <div
                       key={index}
                       className="group bg-white/95 backdrop-blur-sm p-8 rounded-2xl text-gray-900 text-center border-2 border-yellow-300 hover:border-white hover:shadow-xl transition-all duration-300 hover-lift animate-bounce-in"
-                      style={{animationDelay: `${index * 0.15}s`, opacity: 0}}
+                      style={{ animationDelay: `${index * 0.15}s`, opacity: 0 }}
                     >
                       <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-yellow-200 to-amber-200 rounded-2xl mb-6 group-hover:from-yellow-300 group-hover:to-amber-300 transition-all shadow-md group-hover:scale-110 group-hover:rotate-6 duration-300">
                         <ContactIcon className="h-8 w-8 text-yellow-700 group-hover:animate-pulse" />
@@ -520,12 +780,12 @@ const Home = () => {
                     <h3 className="text-2xl font-bold text-gray-900 mb-6">Get Your Free Quote</h3>
                     <div className="space-y-4">
                       {quoteFeatures.map((item, i) => (
-                        <div 
-                          key={i} 
+                        <div
+                          key={i}
                           className="flex items-center space-x-3 text-gray-800 animate-slide-in-left"
-                          style={{animationDelay: `${i * 0.1}s`}}
+                          style={{ animationDelay: `${i * 0.1}s` }}
                         >
-                          <CheckCircle2 className="h-6 w-6 text-yellow-600 animate-bounce" style={{animationDelay: `${i * 0.2}s`}} />
+                          <CheckCircle2 className="h-6 w-6 text-yellow-600 animate-bounce" style={{ animationDelay: `${i * 0.2}s` }} />
                           <span className="text-gray-700">{item}</span>
                         </div>
                       ))}
