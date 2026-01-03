@@ -2,6 +2,19 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Sun, Zap, Phone, Mail, MapPin, Award, Shield, Clock, ChevronLeft, ChevronRight, TrendingUp, Leaf, DollarSign, CheckCircle2, Star, Calculator, Battery, Home as HomeIcon } from "lucide-react";
 import { useState, useEffect } from "react";
 import heroImage from "@/assets/hero-solar.jpg";
+import logoImage from "@/assets/logohome.png";
+import solar_landing_match_logo from "@/assets/solar_landing_match_logo.png";
+import solar1 from "@/assets/solar1.jpg";
+import solar2 from "@/assets/solar2.jpg";
+import solar3 from "@/assets/solar3.jpg";
+import solar4 from "@/assets/solar4.jpg";
+import solar5 from "@/assets/solar5.jpg";
+import solar6 from "@/assets/solar6.JPG";
+import solar7 from "@/assets/solar7.JPG";
+import solar8 from "@/assets/solar8.JPG";
+import solar9 from "@/assets/solar9.JPG";
+
+
 
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -260,11 +273,11 @@ const Home = () => {
 
         <div className="absolute inset-0 z-0">
           <img
-            src={heroImage}
+            src={solar6}
             alt="Solar background"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/40 to-yellow-900/40"></div>
+          {/* <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/40 to-yellow-900/40"></div> */}
         </div>
 
         {/* Content */}
@@ -272,30 +285,32 @@ const Home = () => {
           <div className="max-w-7xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-16 lg:gap-20 items-center">
               {/* Left Content */}
-              <div className={`space-y-8 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+              <div className={`space-y-8 ${isVisible ? 'opacity-100' : 'opacity-0'} mb-20`}>
                 {/* Subtitle */}
-                <div className="inline-flex items-center space-x-2 bg-yellow-100 border-2 border-yellow-400 px-4 py-2 rounded-full shadow-md animate-slide-in-left">
+                {/* <div className="inline-flex items-center space-x-2 bg-yellow-100 border-2 border-yellow-400 px-4 py-2 rounded-full shadow-md animate-slide-in-left">
                   <Zap className="h-5 w-5 text-yellow-600 animate-pulse" />
                   <span className="text-yellow-800 font-semibold tracking-wide text-sm">
                     #1 Clean Energy Provider in Your Area
                   </span>
-                </div>
+                </div> */}
+
+                {/* <img src={logoImage} alt="Solar background" className="w-80 h-40 mt-10" /> */}
 
                 {/* Main Heading */}
-                <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight text-white animate-slide-in-left delay-100">
+                {/* <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight text-white animate-slide-in-left delay-100">
                   Power Your Future with{" "}
                   <span className="bg-yellow-400 bg-clip-text text-transparent">
                     Solar Energy
                   </span>
-                </h1>
+                </h1> */}
 
                 {/* Description */}
-                <p className="text-lg md:text-xl text-white/90 leading-relaxed animate-slide-in-left delay-200">
+                {/* <p className="text-lg md:text-xl text-black leading-relaxed animate-slide-in-left delay-200">
                   Transform your home or business with cutting-edge solar technology. Save money, reduce your carbon footprint, and invest in a sustainable future.
-                </p>
+                </p> */}
 
                 {/* Benefits List */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+                {/* <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
                   {benefits.map((benefit, index) => {
                     const BenefitIcon = benefit.icon;
                     return (
@@ -311,10 +326,10 @@ const Home = () => {
                       </div>
                     );
                   })}
-                </div>
+                </div> */}
 
                 {/* CTA Buttons */}
-                <div className="flex flex-col sm:flex-row gap-4 pt-8 animate-fade-in-up delay-500">
+                {/* <div className="flex flex-col sm:flex-row gap-4 pt-8 animate-fade-in-up delay-500">
                   <Button
                     size="lg"
                     className="bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 text-white font-semibold shadow-lg hover:shadow-yellow-500/50 transition-all duration-300 hover:scale-105 relative overflow-hidden group"
@@ -331,11 +346,11 @@ const Home = () => {
                     <Phone className="mr-2 h-5 w-5 animate-pulse" />
                     Book Free Consultation
                   </Button>
-                </div>
+                </div> */}
               </div>
 
               {/* Right Content - Floating Sun Icon */}
-              <div className="hidden lg:flex justify-center items-center">
+              <div className="hidden lg:flex justify-end items-center">
                 <div className="relative animate-float">
                   <div className="absolute inset-0 bg-yellow-400/30 rounded-full blur-3xl animate-pulse"></div>
                   <Sun className="h-64 w-64 text-yellow-500 animate-rotate opacity-20" />

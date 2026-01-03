@@ -44,9 +44,9 @@ const Navbar = () => {
     setIsProjectsDropdownOpen(false);
   };
 
-  const handleAdminLogin = () => goToPage("/admin-login");
-  const handleVendorLogin = () => goToPage("/vendor-login");
-  const handleVendorRegistration = () => goToPage("/vendor-registration");
+  const handleAdminLogin = () => goToPage("/admin/login");
+  const handleVendorLogin = () => goToPage("/vendor/login");
+  const handleVendorRegistration = () => goToPage("/vendor/registration");
 
   const handleLogout = () => {
     localStorage.clear();

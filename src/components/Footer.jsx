@@ -65,15 +65,15 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-gradient-to-br from-blue-900 via-cyan-900 to-teal-900 text-white relative overflow-hidden">
+    <footer className="bg-[#fef9cc] text-black relative overflow-hidden">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-yellow-500/5 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
       </div>
 
       {/* Newsletter Section */}
-      <div className="border-b border-cyan-700/30 relative z-10">
+      <div className="border-b border-yellow-500/20 relative z-10">
         <div className="container mx-auto px-4 ">
           {/* Newsletter content commented out */}
         </div>
@@ -85,55 +85,55 @@ const Footer = () => {
           {/* Company Info */}
           <div className="lg:col-span-2">
             <div className="flex items-center space-x-3 mb-6">
-              <div className="bg-gradient-to-br from-cyan-500 to-teal-500 p-3 rounded-2xl shadow-lg">
-                <Sun className="h-8 w-8 text-white" />
+              <div className="bg-gradient-to-br from-yellow-400 to-amber-500 p-3 rounded-2xl shadow-lg">
+                <Sun className="h-8 w-8 text-blue-950" />
               </div>
               <div>
-                <h2 className="text-2xl font-bold text-white">SolarPower</h2>
-                <p className="text-sm text-cyan-300">Clean Energy Solutions</p>
+                <h2 className="text-2xl font-bold text-yellow-400">SolarPower</h2>
+                <p className="text-sm text-yellow-300">Clean Energy Solutions</p>
               </div>
             </div>
-            <p className="text-gray-200 mb-6 leading-relaxed">
+            <p className="text-black mb-6 leading-relaxed">
               Leading provider of sustainable solar energy solutions. We're committed to helping homes and businesses transition to clean, renewable energy.
             </p>
 
             {/* Contact Info */}
             <div className="space-y-3">
               <div className="flex items-start space-x-3 group">
-                <div className="bg-cyan-800/50 p-2 rounded-lg group-hover:bg-cyan-500 transition-colors">
-                  <Phone className="h-5 w-5 text-cyan-300 group-hover:text-white" />
+                <div className="bg-blue-900/50 p-2 rounded-lg group-hover:bg-yellow-500 transition-colors">
+                  <Phone className="h-5 w-5 text-yellow-400 group-hover:text-blue-950" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-300">Call Us</p>
-                  <p className="font-semibold text-white">+1 (555) 123-4567</p>
+                  <p className="text-sm text-black">Call Us</p>
+                  <p className="font-semibold text-yellow-400">+1 (555) 123-4567</p>
                 </div>
               </div>
               <div className="flex items-start space-x-3 group">
-                <div className="bg-cyan-800/50 p-2 rounded-lg group-hover:bg-cyan-500 transition-colors">
-                  <Mail className="h-5 w-5 text-cyan-300 group-hover:text-white" />
+                <div className="bg-blue-900/50 p-2 rounded-lg group-hover:bg-yellow-500 transition-colors">
+                  <Mail className="h-5 w-5 text-yellow-400 group-hover:text-blue-950" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-300">Email Us</p>
-                  <p className="font-semibold text-white">info@solarpower.com</p>
+                  <p className="text-sm text-black">Email Us</p>
+                  <p className="font-semibold text-yellow-400">info@solarpower.com</p>
                 </div>
               </div>
               <div className="flex items-start space-x-3 group">
-                <div className="bg-cyan-800/50 p-2 rounded-lg group-hover:bg-cyan-500 transition-colors">
-                  <MapPin className="h-5 w-5 text-cyan-300 group-hover:text-white" />
+                <div className="bg-blue-900/50 p-2 rounded-lg group-hover:bg-yellow-500 transition-colors">
+                  <MapPin className="h-5 w-5 text-yellow-400 group-hover:text-blue-950" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-300">Visit Us</p>
-                  <p className="font-semibold text-white">123 Solar Street, Green City, CA 90210</p>
+                  <p className="text-sm text-black">Visit Us</p>
+                  <p className="font-semibold text-yellow-400">123 Solar Street, Green City, CA 90210</p>
                 </div>
               </div>
               <div className="flex items-start space-x-3 group">
-                <div className="bg-cyan-800/50 p-2 rounded-lg group-hover:bg-cyan-500 transition-colors">
-                  <Clock className="h-5 w-5 text-cyan-300 group-hover:text-white" />
+                <div className="bg-blue-900/50 p-2 rounded-lg group-hover:bg-yellow-500 transition-colors">
+                  <Clock className="h-5 w-5 text-yellow-400 group-hover:text-blue-950" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-300">Business Hours</p>
-                  <p className="font-semibold text-white">Mon - Fri: 8AM - 6PM</p>
-                  <p className="text-sm text-gray-300">Sat: 9AM - 4PM</p>
+                  <p className="text-sm text-black">Business Hours</p>
+                  <p className="font-semibold text-yellow-400">Mon - Fri: 8AM - 6PM</p>
+                  <p className="text-sm text-black">Sat: 9AM - 4PM</p>
                 </div>
               </div>
             </div>
@@ -141,18 +141,18 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-xl font-bold mb-6 relative text-white">
+            <h3 className="text-xl font-bold mb-6 relative text-yellow-400">
               Quick Links
-              <span className="absolute -bottom-2 left-0 w-12 h-1 bg-gradient-to-r from-cyan-500 to-teal-500 rounded-full"></span>
+              <span className="absolute -bottom-2 left-0 w-12 h-1 bg-gradient-to-r from-yellow-400 to-amber-500 rounded-full"></span>
             </h3>
             <ul className="space-y-3">
               {quickLinks.map((link, index) => (
                 <li key={index}>
                   <a
                     href={link.href}
-                    className="text-gray-200 hover:text-cyan-300 transition-colors flex items-center group"
+                    className="text-black hover:text-yellow-400 transition-colors flex items-center group"
                   >
-                    <ArrowRight className="h-4 w-4 mr-2 opacity-0 -ml-6 group-hover:opacity-100 group-hover:ml-0 transition-all text-cyan-400" />
+                    <ArrowRight className="h-4 w-4 mr-2 opacity-0 -ml-6 group-hover:opacity-100 group-hover:ml-0 transition-all text-yellow-400" />
                     {link.name}
                   </a>
                 </li>
@@ -162,18 +162,18 @@ const Footer = () => {
 
           {/* Services */}
           <div>
-            <h3 className="text-xl font-bold mb-6 relative text-white">
+            <h3 className="text-xl font-bold mb-6 relative text-yellow-400">
               Services
-              <span className="absolute -bottom-2 left-0 w-12 h-1 bg-gradient-to-r from-cyan-500 to-teal-500 rounded-full"></span>
+              <span className="absolute -bottom-2 left-0 w-12 h-1 bg-gradient-to-r from-yellow-400 to-amber-500 rounded-full"></span>
             </h3>
             <ul className="space-y-3">
               {services.map((service, index) => (
                 <li key={index}>
                   <a
                     href={service.href}
-                    className="text-gray-200 hover:text-cyan-300 transition-colors flex items-center group"
+                    className="text-black hover:text-yellow-400 transition-colors flex items-center group"
                   >
-                    <ArrowRight className="h-4 w-4 mr-2 opacity-0 -ml-6 group-hover:opacity-100 group-hover:ml-0 transition-all text-cyan-400" />
+                    <ArrowRight className="h-4 w-4 mr-2 opacity-0 -ml-6 group-hover:opacity-100 group-hover:ml-0 transition-all text-yellow-400" />
                     {service.name}
                   </a>
                 </li>
@@ -183,18 +183,18 @@ const Footer = () => {
 
           {/* Resources */}
           <div>
-            <h3 className="text-xl font-bold mb-6 relative text-white">
+            <h3 className="text-xl font-bold mb-6 relative text-yellow-400">
               Resources
-              <span className="absolute -bottom-2 left-0 w-12 h-1 bg-gradient-to-r from-cyan-500 to-teal-500 rounded-full"></span>
+              <span className="absolute -bottom-2 left-0 w-12 h-1 bg-gradient-to-r from-yellow-400 to-amber-500 rounded-full"></span>
             </h3>
             <ul className="space-y-3">
               {resources.map((resource, index) => (
                 <li key={index}>
                   <a
                     href={resource.href}
-                    className="text-gray-200 hover:text-cyan-300 transition-colors flex items-center group"
+                    className="text-black hover:text-yellow-400 transition-colors flex items-center group"
                   >
-                    <ArrowRight className="h-4 w-4 mr-2 opacity-0 -ml-6 group-hover:opacity-100 group-hover:ml-0 transition-all text-cyan-400" />
+                    <ArrowRight className="h-4 w-4 mr-2 opacity-0 -ml-6 group-hover:opacity-100 group-hover:ml-0 transition-all text-yellow-400" />
                     {resource.name}
                   </a>
                 </li>
@@ -204,15 +204,15 @@ const Footer = () => {
         </div>
 
         {/* Certifications */}
-        <div className="border-t border-b border-cyan-700/30 py-8 mb-8">
+        <div className="border-t border-b border-yellow-500/20 py-8 mb-8">
           <div className="flex flex-wrap items-center justify-center gap-8">
             {certifications.map((cert, index) => (
               <div
                 key={index}
-                className="flex items-center space-x-2 bg-cyan-800/40 px-6 py-3 rounded-xl hover:bg-cyan-600 hover:scale-105 transition-all group"
+                className="flex items-center space-x-2 bg-black px-6 py-3 rounded-xl hover:bg-yellow-500 hover:scale-105 transition-all group"
               >
                 <span className="text-2xl">{cert.icon}</span>
-                <span className="font-semibold text-sm text-gray-100 group-hover:text-white">{cert.name}</span>
+                <span className="font-semibold text-sm text-yellow-400 group-hover:text-blue-950">{cert.name}</span>
               </div>
             ))}
           </div>
@@ -222,7 +222,7 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Social Media */}
           <div className="flex items-center space-x-3">
-            <span className="text-gray-200 mr-2">Follow Us:</span>
+            <span className="text-black mr-2">Follow Us:</span>
             {socialLinks.map((social, index) => {
               const SocialIcon = social.icon;
               return (
@@ -230,9 +230,9 @@ const Footer = () => {
                   key={index}
                   href={social.href}
                   aria-label={social.name}
-                  className="bg-cyan-800/50 p-3 rounded-xl hover:bg-cyan-500 hover:scale-110 transition-all duration-300 group"
+                  className="bg-blue-900/50 p-3 rounded-xl hover:bg-yellow-500 hover:scale-110 transition-all duration-300 group"
                 >
-                  <SocialIcon className="h-5 w-5 text-cyan-300 group-hover:text-white" />
+                  <SocialIcon className="h-5 w-5 text-yellow-400 group-hover:text-blue-950" />
                 </a>
               );
             })}
@@ -240,19 +240,19 @@ const Footer = () => {
 
           {/* Copyright */}
           <div className="text-center md:text-right">
-            <p className="text-gray-200 text-sm">
+            <p className="text-black text-sm">
               © {new Date().getFullYear()} SolarPower. All rights reserved.
             </p>
             <div className="flex flex-wrap justify-center md:justify-end gap-4 mt-2">
-              <a href="#privacy" className="text-gray-300 hover:text-cyan-300 text-sm transition-colors">
+              <a href="#privacy" className="text-black hover:text-yellow-400 text-sm transition-colors">
                 Privacy Policy
               </a>
-              <span className="text-gray-500">•</span>
-              <a href="#terms" className="text-gray-300 hover:text-cyan-300 text-sm transition-colors">
+              <span className="text-black">•</span>
+              <a href="#terms" className="text-black hover:text-yellow-400 text-sm transition-colors">
                 Terms of Service
               </a>
-              <span className="text-gray-500">•</span>
-              <a href="#cookies" className="text-gray-300 hover:text-cyan-300 text-sm transition-colors">
+              <span className="text-black">•</span>
+              <a href="#cookies" className="text-black hover:text-yellow-400 text-sm transition-colors">
                 Cookie Policy
               </a>
             </div>
@@ -261,7 +261,7 @@ const Footer = () => {
       </div>
 
       {/* Decorative Bottom Element */}
-      <div className="h-1 bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-500"></div>
+      <div className="h-1 bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-500"></div>
     </footer>
   );
 };

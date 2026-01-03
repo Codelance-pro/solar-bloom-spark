@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 import Home from "./pages/Home";
@@ -15,11 +15,34 @@ import CertificatePage from "./pages/CertificatePage";
 import SustainabilityImpact from "./pages/SustainabilityImpact";
 import Careers from "./pages/Careers";
 import ScrollToTop from "./components/ScrollToTop";
-import Blog from "./pages/Blog"
+import Blog from "./pages/Blog";
 import SolarCalculator from "./pages/SolarCaculator";
-
+import AdminLogin from "./pages/AdminLogin";
+import AdminDashboard from "./pages/AdminDashboard";
+import VendorManagement from "./pages/VendorManagement";
+import BlogManagement from "./pages/BlogManagement";
+import ProtectedRoute from "./components/ProtectedRoute";
+import VendorLogin from "./pages/VendorLogin";
+import VendorDashboard from "./pages/VendorDashboard";
+import VendorProtectedRoute from "./components/VendorProtectedRoute";
 
 const queryClient = new QueryClient();
+
+// Layout component to conditionally render Navbar and Footer
+const Layout = ({ children }) => {
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith('/admin');
+  const isVendorRoute = location.pathname.startsWith('/vendor');
+
+  return (
+    <>
+      {!isAdminRoute && !isVendorRoute && <Navbar />}
+      <ScrollToTop />
+      {children}
+      {!isAdminRoute && !isVendorRoute && <Footer />}
+    </>
+  );
+};
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -27,22 +50,62 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Navbar />
-        <ScrollToTop />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/certificates" element={<CertificatePage />} />
-          <Route path="/sustainability" element={<SustainabilityImpact />} />
-          <Route path="/career" element={<Careers />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/calculator" element={<SolarCalculator />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-        <Footer />
+        <Layout>
+          <Routes>
+            {/* Public Routes */}
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/certificates" element={<CertificatePage />} />
+            <Route path="/sustainability" element={<SustainabilityImpact />} />
+            <Route path="/career" element={<Careers />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/calculator" element={<SolarCalculator />} />
+
+            {/* Admin Routes */}
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route
+              path="/admin/dashboard"
+              element={
+                <ProtectedRoute>
+                  <AdminDashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/vendor-management"
+              element={
+                <ProtectedRoute>
+                  <VendorManagement />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/blog-management"
+              element={
+                <ProtectedRoute>
+                  <BlogManagement />
+                </ProtectedRoute>
+              }
+            />
+
+            {/* Vendor Routes */}
+            <Route path="/vendor/login" element={<VendorLogin />} />
+            <Route
+              path="/vendor/dashboard"
+              element={
+                <VendorProtectedRoute>
+                  <VendorDashboard />
+                </VendorProtectedRoute>
+              }
+            />
+
+            {/* 404 Route */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Layout>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
