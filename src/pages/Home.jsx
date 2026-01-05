@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sun, Zap, Phone, Mail, MapPin, Award, Shield, Clock, ChevronLeft, ChevronRight, TrendingUp, Leaf, DollarSign, CheckCircle2, Star, Calculator, Battery, Home as HomeIcon } from "lucide-react";
+import { ArrowRight, Sun, Zap, Phone, Mail, MapPin, Award, Shield, Clock, ChevronLeft, ChevronRight, TrendingUp, Leaf, DollarSign, CheckCircle2, Star, Calculator, Battery, Home as HomeIcon, Users, Globe } from "lucide-react";
 import { useState, useEffect } from "react";
 import heroImage from "@/assets/hero-solar.jpg";
 import logoImage from "@/assets/logohome.png";
@@ -50,56 +50,56 @@ const Home = () => {
   ];
 
   const services = [
-    {
-      name: "Residential Solar",
-      icon: "🏠",
+     {
+      name: "Utility Scale EPC",
+      icon: "⚡",
       link: "#services",
-      desc: "Custom home solutions",
+      desc: "Turnkey solar energy system provider",
       color: "from-yellow-500 to-amber-600"
     },
     {
-      name: "Commercial Solar",
-      icon: "🏢",
+      name: "Utility Scale BOS, I & C",
+      icon: "🔧",
       link: "#services",
-      desc: "Business energy systems",
+      desc: "Solar project contracting",
       color: "from-amber-500 to-yellow-600"
     },
     {
-      name: "Solar Maintenance",
-      icon: "🔧",
+      name: "MW Scale C & I",
+      icon: "🏢",
       link: "#services",
-      desc: "Expert care & support",
+      desc: "Rooftop solar Turnkey service provider",
       color: "from-yellow-400 to-amber-500"
-    },
-    {
-      name: "Battery Storage",
-      icon: "🔋",
-      link: "#services",
-      desc: "Energy independence",
-      color: "from-amber-600 to-yellow-500"
     }
   ];
 
   const highlights = [
     {
-      icon: Award,
-      title: "Certified Experts",
-      desc: "Licensed & Insured Professionals with 25+ Years Experience",
+      icon: TrendingUp,
+      title: "Proven Track Record",
+      desc: "Proven track record in large-scale solar projects",
       colorClass: "from-yellow-500 to-yellow-600",
       bgClass: "bg-black/40"
     },
     {
-      icon: Shield,
-      title: "25 Year Warranty",
-      desc: "Comprehensive Coverage on All Equipment & Installation",
+      icon: Users,
+      title: "Skilled Team",
+      desc: "Skilled technical and project management team",
       colorClass: "from-amber-500 to-amber-600",
       bgClass: "bg-black/40"
     },
     {
-      icon: Clock,
-      title: "Quick Installation",
-      desc: "Most Projects Completed in Just 1-3 Days",
+      icon: Globe,
+      title: "Strong Network",
+      desc: "Strong vendor and partner network",
       colorClass: "from-yellow-600 to-amber-600",
+      bgClass: "bg-black/40"
+    },
+    {
+      icon: Clock,
+      title: "Timely Delivery",
+      desc: "Focus on timely delivery and customer satisfaction",
+      colorClass: "from-yellow-500 to-amber-500",
       bgClass: "bg-black/40"
     }
   ];
@@ -296,6 +296,13 @@ const Home = () => {
 
                 {/* <img src={logoImage} alt="Solar background" className="w-80 h-40 mt-10" /> */}
 
+                   <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight text-white animate-slide-in-left delay-100">
+                  Powering a Greener Tomorrow with{" "}
+                  <span className="bg-yellow-400 bg-clip-text text-transparent">
+                    Smart Solar Solutions
+                  </span>
+                </h1>      
+
                 {/* Main Heading */}
                 {/* <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight text-white animate-slide-in-left delay-100">
                   Power Your Future with{" "}
@@ -438,7 +445,7 @@ const Home = () => {
           </div>
 
           <div className="max-w-6xl mx-auto">
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-2 gap-8">
               {highlights.map((highlight, index) => {
                 const HighlightIcon = highlight.icon;
                 return (
@@ -487,7 +494,7 @@ const Home = () => {
           </div>
 
           <div className="max-w-6xl mx-auto">
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
               {services.map((service, index) => (
                 <a
                   key={index}
@@ -541,10 +548,10 @@ const Home = () => {
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16 animate-fade-in-up">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 text-white">
-                Ready to Go Solar?
+                Looking for a reliable Solar EPC partner?
               </h2>
               <p className="text-lg md:text-xl text-white/95">
-                Contact us today for a free consultation and custom quote
+                Delivering quality solar projects with speed, safety, and excellence.
               </p>
             </div>
 

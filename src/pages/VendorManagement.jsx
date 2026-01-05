@@ -11,7 +11,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, LogOut, FileText, CheckCircle, XCircle, Eye, Search, Filter, Users, Download } from 'lucide-react';
+import { Loader2, LogOut, FileText, CheckCircle, XCircle, Eye, Search, Filter, Users, Download, Plus } from 'lucide-react';
 
 const VendorManagement = () => {
     const [bills, setBills] = useState([]);
@@ -23,6 +23,14 @@ const VendorManagement = () => {
     const [statusFilter, setStatusFilter] = useState('all');
     const [searchQuery, setSearchQuery] = useState('');
     const [actionLoading, setActionLoading] = useState(false);
+    const [createVendorOpen, setCreateVendorOpen] = useState(false);
+    const [createVendorForm, setCreateVendorForm] = useState({
+        name: '',
+        email: '',
+        password: '',
+        role: 'VENDOR',
+        status: 'ACTIVE'
+    });
     const navigate = useNavigate();
     const { toast } = useToast();
 
@@ -156,6 +164,40 @@ const VendorManagement = () => {
         }
     };
 
+    const handleCreateVendor = async (e) => {
+        e.preventDefault();
+        setActionLoading(true);
+        try {
+            const payload = {
+                ...createVendorForm,
+                role: 'VENDOR',
+                status: 'ACTIVE'
+            };
+            await axiosInstance.post('/users', payload);
+            toast({
+                title: 'Success',
+                description: 'Vendor created successfully',
+            });
+            setCreateVendorOpen(false);
+            setCreateVendorForm({
+                name: '',
+                email: '',
+                password: '',
+                role: 'VENDOR',
+                status: 'ACTIVE'
+            });
+            fetchVendors();
+        } catch (error) {
+            toast({
+                title: 'Error',
+                description: error.response?.data?.message || 'Failed to create vendor',
+                variant: 'destructive'
+            });
+        } finally {
+            setActionLoading(false);
+        }
+    };
+
     const handleLogout = () => {
         localStorage.removeItem('adminToken');
         localStorage.removeItem('adminUser');
@@ -184,28 +226,28 @@ const VendorManagement = () => {
         return matchesStatus && matchesSearch;
     }) : [];
 
-const downloadInvoice = async (purchaseId) => {
-  const response = await axiosInstance.get(
-    `/invoice/${purchaseId}`,
-    {
-      responseType: "blob" // 🔴 THIS IS MANDATORY
-    }
-  );
+    const downloadInvoice = async (purchaseId) => {
+        const response = await axiosInstance.get(
+            `/invoice/${purchaseId}`,
+            {
+                responseType: "blob" // 🔴 THIS IS MANDATORY
+            }
+        );
 
-  console.log("response", response);
+        console.log("response", response);
 
-  const blob = new Blob([response.data], { type: "application/pdf" });
-  const url = window.URL.createObjectURL(blob);
+        const blob = new Blob([response.data], { type: "application/pdf" });
+        const url = window.URL.createObjectURL(blob);
 
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = `invoice_${purchaseId}.pdf`;
-  document.body.appendChild(a);
-  a.click();
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `invoice_${purchaseId}.pdf`;
+        document.body.appendChild(a);
+        a.click();
 
-  a.remove();
-  window.URL.revokeObjectURL(url);
-};
+        a.remove();
+        window.URL.revokeObjectURL(url);
+    };
 
 
 
@@ -223,6 +265,61 @@ const downloadInvoice = async (purchaseId) => {
                             <p className="text-sm text-gray-600 mt-1">Review and manage vendor bill submissions</p>
                         </div>
                         <div className="flex gap-3">
+                            <Dialog open={createVendorOpen} onOpenChange={setCreateVendorOpen}>
+                                <DialogTrigger asChild>
+                                    <Button className="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white shadow-md">
+                                        <Plus className="w-4 h-4 mr-2" />
+                                        Add Vendor
+                                    </Button>
+                                </DialogTrigger>
+                                <DialogContent>
+                                    <DialogHeader>
+                                        <DialogTitle>Add New Vendor</DialogTitle>
+                                        <DialogDescription>
+                                            Create a new vendor account.
+                                        </DialogDescription>
+                                    </DialogHeader>
+                                    <form onSubmit={handleCreateVendor} className="space-y-4">
+                                        <div>
+                                            <Label htmlFor="vendor-name">Name</Label>
+                                            <Input
+                                                id="vendor-name"
+                                                value={createVendorForm.name}
+                                                onChange={(e) => setCreateVendorForm({ ...createVendorForm, name: e.target.value })}
+                                                required
+                                            />
+                                        </div>
+                                        <div>
+                                            <Label htmlFor="vendor-email">Email</Label>
+                                            <Input
+                                                id="vendor-email"
+                                                type="email"
+                                                value={createVendorForm.email}
+                                                onChange={(e) => setCreateVendorForm({ ...createVendorForm, email: e.target.value })}
+                                                required
+                                            />
+                                        </div>
+                                        <div>
+                                            <Label htmlFor="vendor-password">Password</Label>
+                                            <Input
+                                                id="vendor-password"
+                                                type="password"
+                                                value={createVendorForm.password}
+                                                onChange={(e) => setCreateVendorForm({ ...createVendorForm, password: e.target.value })}
+                                                required
+                                            />
+                                        </div>
+                                        <Button
+                                            type="submit"
+                                            className="w-full bg-gradient-to-r from-amber-600 to-orange-600 text-white"
+                                            disabled={actionLoading}
+                                        >
+                                            {actionLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Create Vendor'}
+                                        </Button>
+                                    </form>
+                                </DialogContent>
+                            </Dialog>
+
                             <Button
                                 onClick={() => navigate('/admin/dashboard')}
                                 variant="outline"
@@ -265,14 +362,14 @@ const downloadInvoice = async (purchaseId) => {
                                 </Label>
                                 <Select value={selectedVendorId} onValueChange={handleVendorChange}>
                                     <SelectTrigger id="vendor-select" className="border-gray-300">
-                                        <Users className="w-4 h-4 mr-2 text-gray-500"  />
+                                        <Users className="w-4 h-4 mr-2 text-gray-500" />
                                         <SelectValue placeholder="Select Vendor" />
                                     </SelectTrigger>
                                     <SelectContent>
                                         <SelectItem value="all">All Vendors</SelectItem>
                                         {vendors.map((vendor) => (
                                             <SelectItem className="bg-white" key={vendor.id} value={vendor.id.toString()}>
-                                                {vendor.name} 
+                                                {vendor.name}
                                             </SelectItem>
                                         ))}
                                     </SelectContent>
@@ -363,7 +460,7 @@ const downloadInvoice = async (purchaseId) => {
                                                                 variant="outline"
                                                                 size="sm"
                                                                 onClick={() => {
-                                                                   downloadInvoice(bill.id);
+                                                                    downloadInvoice(bill.id);
                                                                 }}
                                                                 className="border-green-300 text-green-700 hover:bg-green-50"
                                                             >
@@ -483,7 +580,7 @@ const downloadInvoice = async (purchaseId) => {
                     </CardContent>
                 </Card>
             </div>
-        </div>
+        </div >
     );
 };
 

@@ -148,38 +148,26 @@ const About: React.FC = () => {
   const reasons: Reason[] = [
     {
       id: 1,
-      title: "Expert Team",
-      description: "Industry leaders with decades of combined experience",
-      icon: <Users className="w-6 h-6" />
-    },
-    {
-      id: 2,
-      title: "Proven Results",
-      description: "Track record of successful projects and satisfied clients",
+      title: "Proven Track Record",
+      description: "Proven track record in large-scale solar projects",
       icon: <TrendingUp className="w-6 h-6" />
     },
     {
-      id: 3,
-      title: "Innovative Solutions",
-      description: "Cutting-edge technology and forward-thinking approaches",
-      icon: <Lightbulb className="w-6 h-6" />
+      id: 2,
+      title: "Skilled Team",
+      description: "Skilled technical and project management team",
+      icon: <Users className="w-6 h-6" />
     },
     {
-      id: 4,
-      title: "Global Reach",
-      description: "Serving clients worldwide with localized expertise",
+      id: 3,
+      title: "Strong Network",
+      description: "Strong vendor and partner network",
       icon: <Globe className="w-6 h-6" />
     },
     {
-      id: 5,
-      title: "Customer-Centric",
-      description: "Your success is our priority at every step",
-      icon: <Heart className="w-6 h-6" />
-    },
-    {
-      id: 6,
-      title: "Quality Assurance",
-      description: "Rigorous testing and quality control processes",
+      id: 4,
+      title: "Timely Delivery",
+      description: "Focus on timely delivery and customer satisfaction",
       icon: <Star className="w-6 h-6" />
     },
   ];
@@ -318,14 +306,14 @@ const About: React.FC = () => {
       `}</style>
 
       <div className="max-w-7xl mx-auto">
-        
+
         {/* Animated Background Elements */}
         <div className="fixed top-20 right-20 w-64 h-64 bg-yellow-300/20 rounded-full blur-3xl animate-float pointer-events-none"></div>
-        <div className="fixed bottom-20 left-20 w-96 h-96 bg-amber-300/20 rounded-full blur-3xl animate-float pointer-events-none" style={{animationDelay: '1s'}}></div>
-        <div className="fixed top-1/2 left-1/2 w-80 h-80 bg-yellow-400/10 rounded-full blur-3xl animate-float pointer-events-none" style={{animationDelay: '2s'}}></div>
+        <div className="fixed bottom-20 left-20 w-96 h-96 bg-amber-300/20 rounded-full blur-3xl animate-float pointer-events-none" style={{ animationDelay: '1s' }}></div>
+        <div className="fixed top-1/2 left-1/2 w-80 h-80 bg-yellow-400/10 rounded-full blur-3xl animate-float pointer-events-none" style={{ animationDelay: '2s' }}></div>
 
         {/* Header Section */}
-        <div 
+        <div
           ref={headerAnim.ref}
           className={`text-center mb-20 ${headerAnim.isVisible ? 'animate-on-scroll' : 'opacity-0'}`}
         >
@@ -348,26 +336,27 @@ const About: React.FC = () => {
               <p className="text-gray-600 mt-2">Our journey of excellence</p>
             </div>
           </div>
-          
+
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className={profileAnim.isVisible ? 'animate-fade-in-left' : 'opacity-0'}>
               <p className="text-gray-700 text-lg mb-8 leading-relaxed">
-                Founded in 2010, our company has grown from a small startup to a global leader in technology solutions. 
-                With offices in 12 countries and over 500 dedicated professionals, we serve clients across multiple industries.
+                ENFROS is a renewable energy service provider specializing in solar power solutions. With over 16 years of combined experience in solar and renewable energy, our directors lead the way. We have successfully completed construction projects totaling over 2000 MW, including Installation & Commissioning (I&C) and Balance of System (BOS).
               </p>
-              
+              <p className="text-gray-700 text-lg mb-8 leading-relaxed">
+                Our goal is to become the LEADING EPC SERVICE PROVIDER in the solar power plant industry.
+              </p>
+
               <div className="grid grid-cols-2 gap-6 mb-8">
                 {[
-                  { value: '12+', label: 'Years Experience' },
-                  { value: '500+', label: 'Team Members' },
-                  { value: '1K+', label: 'Projects Completed' },
-                  { value: '50+', label: 'Countries Served' }
+                  { value: '16+', label: 'Years Experience' },
+                  { value: '2000+', label: 'MW Projects Completed' },
+                  { value: 'EPC', label: 'Turnkey Solutions' },
+                  { value: 'India', label: 'Service Area' }
                 ].map((stat, index) => (
-                  <div 
+                  <div
                     key={index}
-                    className={`bg-white p-6 rounded-xl border-2 border-yellow-200 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 ${
-                      profileAnim.isVisible ? `animate-scale-in stagger-${index + 1}` : 'opacity-0'
-                    }`}
+                    className={`bg-white p-6 rounded-xl border-2 border-yellow-200 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 ${profileAnim.isVisible ? `animate-scale-in stagger-${index + 1}` : 'opacity-0'
+                      }`}
                   >
                     <div className="text-3xl font-bold bg-gradient-to-r from-yellow-600 to-amber-600 bg-clip-text text-transparent mb-2">
                       {stat.value}
@@ -376,17 +365,17 @@ const About: React.FC = () => {
                   </div>
                 ))}
               </div>
-              
+
               <div className="flex items-center text-gray-700">
                 <MapPin className="w-5 h-5 mr-2 text-yellow-600" />
-                <span>Global presence across 50+ countries</span>
+                <span>Headquartered in Chennai, Tamil Nadu, India</span>
               </div>
             </div>
-            
+
             <div className={`relative group ${profileAnim.isVisible ? 'animate-fade-in-right' : 'opacity-0'}`}>
               <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/30 to-amber-400/30 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
               <div className="relative overflow-hidden rounded-2xl shadow-2xl border-2 border-yellow-200 group-hover:border-yellow-400 transition-all duration-300">
-                <img 
+                <img
                   src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800&h=600&fit=crop"
                   alt="Company Office"
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
@@ -411,37 +400,35 @@ const About: React.FC = () => {
 
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Mission Card */}
-            <div className={`bg-white p-8 rounded-2xl border-2 border-yellow-200 shadow-lg hover:shadow-2xl hover:shadow-yellow-200/50 transition-all duration-300 group hover:-translate-y-2 ${
-              missionAnim.isVisible ? 'animate-scale-in stagger-1' : 'opacity-0'
-            }`}>
+            <div className={`bg-white p-8 rounded-2xl border-2 border-yellow-200 shadow-lg hover:shadow-2xl hover:shadow-yellow-200/50 transition-all duration-300 group hover:-translate-y-2 ${missionAnim.isVisible ? 'animate-scale-in stagger-1' : 'opacity-0'
+              }`}>
               <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300 shadow-lg">
                 <Target className="w-7 h-7 text-white" />
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Mission</h3>
               <p className="text-gray-600 leading-relaxed">
-                To empower businesses through innovative technology solutions that drive growth, efficiency, 
-                and sustainable success in an ever-evolving digital landscape.
+                Leverage solar energy to provide consumers with reliable and affordable power, delivering high-quality and innovative renewable energy solutions.
+              </p>
+              <p className="text-gray-600 leading-relaxed mt-4">
+                Ensure continuous customer value through outstanding service and rapid response times.
               </p>
             </div>
 
             {/* Vision Card */}
-            <div className={`bg-white p-8 rounded-2xl border-2 border-yellow-200 shadow-lg hover:shadow-2xl hover:shadow-yellow-200/50 transition-all duration-300 group hover:-translate-y-2 ${
-              missionAnim.isVisible ? 'animate-scale-in stagger-2' : 'opacity-0'
-            }`}>
+            <div className={`bg-white p-8 rounded-2xl border-2 border-yellow-200 shadow-lg hover:shadow-2xl hover:shadow-yellow-200/50 transition-all duration-300 group hover:-translate-y-2 ${missionAnim.isVisible ? 'animate-scale-in stagger-2' : 'opacity-0'
+              }`}>
               <div className="w-14 h-14 bg-gradient-to-br from-yellow-500 to-amber-500 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300 shadow-lg">
                 <Globe className="w-7 h-7 text-white" />
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Vision</h3>
               <p className="text-gray-600 leading-relaxed">
-                To be the global leader in transformative technology solutions, shaping a future where 
-                businesses thrive through innovation and exceptional digital experiences.
+                For over 16 years, we have had one goal in mind: customer service. Our vision is not just to complete projects but also to build relationships with our customers and clients through commitment, reliability, and excellence in every facet of the company.
               </p>
             </div>
 
             {/* Values Card */}
-            <div className={`bg-white p-8 rounded-2xl border-2 border-yellow-200 shadow-lg hover:shadow-2xl hover:shadow-yellow-200/50 transition-all duration-300 group hover:-translate-y-2 ${
-              missionAnim.isVisible ? 'animate-scale-in stagger-3' : 'opacity-0'
-            }`}>
+            <div className={`bg-white p-8 rounded-2xl border-2 border-yellow-200 shadow-lg hover:shadow-2xl hover:shadow-yellow-200/50 transition-all duration-300 group hover:-translate-y-2 ${missionAnim.isVisible ? 'animate-scale-in stagger-3' : 'opacity-0'
+              }`}>
               <div className="w-14 h-14 bg-gradient-to-br from-amber-500 to-yellow-500 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300 shadow-lg">
                 <Heart className="w-7 h-7 text-white" />
               </div>
@@ -466,7 +453,7 @@ const About: React.FC = () => {
         </section>
 
         {/* Our Team Section */}
-        <section ref={teamAnim.ref} className="mb-20">
+        {/* <section ref={teamAnim.ref} className="mb-20">
           <div className={`flex items-center mb-12 ${teamAnim.isVisible ? 'animate-fade-in-left' : 'opacity-0'}`}>
             <div className="w-12 h-12 bg-gradient-to-r from-yellow-500 to-amber-500 rounded-lg flex items-center justify-center mr-4 shadow-lg">
               <Users className="w-6 h-6 text-white" />
@@ -479,15 +466,14 @@ const About: React.FC = () => {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {teamMembers.map((member, index) => (
-              <div 
-                key={member.id} 
-                className={`bg-white rounded-2xl overflow-hidden border-2 border-yellow-200 shadow-lg hover:shadow-2xl hover:shadow-yellow-200/50 transition-all duration-300 group hover:-translate-y-2 ${
-                  teamAnim.isVisible ? `animate-scale-in stagger-${index + 1}` : 'opacity-0'
-                }`}
+              <div
+                key={member.id}
+                className={`bg-white rounded-2xl overflow-hidden border-2 border-yellow-200 shadow-lg hover:shadow-2xl hover:shadow-yellow-200/50 transition-all duration-300 group hover:-translate-y-2 ${teamAnim.isVisible ? `animate-scale-in stagger-${index + 1}` : 'opacity-0'
+                  }`}
               >
                 <div className="h-64 overflow-hidden relative">
-                  <img 
-                    src={member.imageUrl} 
+                  <img
+                    src={member.imageUrl}
                     alt={member.name}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />
@@ -503,10 +489,10 @@ const About: React.FC = () => {
               </div>
             ))}
           </div>
-        </section>
+        </section> */}
 
         {/* Timeline Section */}
-        <section ref={timelineAnim.ref} className="mb-20">
+        {/* <section ref={timelineAnim.ref} className="mb-20">
           <div className={`flex items-center mb-12 ${timelineAnim.isVisible ? 'animate-fade-in-left' : 'opacity-0'}`}>
             <div className="w-12 h-12 bg-gradient-to-r from-amber-500 to-yellow-500 rounded-lg flex items-center justify-center mr-4 shadow-lg">
               <Clock className="w-6 h-6 text-white" />
@@ -518,11 +504,11 @@ const About: React.FC = () => {
           </div>
 
           <div className="relative">
-            {/* Timeline line */}
+           
             <div className="absolute left-0 lg:left-1/2 transform lg:-translate-x-1/2 w-0.5 h-full bg-gradient-to-b from-yellow-500 via-amber-400 to-transparent"></div>
-            
+
             {milestones.map((milestone, index) => (
-              <div 
+              <div
                 key={milestone.id}
                 className={`relative mb-12 ${index % 2 === 0 ? 'lg:pr-1/2 lg:pl-8 lg:text-right' : 'lg:pl-1/2 lg:pr-8 lg:text-left'}`}
               >
@@ -530,9 +516,8 @@ const About: React.FC = () => {
                   {index % 2 === 0 && (
                     <div className="hidden lg:block w-8 h-8 bg-gradient-to-r from-yellow-500 to-amber-500 rounded-full border-4 border-white absolute left-1/2 transform -translate-x-1/2 animate-pulse-ring shadow-lg"></div>
                   )}
-                  <div className={`bg-white p-6 rounded-2xl border-2 border-yellow-200 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 w-full lg:w-96 ${index % 2 === 0 ? 'lg:mr-8' : 'lg:ml-8'} ${
-                    timelineAnim.isVisible ? `animate-scale-in stagger-${index + 1}` : 'opacity-0'
-                  }`}>
+                  <div className={`bg-white p-6 rounded-2xl border-2 border-yellow-200 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 w-full lg:w-96 ${index % 2 === 0 ? 'lg:mr-8' : 'lg:ml-8'} ${timelineAnim.isVisible ? `animate-scale-in stagger-${index + 1}` : 'opacity-0'
+                    }`}>
                     <div className="flex items-center mb-4">
                       <div className="w-10 h-10 bg-gradient-to-r from-yellow-500 to-amber-500 rounded-lg flex items-center justify-center mr-4 shadow-md">
                         <CheckCircle className="w-5 h-5 text-white" />
@@ -549,7 +534,7 @@ const About: React.FC = () => {
               </div>
             ))}
           </div>
-        </section>
+        </section> */}
 
         {/* Why Choose Us Section */}
         <section ref={reasonsAnim.ref}>
@@ -563,13 +548,12 @@ const About: React.FC = () => {
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
             {reasons.map((reason, index) => (
-              <div 
-                key={reason.id} 
-                className={`bg-white p-8 rounded-2xl border-2 border-yellow-200 shadow-lg hover:shadow-2xl hover:shadow-yellow-200/50 transition-all duration-300 group hover:-translate-y-2 ${
-                  reasonsAnim.isVisible ? `animate-scale-in stagger-${index + 1}` : 'opacity-0'
-                }`}
+              <div
+                key={reason.id}
+                className={`bg-white p-8 rounded-2xl border-2 border-yellow-200 shadow-lg hover:shadow-2xl hover:shadow-yellow-200/50 transition-all duration-300 group hover:-translate-y-2 ${reasonsAnim.isVisible ? `animate-scale-in stagger-${index + 1}` : 'opacity-0'
+                  }`}
               >
                 <div className="w-14 h-14 bg-gradient-to-r from-yellow-100 to-amber-100 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300 border-2 border-yellow-300">
                   <div className="text-yellow-600 transform group-hover:scale-110 transition-transform duration-300">

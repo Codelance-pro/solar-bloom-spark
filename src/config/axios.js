@@ -18,7 +18,7 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
     (config) => {
         // 🔥 Use ONE unified key
-        const token = localStorage.getItem('authToken');
+        const token = localStorage.getItem('adminToken');
 
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;

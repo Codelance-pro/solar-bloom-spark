@@ -49,6 +49,7 @@ const VendorDashboard = () => {
         setLoadingBills(true);
         try {
             const response = await vendorAxios.get(`/admin/purchases/vendor/${vendorId}`);
+            console.log(response.data);
             setBills(response.data);
         } catch (error) {
             console.error("Failed to fetch bills:", error);
@@ -334,6 +335,7 @@ const VendorDashboard = () => {
                                                     <TableHead>Product</TableHead>
                                                     <TableHead>Date</TableHead>
                                                     <TableHead>Amount</TableHead>
+                                                    <TableHead>Image</TableHead>
                                                     <TableHead>Status</TableHead>
                                                     <TableHead>Remark</TableHead>
                                                 </TableRow>
@@ -343,8 +345,15 @@ const VendorDashboard = () => {
                                                     <TableRow key={bill.id} className="hover:bg-amber-50/50">
                                                         <TableCell className="font-medium">{bill.billNumber}</TableCell>
                                                         <TableCell>{bill.productName}</TableCell>
-                                                        <TableCell>{bill.postDate ? new Date(bill.postDate).toLocaleDateString() : 'N/A'}</TableCell>
+                                                        <TableCell>{bill.createdAt ? new Date(bill.createdAt).toLocaleDateString() : 'N/A'}</TableCell>
                                                         <TableCell>₹{Number(bill.amount).toLocaleString()}</TableCell>
+                                                        <TableCell>
+                                                            <img
+                                                                src={bill.billImage}
+                                                                alt="Bill Image"
+                                                                className="w-16 h-16 object-cover"
+                                                            />
+                                                        </TableCell>
                                                         <TableCell>{getStatusBadge(bill.status)}</TableCell>
                                                         <TableCell className="max-w-xs truncate text-gray-500">
                                                             {bill.adminRemark || '-'}

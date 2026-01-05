@@ -11,7 +11,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, LogOut, FileText, CheckCircle, XCircle, Eye, Search, Filter, PenSquare } from 'lucide-react';
+import { Loader2, LogOut, FileText, CheckCircle, XCircle, Eye, Search, Filter, PenSquare, Plus } from 'lucide-react';
 
 const BlogManagement = () => {
     const [blogs, setBlogs] = useState([]);
@@ -21,6 +21,16 @@ const BlogManagement = () => {
     const [statusFilter, setStatusFilter] = useState('all');
     const [searchQuery, setSearchQuery] = useState('');
     const [actionLoading, setActionLoading] = useState(false);
+    const [createBlogOpen, setCreateBlogOpen] = useState(false);
+    const [createBlogForm, setCreateBlogForm] = useState({
+        title: '',
+        content: '',
+        author: '',
+        category: '',
+        featuredImage: '',
+        tags: '',
+        status: 'PUBLISHED'
+    });
     const navigate = useNavigate();
     const { toast } = useToast();
 
@@ -71,6 +81,42 @@ const BlogManagement = () => {
         }
     };
 
+    const handleCreateBlog = async (e) => {
+        e.preventDefault();
+        setActionLoading(true);
+        try {
+            const tagsArray = createBlogForm.tags.split(',').map(tag => tag.trim()).filter(tag => tag !== '');
+            const payload = {
+                ...createBlogForm,
+                tags: tagsArray
+            };
+            await axiosInstance.post('/blog/posts', payload);
+            toast({
+                title: 'Success',
+                description: 'Blog post created successfully',
+            });
+            setCreateBlogOpen(false);
+            setCreateBlogForm({
+                title: '',
+                content: '',
+                author: '',
+                category: '',
+                featuredImage: '',
+                tags: '',
+                status: 'PUBLISHED'
+            });
+            fetchBlogs();
+        } catch (error) {
+            toast({
+                title: 'Error',
+                description: error.response?.data?.message || 'Failed to create blog post',
+                variant: 'destructive'
+            });
+        } finally {
+            setActionLoading(false);
+        }
+    };
+
     const handleLogout = () => {
         localStorage.removeItem('adminToken');
         localStorage.removeItem('adminUser');
@@ -110,6 +156,87 @@ const BlogManagement = () => {
                             <p className="text-sm text-gray-600 mt-1">Review and manage blog post submissions</p>
                         </div>
                         <div className="flex gap-3">
+                            <Dialog open={createBlogOpen} onOpenChange={setCreateBlogOpen}>
+                                <DialogTrigger asChild>
+                                    <Button className="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white shadow-md">
+                                        <Plus className="w-4 h-4 mr-2" />
+                                        Add Blog Post
+                                    </Button>
+                                </DialogTrigger>
+                                <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+                                    <DialogHeader>
+                                        <DialogTitle>Add New Blog Post</DialogTitle>
+                                        <DialogDescription>
+                                            Create and publish a new blog post.
+                                        </DialogDescription>
+                                    </DialogHeader>
+                                    <form onSubmit={handleCreateBlog} className="space-y-4">
+                                        <div>
+                                            <Label htmlFor="blog-title">Title</Label>
+                                            <Input
+                                                id="blog-title"
+                                                value={createBlogForm.title}
+                                                onChange={(e) => setCreateBlogForm({ ...createBlogForm, title: e.target.value })}
+                                                required
+                                            />
+                                        </div>
+                                        <div>
+                                            <Label htmlFor="blog-author">Author</Label>
+                                            <Input
+                                                id="blog-author"
+                                                value={createBlogForm.author}
+                                                onChange={(e) => setCreateBlogForm({ ...createBlogForm, author: e.target.value })}
+                                                required
+                                            />
+                                        </div>
+                                        <div>
+                                            <Label htmlFor="blog-category">Category</Label>
+                                            <Input
+                                                id="blog-category"
+                                                value={createBlogForm.category}
+                                                onChange={(e) => setCreateBlogForm({ ...createBlogForm, category: e.target.value })}
+                                                required
+                                            />
+                                        </div>
+                                        <div>
+                                            <Label htmlFor="blog-image">Featured Image URL</Label>
+                                            <Input
+                                                id="blog-image"
+                                                value={createBlogForm.featuredImage}
+                                                onChange={(e) => setCreateBlogForm({ ...createBlogForm, featuredImage: e.target.value })}
+                                                placeholder="https://example.com/image.jpg"
+                                            />
+                                        </div>
+                                        <div>
+                                            <Label htmlFor="blog-tags">Tags (comma separated)</Label>
+                                            <Input
+                                                id="blog-tags"
+                                                value={createBlogForm.tags}
+                                                onChange={(e) => setCreateBlogForm({ ...createBlogForm, tags: e.target.value })}
+                                                placeholder="solar, energy, green"
+                                            />
+                                        </div>
+                                        <div>
+                                            <Label htmlFor="blog-content">Content</Label>
+                                            <Textarea
+                                                id="blog-content"
+                                                value={createBlogForm.content}
+                                                onChange={(e) => setCreateBlogForm({ ...createBlogForm, content: e.target.value })}
+                                                required
+                                                className="min-h-[200px]"
+                                            />
+                                        </div>
+                                        <Button
+                                            type="submit"
+                                            className="w-full bg-gradient-to-r from-amber-600 to-orange-600 text-white"
+                                            disabled={actionLoading}
+                                        >
+                                            {actionLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Create Post'}
+                                        </Button>
+                                    </form>
+                                </DialogContent>
+                            </Dialog>
+
                             <Button
                                 onClick={() => navigate('/admin/dashboard')}
                                 variant="outline"
@@ -140,9 +267,9 @@ const BlogManagement = () => {
             </div>
 
             {/* Main Content */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            < div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" >
                 {/* Filters */}
-                <Card className="mb-6 shadow-lg border-amber-200/50">
+                < Card className="mb-6 shadow-lg border-amber-200/50" >
                     <CardContent className="pt-6">
                         <div className="flex flex-col sm:flex-row gap-4">
                             <div className="flex-1">
@@ -180,10 +307,10 @@ const BlogManagement = () => {
                             </div>
                         </div>
                     </CardContent>
-                </Card>
+                </Card >
 
                 {/* Blogs Table */}
-                <Card className="shadow-lg border-amber-200/50">
+                < Card className="shadow-lg border-amber-200/50" >
                     <CardHeader>
                         <CardTitle className="text-xl">Blog Posts ({filteredBlogs.length})</CardTitle>
                     </CardHeader>
@@ -373,9 +500,9 @@ const BlogManagement = () => {
                             </div>
                         )}
                     </CardContent>
-                </Card>
-            </div>
-        </div>
+                </Card >
+            </div >
+        </div >
     );
 };
 

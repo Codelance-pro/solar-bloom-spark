@@ -89,12 +89,12 @@ const Footer = () => {
                 <Sun className="h-8 w-8 text-blue-950" />
               </div>
               <div>
-                <h2 className="text-2xl font-bold text-yellow-400">SolarPower</h2>
-                <p className="text-sm text-yellow-300">Clean Energy Solutions</p>
+                <h2 className="text-2xl font-bold text-yellow-400">ENFROS India</h2>
+                <p className="text-sm text-yellow-300">Solutions Pvt. Ltd.</p>
               </div>
             </div>
             <p className="text-black mb-6 leading-relaxed">
-              Leading provider of sustainable solar energy solutions. We're committed to helping homes and businesses transition to clean, renewable energy.
+              ENFROS is a renewable energy service provider specializing in solar power solutions. Our goal is to become the LEADING EPC SERVICE PROVIDER in the solar power plant industry.
             </p>
 
             {/* Contact Info */}
@@ -105,7 +105,7 @@ const Footer = () => {
                 </div>
                 <div>
                   <p className="text-sm text-black">Call Us</p>
-                  <p className="font-semibold text-yellow-400">+1 (555) 123-4567</p>
+                  <p className="font-semibold text-yellow-400">+91 98765 43210</p>
                 </div>
               </div>
               <div className="flex items-start space-x-3 group">
@@ -114,7 +114,7 @@ const Footer = () => {
                 </div>
                 <div>
                   <p className="text-sm text-black">Email Us</p>
-                  <p className="font-semibold text-yellow-400">info@solarpower.com</p>
+                  <p className="font-semibold text-yellow-400">info@enfrosindia.com</p>
                 </div>
               </div>
               <div className="flex items-start space-x-3 group">
@@ -122,8 +122,8 @@ const Footer = () => {
                   <MapPin className="h-5 w-5 text-yellow-400 group-hover:text-blue-950" />
                 </div>
                 <div>
-                  <p className="text-sm text-black">Visit Us</p>
-                  <p className="font-semibold text-yellow-400">123 Solar Street, Green City, CA 90210</p>
+                  <p className="text-sm text-black">Corporate Office</p>
+                  <p className="font-semibold text-yellow-400">No.6, Indra Priyadarshini Nagar, Perumbakkam, Chennai – 600100</p>
                 </div>
               </div>
               <div className="flex items-start space-x-3 group">
@@ -132,8 +132,7 @@ const Footer = () => {
                 </div>
                 <div>
                   <p className="text-sm text-black">Business Hours</p>
-                  <p className="font-semibold text-yellow-400">Mon - Fri: 8AM - 6PM</p>
-                  <p className="text-sm text-black">Sat: 9AM - 4PM</p>
+                  <p className="font-semibold text-yellow-400">Mon - Fri: 9AM - 6PM</p>
                 </div>
               </div>
             </div>
@@ -167,7 +166,11 @@ const Footer = () => {
               <span className="absolute -bottom-2 left-0 w-12 h-1 bg-gradient-to-r from-yellow-400 to-amber-500 rounded-full"></span>
             </h3>
             <ul className="space-y-3">
-              {services.map((service, index) => (
+              {[
+                { name: "Utility Scale EPC", href: "#services" },
+                { name: "Utility Scale BOS, I & C", href: "#services" },
+                { name: "MW Scale C & I", href: "#services" }
+              ].map((service, index) => (
                 <li key={index}>
                   <a
                     href={service.href}
@@ -241,7 +244,7 @@ const Footer = () => {
           {/* Copyright */}
           <div className="text-center md:text-right">
             <p className="text-black text-sm">
-              © {new Date().getFullYear()} SolarPower. All rights reserved.
+              © {new Date().getFullYear()} ENFROS India Solutions Pvt. Ltd. All rights reserved.
             </p>
             <div className="flex flex-wrap justify-center md:justify-end gap-4 mt-2">
               <a href="#privacy" className="text-black hover:text-yellow-400 text-sm transition-colors">

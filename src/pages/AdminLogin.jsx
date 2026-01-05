@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axiosInstance from '@/config/axios';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -130,6 +130,9 @@ const AdminLogin = () => {
                         <p className="text-sm text-gray-600">
                             Protected area for authorized personnel only
                         </p>
+                        <Link to="/" className="text-blue-500 hover:underline">
+                            Go to Home
+                        </Link>
                     </div>
                 </CardContent>
             </Card>
