@@ -2,37 +2,41 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import About from "./pages/About";
-import NotFound from "./pages/NotFound";
+import { HashRouter, Routes, Route, useLocation } from "react-router-dom";
+
 import Home from "./pages/Home";
-import Navbar from "@/components/Navbar";
-import Footer from "./components/Footer";
+import About from "./pages/About";
 import Products from "./pages/Products";
 import Projects from "./pages/Projects";
 import Contact from "./pages/Contact";
 import CertificatePage from "./pages/CertificatePage";
 import SustainabilityImpact from "./pages/SustainabilityImpact";
 import Careers from "./pages/Careers";
-import ScrollToTop from "./components/ScrollToTop";
 import Blog from "./pages/Blog";
 import SolarCalculator from "./pages/SolarCaculator";
+import NotFound from "./pages/NotFound";
+
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import VendorManagement from "./pages/VendorManagement";
 import BlogManagement from "./pages/BlogManagement";
-import ProtectedRoute from "./components/ProtectedRoute";
 import VendorLogin from "./pages/VendorLogin";
 import VendorDashboard from "./pages/VendorDashboard";
+
+import Navbar from "@/components/Navbar";
+import Footer from "./components/Footer";
+import ScrollToTop from "./components/ScrollToTop";
+import ProtectedRoute from "./components/ProtectedRoute";
 import VendorProtectedRoute from "./components/VendorProtectedRoute";
 
 const queryClient = new QueryClient();
 
-// Layout component to conditionally render Navbar and Footer
+/* Layout component */
 const Layout = ({ children }) => {
   const location = useLocation();
-  const isAdminRoute = location.pathname.startsWith('/admin');
-  const isVendorRoute = location.pathname.startsWith('/vendor');
+
+  const isAdminRoute = location.pathname.startsWith("/admin");
+  const isVendorRoute = location.pathname.startsWith("/vendor");
 
   return (
     <>
@@ -49,7 +53,9 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
+
+      {/* ✅ HashRouter is REQUIRED for GitHub Pages */}
+      <HashRouter>
         <Layout>
           <Routes>
             {/* Public Routes */}
@@ -102,11 +108,11 @@ const App = () => (
               }
             />
 
-            {/* 404 Route */}
+            {/* 404 */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Layout>
-      </BrowserRouter>
+      </HashRouter>
     </TooltipProvider>
   </QueryClientProvider>
 );

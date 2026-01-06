@@ -10,7 +10,7 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, LogOut, FileText, Upload, Plus, Download, Image as ImageIcon } from 'lucide-react';
-import { uploadToCloudinary  } from '@/lib/cloudinary';
+import { uploadToCloudinary } from '@/lib/cloudinary';
 
 const VendorDashboard = () => {
     const navigate = useNavigate();
@@ -25,7 +25,8 @@ const VendorDashboard = () => {
         productName: '',
         billNumber: '',
         amount: '',
-        billImage: '' // URL string
+        billImage: '', // URL string
+        billPdf: '' // PDF URL string
     });
     const [imagePreview, setImagePreview] = useState(null);
 
@@ -92,16 +93,31 @@ const VendorDashboard = () => {
                 imageUrl = await uploadToCloudinary(file);
             }
 
-            // Send payload with image URL
-            const payload = {
+            // Get PDF file
+            const pdfInput = document.getElementById('billPdf');
+            const pdfFile = pdfInput?.files[0];
+
+            // Prepare JSON data
+            const model = {
                 ...billForm,
                 billImage: imageUrl,
                 vendorId: user.id
             };
 
-            console.log("Submitting payload:", payload);
+            const formData = new FormData();
+            formData.append("data", new Blob([JSON.stringify(model)], { type: "application/json" }));
 
-            await vendorAxios.post('/vendor/purchase', payload);
+            if (pdfFile) {
+                formData.append("file", pdfFile);
+            }
+
+            console.log("Submitting payload via Multipart:", model);
+
+            await vendorAxios.post('/vendor/purchase', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
 
             toast({
                 title: 'Success',
@@ -113,12 +129,14 @@ const VendorDashboard = () => {
                 productName: '',
                 billNumber: '',
                 amount: '',
-                billImage: ''
+                billImage: '',
+                billPdf: ''
             });
             setImagePreview(null);
 
             // Reset file input manually
             if (fileInput) fileInput.value = '';
+            if (pdfInput) pdfInput.value = '';
 
             // Refresh bills
             fetchMyBills(user.id);
@@ -150,6 +168,31 @@ const VendorDashboard = () => {
         };
         const config = statusConfig[status] || statusConfig.PENDING;
         return <Badge className={`${config.color} border`}>{config.label}</Badge>;
+    };
+
+
+    const downloadBill = async (purchaseId) => {
+        const response = await vendorAxios.get(
+            `/vendor/purchase/download/${purchaseId}`,
+            {
+                responseType: "blob", // 🔴 THIS IS REQUIRED
+            }
+        );
+
+        const blob = new Blob([response.data], {
+            type: "application/pdf",
+        });
+
+        const url = window.URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `bill_${purchaseId}.pdf`;
+        document.body.appendChild(a);
+        a.click();
+
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
     };
 
     return (
@@ -284,6 +327,19 @@ const VendorDashboard = () => {
                                                 )}
                                             </div>
                                         </div>
+
+
+                                        <div className="space-y-2">
+                                            <Label htmlFor="billPdf">Upload PDF</Label>
+                                            <Input
+                                                id="billPdf"
+                                                name="billPdf"
+                                                type="file"
+                                                accept="application/pdf"
+                                                onChange={handleFormChange}
+                                                className="cursor-pointer border-amber-200 file:bg-amber-100 file:text-amber-700 file:border-0 file:mr-4 file:py-1 file:px-3 file:rounded-full hover:file:bg-amber-200"
+                                            />
+                                        </div>
                                     </div>
 
                                     <Button
@@ -336,6 +392,7 @@ const VendorDashboard = () => {
                                                     <TableHead>Date</TableHead>
                                                     <TableHead>Amount</TableHead>
                                                     <TableHead>Image</TableHead>
+                                                    <TableHead>PDF</TableHead>
                                                     <TableHead>Status</TableHead>
                                                     <TableHead>Remark</TableHead>
                                                 </TableRow>
@@ -354,6 +411,20 @@ const VendorDashboard = () => {
                                                                 className="w-16 h-16 object-cover"
                                                             />
                                                         </TableCell>
+                                                        <TableCell>
+                                                            {bill.billPdfUrl ? (
+                                                                <button
+                                                                    onClick={() => downloadBill(bill.id)}
+                                                                    className="text-amber-600 hover:underline flex items-center gap-1"
+                                                                >
+                                                                    <FileText className="w-4 h-4" />
+                                                                    <span className="text-xs">Download</span>
+                                                                </button>
+                                                            ) : (
+                                                                <span className="text-gray-400">-</span>
+                                                            )}
+                                                        </TableCell>
+
                                                         <TableCell>{getStatusBadge(bill.status)}</TableCell>
                                                         <TableCell className="max-w-xs truncate text-gray-500">
                                                             {bill.adminRemark || '-'}
@@ -369,7 +440,7 @@ const VendorDashboard = () => {
                     </TabsContent>
                 </Tabs>
             </main>
-        </div>
+        </div >
     );
 };
 
