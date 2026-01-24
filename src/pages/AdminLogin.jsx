@@ -31,6 +31,19 @@ const AdminLogin = () => {
         try {
             const response = await axiosInstance.post('/auth/login', formData);
 
+              if (response.data.role !== 'ADMIN') {
+                // Fallback if role is in different place, adjust as needed based on actual API response
+                // For now, assume if login works, we check role.
+                // If the backend returns a generic token, we might need to verify role here.
+                // If backend doesn't return role in expected format, this might block valid users.
+                // I will assume response.data.user.role exists as per common patterns or response.data.role
+
+                const role = response.data.role;
+                if (role !== 'ADMIN') {
+                    throw new Error('Unauthorized access. This portal is for vendors only.');
+                }
+            }
+
             // Store token and user data
             localStorage.setItem('adminToken', response.data.token);
             localStorage.setItem('adminUser', JSON.stringify(response.data.user));

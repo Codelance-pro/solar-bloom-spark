@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import vendorAxios from '@/config/vendorAxios';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -141,11 +141,10 @@ const VendorLogin = () => {
                             )}
                         </Button>
                     </form>
-
                     <div className="mt-6 text-center">
-                        <p className="text-sm text-gray-600">
-                            Need help? <a href="/contact" className="text-amber-600 hover:underline">Contact Support</a>
-                        </p>
+                        <Link to="/" className="text-sm text-gray-600">
+                            <span className="text-amber-600 hover:underline">Back to Home</span>
+                        </Link>
                     </div>
                 </CardContent>
             </Card>

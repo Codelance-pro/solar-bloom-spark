@@ -9,7 +9,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, LogOut, FileText, Upload, Plus, Download, Image as ImageIcon } from 'lucide-react';
+import { Loader2, LogOut, FileText, Upload, Plus, Download, Image as ImageIcon, User, Save } from 'lucide-react';
 import { uploadToCloudinary } from '@/lib/cloudinary';
 
 const VendorDashboard = () => {
@@ -20,13 +20,44 @@ const VendorDashboard = () => {
     const [loadingBills, setLoadingBills] = useState(true);
     const [submitting, setSubmitting] = useState(false);
 
+    // Pagination State
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(0);
+    const [totalElements, setTotalElements] = useState(0);
+    const itemsPerPage = 10;
+
+    // Profile State
+    const [profileData, setProfileData] = useState(null);
+    const [loadingProfile, setLoadingProfile] = useState(false);
+    const [updatingProfile, setUpdatingProfile] = useState(false);
+    const [profileForm, setProfileForm] = useState({
+        // name: '',
+        // password: '',
+        vendorType: '',
+        vendorName: '',
+        mobileNo: '',
+        gstNo: '',
+        panNo: '',
+        address: '',
+        city: '',
+        state: '',
+        region: '',
+        country: '',
+        pincode: '',
+        bankName: '',
+        bankAccountNo: '',
+        bankIfsc: '',
+        bankAccountHolderName: '',
+        bankCountry: ''
+    });
+
     // Form State
     const [billForm, setBillForm] = useState({
         productName: '',
         billNumber: '',
         amount: '',
-        billImage: '', // URL string
-        billPdf: '' // PDF URL string
+        // billImage: '',
+        billPdfUrl: ''
     });
     const [imagePreview, setImagePreview] = useState(null);
 
@@ -42,21 +73,126 @@ const VendorDashboard = () => {
 
     useEffect(() => {
         if (user?.id) {
-            fetchMyBills(user.id);
+            fetchMyBills(user.id, currentPage);
+            fetchProfile(user.id);
         }
-    }, [user]);
+    }, [user, currentPage]);
 
-    const fetchMyBills = async (vendorId) => {
+    const fetchMyBills = async (vendorId, page = 1) => {
         setLoadingBills(true);
+        console.log(vendorId, page);
         try {
-            const response = await vendorAxios.get(`/admin/purchases/vendor/${vendorId}`);
-            console.log(response.data);
-            setBills(response.data);
+            const response = await vendorAxios.get(`/vendor/purchase/${vendorId}/bills`, {
+                params: {
+                    page: page - 1, // Spring uses 0-based index
+                    size: itemsPerPage
+                }
+            });
+            console.log("Bills Data:", response.data);
+
+            if (response.data.content) {
+                setBills(response.data.content);
+                setTotalPages(response.data.totalPages);
+                setTotalElements(response.data.totalElements);
+            } else {
+                setBills([]);
+                setTotalPages(0);
+                setTotalElements(0);
+            }
         } catch (error) {
             console.error("Failed to fetch bills:", error);
             // Don't show error toast on initial load if empty, just log it
         } finally {
             setLoadingBills(false);
+        }
+    };
+
+    const fetchProfile = async (vendorId) => {
+        setLoadingProfile(true);
+        try {
+            const response = await vendorAxios.get(`/users/${vendorId}`);
+            const data = response.data;
+            setProfileData(data);
+
+            // Populate form with fetched data
+            setProfileForm({
+                // name: data.name || '',
+                // password: '', 
+                vendorType: data.vendorType || '',
+                vendorName: data.vendorName || '',
+                mobileNo: data.mobileNo || '',
+                gstNo: data.gstNo || '',
+                panNo: data.panNo || '',
+                address: data.address || '',
+                city: data.city || '',
+                state: data.state || '',
+                region: data.region || '',
+                country: data.country || '',
+                pincode: data.pincode || '',
+                bankName: data.bankName || '',
+                bankAccountNo: data.bankAccountNo || '',
+                bankIfsc: data.bankIfsc || '',
+                bankAccountHolderName: data.bankAccountHolderName || '',
+                bankCountry: data.bankCountry || ''
+            });
+        } catch (error) {
+            console.error("Failed to fetch profile:", error);
+            toast({
+                title: 'Error',
+                description: 'Failed to load profile data',
+                variant: 'destructive',
+            });
+        } finally {
+            setLoadingProfile(false);
+        }
+    };
+
+    const handleProfileChange = (e) => {
+        const { name, value } = e.target;
+        setProfileForm(prev => ({ ...prev, [name]: value }));
+    };
+
+    const handleUpdateProfile = async (e) => {
+        e.preventDefault();
+        if (!user?.id) return;
+
+        setUpdatingProfile(true);
+        try {
+            // Only send fields that can be updated (exclude email and vendorCode)
+            const updatePayload = { ...profileForm };
+
+            // Remove password if it's empty (user doesn't want to change it)
+            if (!updatePayload.password || updatePayload.password.trim() === '') {
+                delete updatePayload.password;
+            }
+
+            await vendorAxios.put(`/users/${user.id}`, updatePayload);
+
+            toast({
+                title: 'Success',
+                description: 'Profile updated successfully!',
+
+            });
+
+            // Refresh profile data
+            fetchProfile(user.id);
+
+            // Update local storage if name changed
+            // if (updatePayload.name) {
+            //     const updatedUser = { ...user, name: updatePayload.name };
+            //     setUser(updatedUser);
+            //     localStorage.setItem('vendorUser', JSON.stringify(updatedUser));
+            // }
+
+        } catch (error) {
+            console.error('Update error:', error);
+            toast({
+                title: 'Update Failed',
+                description: error.response?.data?.message || 'Failed to update profile.',
+                variant: 'destructive',
+            });
+        } finally {
+            setUpdatingProfile(false);
         }
     };
 
@@ -83,24 +219,24 @@ const VendorDashboard = () => {
 
         setSubmitting(true);
         try {
-            let imageUrl = '';
+            // let imageUrl = '';
 
-            // Upload image to Cloudinary if selected
-            const fileInput = document.getElementById('billImage');
-            const file = fileInput?.files[0];
 
-            if (file) {
-                imageUrl = await uploadToCloudinary(file);
-            }
+            // const fileInput = document.getElementById('billImage');
+            // const file = fileInput?.files[0];
 
-            // Get PDF file
+            // if (file) {
+            //     imageUrl = await uploadToCloudinary(file);
+            // }
+
+
             const pdfInput = document.getElementById('billPdf');
             const pdfFile = pdfInput?.files[0];
 
-            // Prepare JSON data
+
             const model = {
                 ...billForm,
-                billImage: imageUrl,
+                // billImage: imageUrl,
                 vendorId: user.id
             };
 
@@ -135,11 +271,11 @@ const VendorDashboard = () => {
             setImagePreview(null);
 
             // Reset file input manually
-            if (fileInput) fileInput.value = '';
+            // if (fileInput) fileInput.value = '';
             if (pdfInput) pdfInput.value = '';
 
             // Refresh bills
-            fetchMyBills(user.id);
+            fetchMyBills(user.id, currentPage);
 
         } catch (error) {
             console.error('Submit error:', error);
@@ -195,6 +331,25 @@ const VendorDashboard = () => {
         window.URL.revokeObjectURL(url);
     };
 
+    const deleteBill = async (purchaseId) => {
+        try {
+            console.log(purchaseId);
+            await vendorAxios.delete(`/vendor/purchase/${purchaseId}`);
+            toast({
+                title: 'Success',
+                description: 'Bill deleted successfully!',
+            });
+            fetchMyBills(user.id, currentPage);
+        } catch (error) {
+            console.error('Error deleting bill:', error);
+            toast({
+                title: 'Error',
+                description: 'Failed to delete bill',
+                variant: 'destructive',
+            });
+        }
+    };
+
     return (
         <div className="min-h-screen bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50">
             {/* Header */}
@@ -228,7 +383,7 @@ const VendorDashboard = () => {
 
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <Tabs defaultValue="submit" className="space-y-6">
-                    <TabsList className="grid w-full grid-cols-2 max-w-[400px] bg-amber-100/50">
+                    <TabsList className="grid w-full grid-cols-3 max-w-[600px] bg-amber-100/50">
                         <TabsTrigger
                             value="submit"
                             className="data-[state=active]:bg-white data-[state=active]:text-amber-700 data-[state=active]:shadow-sm"
@@ -240,6 +395,12 @@ const VendorDashboard = () => {
                             className="data-[state=active]:bg-white data-[state=active]:text-amber-700 data-[state=active]:shadow-sm"
                         >
                             My Bills History
+                        </TabsTrigger>
+                        <TabsTrigger
+                            value="profile"
+                            className="data-[state=active]:bg-white data-[state=active]:text-amber-700 data-[state=active]:shadow-sm"
+                        >
+                            My Profile
                         </TabsTrigger>
                     </TabsList>
 
@@ -290,11 +451,11 @@ const VendorDashboard = () => {
                                                 value={billForm.amount}
                                                 onChange={handleFormChange}
                                                 required
-                                                min="0"
+
                                                 className="border-amber-200 focus:border-amber-500 focus:ring-amber-500"
                                             />
                                         </div>
-
+                                        {/* 
                                         <div className="space-y-2">
                                             <Label htmlFor="billImage">Upload Invoice Image</Label>
                                             <div className="space-y-3">
@@ -326,7 +487,7 @@ const VendorDashboard = () => {
                                                     </div>
                                                 )}
                                             </div>
-                                        </div>
+                                        </div> */}
 
 
                                         <div className="space-y-2">
@@ -391,10 +552,11 @@ const VendorDashboard = () => {
                                                     <TableHead>Product</TableHead>
                                                     <TableHead>Date</TableHead>
                                                     <TableHead>Amount</TableHead>
-                                                    <TableHead>Image</TableHead>
+                                                    {/* <TableHead>Image</TableHead> */}
                                                     <TableHead>PDF</TableHead>
                                                     <TableHead>Status</TableHead>
                                                     <TableHead>Remark</TableHead>
+                                                    <TableHead>Actions</TableHead>
                                                 </TableRow>
                                             </TableHeader>
                                             <TableBody>
@@ -404,13 +566,13 @@ const VendorDashboard = () => {
                                                         <TableCell>{bill.productName}</TableCell>
                                                         <TableCell>{bill.createdAt ? new Date(bill.createdAt).toLocaleDateString() : 'N/A'}</TableCell>
                                                         <TableCell>₹{Number(bill.amount).toLocaleString()}</TableCell>
-                                                        <TableCell>
+                                                        {/* <TableCell>
                                                             <img
                                                                 src={bill.billImage}
                                                                 alt="Bill Image"
                                                                 className="w-16 h-16 object-cover"
                                                             />
-                                                        </TableCell>
+                                                        </TableCell> */}
                                                         <TableCell>
                                                             {bill.billPdfUrl ? (
                                                                 <button
@@ -429,11 +591,365 @@ const VendorDashboard = () => {
                                                         <TableCell className="max-w-xs truncate text-gray-500">
                                                             {bill.adminRemark || '-'}
                                                         </TableCell>
+                                                        <TableCell>
+                                                            <Button
+                                                                variant="outline"
+                                                                size="sm"
+                                                                onClick={() => deleteBill(bill.id)}
+                                                                className="bg-amber-600 hover:bg-amber-700 text-white"
+                                                            >
+                                                                Delete
+                                                            </Button>
+                                                        </TableCell>
                                                     </TableRow>
                                                 ))}
                                             </TableBody>
                                         </Table>
+
+                                        {/* Pagination Controls */}
+                                        {totalPages > 0 && (
+                                            <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mt-6 pt-4 border-t border-amber-100">
+                                                <p className="text-sm text-gray-600">
+                                                    Showing <span className="font-medium">{(currentPage - 1) * itemsPerPage + 1}</span> to <span className="font-medium">{Math.min(currentPage * itemsPerPage, totalElements)}</span> of <span className="font-medium">{totalElements}</span> bills
+                                                </p>
+                                                <div className="flex items-center gap-2">
+                                                    <Button
+                                                        variant="outline"
+                                                        size="sm"
+                                                        disabled={currentPage === 1}
+                                                        onClick={() => setCurrentPage(prev => prev - 1)}
+                                                        className="border-amber-200 hover:bg-amber-50 text-amber-700"
+                                                    >
+                                                        Previous
+                                                    </Button>
+
+                                                    <div className="flex items-center gap-1 mx-2">
+                                                        {[...Array(totalPages)].map((_, index) => {
+                                                            const page = index + 1;
+                                                            // Logic for ellipsis and page numbers remains similar to other implementations
+                                                            if (
+                                                                page === 1 ||
+                                                                page === totalPages ||
+                                                                (page >= currentPage - 1 && page <= currentPage + 1)
+                                                            ) {
+                                                                return (
+                                                                    <Button
+                                                                        key={page}
+                                                                        size="sm"
+                                                                        variant={page === currentPage ? "default" : "outline"}
+                                                                        className={`w-8 h-8 p-0 ${page === currentPage
+                                                                            ? "bg-amber-600 hover:bg-amber-700 text-white border-none"
+                                                                            : "border-amber-200 hover:bg-amber-50 text-amber-700"
+                                                                            }`}
+                                                                        onClick={() => setCurrentPage(page)}
+                                                                    >
+                                                                        {page}
+                                                                    </Button>
+                                                                );
+                                                            } else if (
+                                                                (page === 2 && currentPage > 3) ||
+                                                                (page === totalPages - 1 && currentPage < totalPages - 2)
+                                                            ) {
+                                                                return <span key={page} className="px-1 text-gray-400">...</span>;
+                                                            }
+                                                            return null;
+                                                        })}
+                                                    </div>
+
+                                                    <Button
+                                                        variant="outline"
+                                                        size="sm"
+                                                        disabled={currentPage === totalPages}
+                                                        onClick={() => setCurrentPage(prev => prev + 1)}
+                                                        className="border-amber-200 hover:bg-amber-50 text-amber-700"
+                                                    >
+                                                        Next
+                                                    </Button>
+                                                </div>
+                                            </div>
+                                        )}
                                     </div>
+                                )}
+                            </CardContent>
+                        </Card>
+                    </TabsContent>
+
+                    <TabsContent value="profile">
+                        <Card className="border-amber-200/50 shadow-lg">
+                            <CardHeader>
+                                <CardTitle className="text-amber-900 flex items-center gap-2">
+                                    <User className="w-5 h-5" />
+                                    My Profile
+                                </CardTitle>
+                                <CardDescription>
+                                    View and update your vendor profile information
+                                </CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                {loadingProfile ? (
+                                    <div className="flex justify-center p-8">
+                                        <Loader2 className="w-8 h-8 animate-spin text-amber-600" />
+                                    </div>
+                                ) : (
+                                    <form onSubmit={handleUpdateProfile} className="space-y-6">
+                                        {/* Basic Information */}
+                                        <div className="space-y-4">
+                                            <h3 className="text-lg font-semibold text-amber-900 border-b border-amber-200 pb-2">
+                                                Basic Information
+                                            </h3>
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                {/* <div className="space-y-2">
+                                                    <Label htmlFor="name">Name *</Label>
+                                                    <Input
+                                                        id="name"
+                                                        name="name"
+                                                        value={profileForm.name}
+                                                        onChange={handleProfileChange}
+                                                        required
+                                                        className="border-amber-200"
+                                                    />
+                                                </div> */}
+                                                <div className="space-y-2">
+                                                    <Label htmlFor="email">Email (Read-only)</Label>
+                                                    <Input
+                                                        id="email"
+                                                        value={profileData?.email || ''}
+                                                        disabled
+                                                        className="bg-gray-100 cursor-not-allowed"
+                                                    />
+                                                </div>
+                                                {/* <div className="space-y-2">
+                                                    <Label htmlFor="password">New Password (Optional)</Label>
+                                                    <Input
+                                                        id="password"
+                                                        name="password"
+                                                        type="password"
+                                                        value={profileForm.password}
+                                                        onChange={handleProfileChange}
+                                                        placeholder="Leave blank to keep current"
+                                                        className="border-amber-200"
+                                                    />
+                                                </div> */}
+                                                <div className="space-y-2">
+                                                    <Label htmlFor="vendorCode">Vendor Code (Read-only)</Label>
+                                                    <Input
+                                                        id="vendorCode"
+                                                        value={profileData?.vendorCode || ''}
+                                                        disabled
+                                                        className="bg-gray-100 cursor-not-allowed"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Vendor Details */}
+                                        <div className="space-y-4">
+                                            <h3 className="text-lg font-semibold text-amber-900 border-b border-amber-200 pb-2">
+                                                Vendor Details
+                                            </h3>
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                <div className="space-y-2">
+                                                    <Label htmlFor="vendorName">Vendor Name</Label>
+                                                    <Input
+                                                        id="vendorName"
+                                                        name="vendorName"
+                                                        value={profileForm.vendorName}
+                                                        onChange={handleProfileChange}
+                                                        className="border-amber-200"
+                                                    />
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <Label htmlFor="vendorType">Vendor Type</Label>
+                                                    <Input
+                                                        id="vendorType"
+                                                        name="vendorType"
+                                                        value={profileForm.vendorType}
+                                                        onChange={handleProfileChange}
+                                                        placeholder="e.g., SUPPLIER"
+                                                        className="border-amber-200"
+                                                    />
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <Label htmlFor="mobileNo">Mobile Number</Label>
+                                                    <Input
+                                                        id="mobileNo"
+                                                        name="mobileNo"
+                                                        value={profileForm.mobileNo}
+                                                        onChange={handleProfileChange}
+                                                        className="border-amber-200"
+                                                    />
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <Label htmlFor="gstNo">GST Number</Label>
+                                                    <Input
+                                                        id="gstNo"
+                                                        name="gstNo"
+                                                        value={profileForm.gstNo}
+                                                        onChange={handleProfileChange}
+                                                        className="border-amber-200"
+                                                    />
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <Label htmlFor="panNo">PAN Number</Label>
+                                                    <Input
+                                                        id="panNo"
+                                                        name="panNo"
+                                                        value={profileForm.panNo}
+                                                        onChange={handleProfileChange}
+                                                        className="border-amber-200"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Address Information */}
+                                        <div className="space-y-4">
+                                            <h3 className="text-lg font-semibold text-amber-900 border-b border-amber-200 pb-2">
+                                                Address Information
+                                            </h3>
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                <div className="space-y-2 md:col-span-2">
+                                                    <Label htmlFor="address">Address</Label>
+                                                    <Input
+                                                        id="address"
+                                                        name="address"
+                                                        value={profileForm.address}
+                                                        onChange={handleProfileChange}
+                                                        className="border-amber-200"
+                                                    />
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <Label htmlFor="city">City</Label>
+                                                    <Input
+                                                        id="city"
+                                                        name="city"
+                                                        value={profileForm.city}
+                                                        onChange={handleProfileChange}
+                                                        className="border-amber-200"
+                                                    />
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <Label htmlFor="state">State</Label>
+                                                    <Input
+                                                        id="state"
+                                                        name="state"
+                                                        value={profileForm.state}
+                                                        onChange={handleProfileChange}
+                                                        className="border-amber-200"
+                                                    />
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <Label htmlFor="region">Region</Label>
+                                                    <Input
+                                                        id="region"
+                                                        name="region"
+                                                        value={profileForm.region}
+                                                        onChange={handleProfileChange}
+                                                        className="border-amber-200"
+                                                    />
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <Label htmlFor="country">Country</Label>
+                                                    <Input
+                                                        id="country"
+                                                        name="country"
+                                                        value={profileForm.country}
+                                                        onChange={handleProfileChange}
+                                                        className="border-amber-200"
+                                                    />
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <Label htmlFor="pincode">Pincode</Label>
+                                                    <Input
+                                                        id="pincode"
+                                                        name="pincode"
+                                                        value={profileForm.pincode}
+                                                        onChange={handleProfileChange}
+                                                        className="border-amber-200"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Bank Details */}
+                                        <div className="space-y-4">
+                                            <h3 className="text-lg font-semibold text-amber-900 border-b border-amber-200 pb-2">
+                                                Bank Details
+                                            </h3>
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                <div className="space-y-2">
+                                                    <Label htmlFor="bankName">Bank Name</Label>
+                                                    <Input
+                                                        id="bankName"
+                                                        name="bankName"
+                                                        value={profileForm.bankName}
+                                                        onChange={handleProfileChange}
+                                                        className="border-amber-200"
+                                                    />
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <Label htmlFor="bankAccountNo">Account Number</Label>
+                                                    <Input
+                                                        id="bankAccountNo"
+                                                        name="bankAccountNo"
+                                                        value={profileForm.bankAccountNo}
+                                                        onChange={handleProfileChange}
+                                                        className="border-amber-200"
+                                                    />
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <Label htmlFor="bankIfsc">IFSC Code</Label>
+                                                    <Input
+                                                        id="bankIfsc"
+                                                        name="bankIfsc"
+                                                        value={profileForm.bankIfsc}
+                                                        onChange={handleProfileChange}
+                                                        className="border-amber-200"
+                                                    />
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <Label htmlFor="bankAccountHolderName">Account Holder Name</Label>
+                                                    <Input
+                                                        id="bankAccountHolderName"
+                                                        name="bankAccountHolderName"
+                                                        value={profileForm.bankAccountHolderName}
+                                                        onChange={handleProfileChange}
+                                                        className="border-amber-200"
+                                                    />
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <Label htmlFor="bankCountry">Bank Country</Label>
+                                                    <Input
+                                                        id="bankCountry"
+                                                        name="bankCountry"
+                                                        value={profileForm.bankCountry}
+                                                        onChange={handleProfileChange}
+                                                        className="border-amber-200"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="flex justify-end pt-4">
+                                            <Button
+                                                type="submit"
+                                                className="bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white shadow-md"
+                                                disabled={updatingProfile}
+                                            >
+                                                {updatingProfile ? (
+                                                    <>
+                                                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                                        Updating...
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <Save className="mr-2 h-4 w-4" />
+                                                        Save Changes
+                                                    </>
+                                                )}
+                                            </Button>
+                                        </div>
+                                    </form>
                                 )}
                             </CardContent>
                         </Card>

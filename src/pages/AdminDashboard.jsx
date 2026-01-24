@@ -19,21 +19,21 @@ import {
 } from 'lucide-react';
 
 const AdminDashboard = () => {
-    const [stats, setStats] = useState({
-        vendorBills: {
-            total: 0,
-            pending: 0,
-            approved: 0,
-            rejected: 0,
-        },
-        blogPosts: {
-            total: 0,
-            pending: 0,
-            approved: 0,
-            rejected: 0,
-            published: 0,
-        },
+    const [vendorStats, setVendorStats] = useState({
+        total: 0,
+        pending: 0,
+        approved: 0,
+        rejected: 0,
     });
+
+    const [blogStats, setBlogStats] = useState({
+        total: 0,
+        pending: 0,
+        approved: 0,
+        rejected: 0,
+        published: 0,
+    });
+
     const [recentBills, setRecentBills] = useState([]);
     const [recentPosts, setRecentPosts] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -41,28 +41,36 @@ const AdminDashboard = () => {
     const { toast } = useToast();
 
     useEffect(() => {
-        fetchDashboardData();
+        fetchVendorStats();
     }, []);
 
-    const fetchDashboardData = async () => {
+    const fetchVendorStats = async () => {
         try {
-            // Fetch vendor bills
-            const billsResponse = await axiosInstance.get('/vendor/bills');
-            const bills = billsResponse.data;
+            const response = await axiosInstance.get('/vendor/purchase/bill-summary');
+            const data = response.data;
 
-            // Fetch blog posts
-            const postsResponse = await axiosInstance.get('/blog/posts');
-            const posts = postsResponse.data;
-
-            // Calculate statistics
-            const vendorStats = {
-                total: bills.length,
-                pending: bills.filter(b => b.status === 'PENDING').length,
-                approved: bills.filter(b => b.status === 'APPROVED').length,
-                rejected: bills.filter(b => b.status === 'REJECTED').length,
+            const newVendorStats = {
+                total: data.total || data.totalBills || 0,
+                pending: data.pending || data.PENDING || 0,
+                approved: data.approved || data.APPROVED || 0,
+                rejected: data.rejected || data.declined || data.REJECTED || data.DECLINED || 0,
             };
 
-            const blogStats = {
+            setVendorStats(newVendorStats);
+        } catch (error) {
+            console.error('Error fetching vendor stats:', error);
+        }
+        finally {
+            setLoading(false);
+        }
+    };
+
+    const fetchBlogStats = async () => {
+        try {
+            const response = await axiosInstance.get('/blog/posts');
+            const posts = response.data;
+
+               const newBlogStats = {
                 total: posts.length,
                 pending: posts.filter(p => p.status === 'PENDING').length,
                 approved: posts.filter(p => p.status === 'APPROVED').length,
@@ -70,13 +78,50 @@ const AdminDashboard = () => {
                 published: posts.filter(p => p.status === 'PUBLISHED').length,
             };
 
-            setStats({
-                vendorBills: vendorStats,
-                blogPosts: blogStats,
-            });
+            setBlogStats(newBlogStats);
+        } catch (error) {
+            console.error('Error fetching blog stats:', error);
+        }
+    };
 
-            // Get recent items (last 5)
-            setRecentBills(bills.slice(0, 5));
+    const fetchDashboardData = async () => {
+        try {
+            // Fetch vendor bill summary
+            const summaryResponse = await axiosInstance.get('/vendor/purchase/bill-summary');
+            // console.log("summaryResponse", summaryResponse);
+            const summaryData = summaryResponse.data;
+
+            // Fetch recent vendor bills (first page, 5 items)
+            const recentBillsResponse = await axiosInstance.get('/vendor/purchase', {
+                params: { page: 0, size: 5 }
+            });
+            const recentBillsData = recentBillsResponse.data.content || [];
+
+            // Fetch blog posts
+            const postsResponse = await axiosInstance.get('/blog/posts');
+            const posts = postsResponse.data;
+
+            // Map summary data to state structure
+            const newVendorStats = {
+                total: summaryData.total || summaryData.totalBills || 0,
+                pending: summaryData.pending || summaryData.PENDING || 0,
+                approved: summaryData.approved || summaryData.APPROVED || 0,
+                rejected: summaryData.rejected || summaryData.declined || summaryData.REJECTED || summaryData.DECLINED || 0,
+            };
+
+            const newBlogStats = {
+                total: posts.length,
+                pending: posts.filter(p => p.status === 'PENDING').length,
+                approved: posts.filter(p => p.status === 'APPROVED').length,
+                rejected: posts.filter(p => p.status === 'REJECTED').length,
+                published: posts.filter(p => p.status === 'PUBLISHED').length,
+            };
+
+            setVendorStats(newVendorStats);
+            setBlogStats(newBlogStats);
+
+            // Set recent items
+            setRecentBills(recentBillsData);
             setRecentPosts(posts.slice(0, 5));
         } catch (error) {
             toast({
@@ -88,6 +133,8 @@ const AdminDashboard = () => {
             setLoading(false);
         }
     };
+
+    // console.log("stats", stats.vendorBills);
 
     const handleLogout = () => {
         localStorage.removeItem('adminToken');
@@ -128,7 +175,7 @@ const AdminDashboard = () => {
                     <div className="flex justify-between items-center">
                         <div>
                             <h1 className="text-3xl font-bold bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
-                                Admin Dashboard
+                                Management Dashboard
                             </h1>
                             <p className="text-sm text-gray-600 mt-1">Welcome back! Here's your overview</p>
                         </div>
@@ -140,6 +187,14 @@ const AdminDashboard = () => {
                             >
                                 <Receipt className="w-4 h-4 mr-2" />
                                 Vendor Management
+                            </Button>
+                            <Button
+                                onClick={() => navigate('/admin/vendor-accounts')}
+                                variant="outline"
+                                className="border-amber-300 text-amber-700 hover:bg-amber-50"
+                            >
+                                <Users className="w-4 h-4 mr-2" />
+                                Vendor Accounts
                             </Button>
                             <Button
                                 onClick={() => navigate('/admin/blog-management')}
@@ -170,7 +225,7 @@ const AdminDashboard = () => {
                     <Card className="shadow-lg border-amber-200/50 hover:shadow-xl transition-shadow duration-300">
                         <CardHeader className="pb-3">
                             <CardDescription className="text-xs font-medium">Total Vendor Bills</CardDescription>
-                            <CardTitle className="text-3xl font-bold text-amber-600">{stats.vendorBills.total}</CardTitle>
+                            <CardTitle className="text-3xl font-bold text-amber-600">{vendorStats.total}</CardTitle>
                         </CardHeader>
                         <CardContent>
                             <div className="flex items-center text-sm text-gray-600">
@@ -184,7 +239,7 @@ const AdminDashboard = () => {
                     <Card className="shadow-lg border-yellow-200/50 hover:shadow-xl transition-shadow duration-300">
                         <CardHeader className="pb-3">
                             <CardDescription className="text-xs font-medium">Pending Bills</CardDescription>
-                            <CardTitle className="text-3xl font-bold text-yellow-600">{stats.vendorBills.pending}</CardTitle>
+                            <CardTitle className="text-3xl font-bold text-yellow-600">{vendorStats.pending}</CardTitle>
                         </CardHeader>
                         <CardContent>
                             <div className="flex items-center text-sm text-gray-600">
@@ -198,7 +253,7 @@ const AdminDashboard = () => {
                     <Card className="shadow-lg border-blue-200/50 hover:shadow-xl transition-shadow duration-300">
                         <CardHeader className="pb-3">
                             <CardDescription className="text-xs font-medium">Total Blog Posts</CardDescription>
-                            <CardTitle className="text-3xl font-bold text-blue-600">{stats.blogPosts.total}</CardTitle>
+                            <CardTitle className="text-3xl font-bold text-blue-600">{blogStats.total}</CardTitle>
                         </CardHeader>
                         <CardContent>
                             <div className="flex items-center text-sm text-gray-600">
@@ -212,7 +267,7 @@ const AdminDashboard = () => {
                     <Card className="shadow-lg border-purple-200/50 hover:shadow-xl transition-shadow duration-300">
                         <CardHeader className="pb-3">
                             <CardDescription className="text-xs font-medium">Pending Posts</CardDescription>
-                            <CardTitle className="text-3xl font-bold text-purple-600">{stats.blogPosts.pending}</CardTitle>
+                            <CardTitle className="text-3xl font-bold text-purple-600">{blogStats.pending}</CardTitle>
                         </CardHeader>
                         <CardContent>
                             <div className="flex items-center text-sm text-gray-600">
@@ -240,21 +295,21 @@ const AdminDashboard = () => {
                                         <Clock className="w-5 h-5 mr-2 text-yellow-600" />
                                         <span className="font-medium">Pending</span>
                                     </div>
-                                    <span className="text-2xl font-bold text-yellow-600">{stats.vendorBills.pending}</span>
+                                    <span className="text-2xl font-bold text-yellow-600">{vendorStats.pending}</span>
                                 </div>
                                 <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg">
                                     <div className="flex items-center">
                                         <CheckCircle className="w-5 h-5 mr-2 text-green-600" />
                                         <span className="font-medium">Approved</span>
                                     </div>
-                                    <span className="text-2xl font-bold text-green-600">{stats.vendorBills.approved}</span>
+                                    <span className="text-2xl font-bold text-green-600">{vendorStats.approved}</span>
                                 </div>
                                 <div className="flex justify-between items-center p-3 bg-red-50 rounded-lg">
                                     <div className="flex items-center">
                                         <XCircle className="w-5 h-5 mr-2 text-red-600" />
                                         <span className="font-medium">Rejected</span>
                                     </div>
-                                    <span className="text-2xl font-bold text-red-600">{stats.vendorBills.rejected}</span>
+                                    <span className="text-2xl font-bold text-red-600">{vendorStats.rejected}</span>
                                 </div>
                             </div>
                             <Button
@@ -281,28 +336,28 @@ const AdminDashboard = () => {
                                         <Clock className="w-5 h-5 mr-2 text-yellow-600" />
                                         <span className="font-medium">Pending</span>
                                     </div>
-                                    <span className="text-2xl font-bold text-yellow-600">{stats.blogPosts.pending}</span>
+                                    <span className="text-2xl font-bold text-yellow-600">{blogStats.pending}</span>
                                 </div>
                                 <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg">
                                     <div className="flex items-center">
                                         <CheckCircle className="w-5 h-5 mr-2 text-green-600" />
                                         <span className="font-medium">Approved</span>
                                     </div>
-                                    <span className="text-2xl font-bold text-green-600">{stats.blogPosts.approved}</span>
+                                    <span className="text-2xl font-bold text-green-600">{blogStats.approved}</span>
                                 </div>
                                 <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
                                     <div className="flex items-center">
                                         <TrendingUp className="w-5 h-5 mr-2 text-blue-600" />
                                         <span className="font-medium">Published</span>
                                     </div>
-                                    <span className="text-2xl font-bold text-blue-600">{stats.blogPosts.published}</span>
+                                    <span className="text-2xl font-bold text-blue-600">{blogStats.published}</span>
                                 </div>
                                 <div className="flex justify-between items-center p-3 bg-red-50 rounded-lg">
                                     <div className="flex items-center">
                                         <XCircle className="w-5 h-5 mr-2 text-red-600" />
                                         <span className="font-medium">Rejected</span>
                                     </div>
-                                    <span className="text-2xl font-bold text-red-600">{stats.blogPosts.rejected}</span>
+                                    <span className="text-2xl font-bold text-red-600">{blogStats.rejected}</span>
                                 </div>
                             </div>
                             <Button

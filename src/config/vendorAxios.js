@@ -2,7 +2,8 @@ import axios from 'axios';
 
 // Create axios instance with default config
 const vendorAxios = axios.create({
-    baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8084/api',
+    // baseURL: import.meta.env.VITE_API_BASE_URL || 'http://103.138.96.35/api',
+     baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8084/api',
     timeout: 10000,
     headers: {
         'Content-Type': 'application/json',
@@ -15,6 +16,9 @@ vendorAxios.interceptors.request.use(
         const token = localStorage.getItem('vendorToken');
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
+        }
+        else{
+            delete config.headers.Authorization;
         }
         return config;
     },
@@ -33,7 +37,7 @@ vendorAxios.interceptors.response.use(
         //     localStorage.removeItem('vendorUser');
         //     window.location.href = '/vendor/login';
         // }
-         if (error.response?.status === 401) {
+         if (error.response?.status === 403) {
             // 🔥 Token expired or invalid
             localStorage.clear();
 

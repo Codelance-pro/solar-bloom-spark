@@ -37,16 +37,16 @@ const VendorManagement = () => {
     });
     const navigate = useNavigate();
     const { toast } = useToast();
- console.log(currentPage)
+
     useEffect(() => {
         setLoading(true);
         fetchVendors();
         setLoading(false);
-       
+
     }, []);
 
     useEffect(() => {
-        fetchAllBills(currentPage);
+        fetchAllBills(currentPage, selectedVendorId);
     }, [currentPage]);
 
     // useEffect(() => {
@@ -56,67 +56,79 @@ const VendorManagement = () => {
 
     const fetchVendors = async () => {
         try {
-            const response = await axiosInstance.get('/users/vendors');
+            const response = await axiosInstance.get('/users/alluser');
+            console.log("response", response.data)
             setVendors(response.data);
         } catch (error) {
             console.error("Failed to fetch vendors:", error);
         }
     };
 
-const fetchAllBills = async (page = 1) => {
-  setLoading(true);
-  try {
-    console.log("page",page)
-    const response = await axiosInstance.get('/vendor/purchase', {
-      params: {
-        page: page - 1, // Spring uses 0-based index
-        size: itemsPerPage,
-      },
-    });
+    const fetchAllBills = async (page = 1, vendorId = 'all') => {
+        setLoading(true);
+        try {
+            console.log("page", page, "vendorId", vendorId);
 
-    console.log("response",response.data)
+            let response;
 
-    setBills(response.data.content);        // 👈 only 10 items
-    setTotalPages(response.data.totalPages); // 👈 real page count
-  } catch (error) {
-    setBills([]);
-    setTotalPages(0);
-  } finally {
-    setLoading(false);
-  }
-};
+            if (vendorId === 'all') {
+                // Fetch all bills with pagination
+                response = await axiosInstance.get('/vendor/purchase', {
+                    params: {
+                        page: page - 1, // Spring uses 0-based index
+                        size: itemsPerPage,
+                    },
+                });
+            } else {
+                // Fetch vendor-specific bills with pagination using new endpoint
+                response = await axiosInstance.get(`/vendor/purchase/${vendorId}/bills`, {
+                    params: {
+                        page: page - 1, // Spring uses 0-based index
+                        size: itemsPerPage,
+                    },
+                });
+            }
+
+            console.log("response", response.data);
+
+            setBills(response.data.content);        // 👈 only 10 items
+            setTotalPages(response.data.totalPages); // 👈 real page count
+        } catch (error) {
+            console.error("Error fetching bills:", error);
+            setBills([]);
+            setTotalPages(0);
+        } finally {
+            setLoading(false);
+        }
+    };
 
 
 
-  const fetchVendorBills = async (vendorId) => {
-  setLoading(true);
-  try {
-    const response = await axiosInstance.get(`/admin/purchases/vendor/${vendorId}`);
-    const data = response.data;
+    //   const fetchVendorBills = async (vendorId) => {
+    //   setLoading(true);
+    //   try {
+    //     const response = await axiosInstance.get(`/admin/purchases/vendor/${vendorId}`);
+    //     const data = response.data;
 
-    if (Array.isArray(data)) {
-      setBills(data);
-    } else if (Array.isArray(data?.content)) {
-      setBills(data.content);
-    } else {
-      setBills([]);
-    }
-  } catch (error) {
-    setBills([]);
-  } finally {
-    setLoading(false);
-  }
-};
+    //     if (Array.isArray(data)) {
+    //       setBills(data);
+    //     } else if (Array.isArray(data?.content)) {
+    //       setBills(data.content);
+    //     } else {
+    //       setBills([]);
+    //     }
+    //   } catch (error) {
+    //     setBills([]);
+    //   } finally {
+    //     setLoading(false);
+    //   }
+    // };
 
 
     const handleVendorChange = (vendorId) => {
         setSelectedVendorId(vendorId);
-        if (vendorId === 'all') {
-            fetchAllBills().then(() => setLoading(false));
-            setLoading(true);
-        } else {
-            fetchVendorBills(vendorId);
-        }
+        setCurrentPage(1); // Reset to first page when changing vendor
+        fetchAllBills(1, vendorId);
     };
 
     const handleApproveStatusUpdate = async (billId) => {
@@ -128,11 +140,7 @@ const fetchAllBills = async (page = 1) => {
                 description: `Bill approved successfully`,
             });
 
-            if (selectedVendorId === 'all') {
-                fetchAllBills();
-            } else {
-                fetchVendorBills(selectedVendorId);
-            }
+            fetchAllBills(currentPage, selectedVendorId);
             setSelectedBill(null);
             setAdminRemark('');
         } catch (error) {
@@ -157,11 +165,7 @@ const fetchAllBills = async (page = 1) => {
                 description: `Bill rejected successfully`,
             });
 
-            if (selectedVendorId === 'all') {
-                fetchAllBills();
-            } else {
-                fetchVendorBills(selectedVendorId);
-            }
+            fetchAllBills(currentPage, selectedVendorId);
             setSelectedBill(null);
             setAdminRemark('');
         } catch (error) {
@@ -175,55 +179,55 @@ const fetchAllBills = async (page = 1) => {
         }
     };
 
-const handleCreateVendor = async (e) => {
-    e.preventDefault();
-    setActionLoading(true);
+    const handleCreateVendor = async (e) => {
+        e.preventDefault();
+        setActionLoading(true);
 
-    try {
-        const payload = {
-            ...createVendorForm,
-            role: 'VENDOR',
-            status: 'ACTIVE',
-        };
+        try {
+            const payload = {
+                ...createVendorForm,
+                role: 'VENDOR',
+                status: 'ACTIVE',
+            };
 
-        const response = await axiosInstance.post('/users', payload);
+            const response = await axiosInstance.post('/users', payload);
 
-        console.log("response", response);
+            console.log("response", response);
 
-        toast({
-            title: 'Vendor Created',
-            description: 'Vendor created and email sent successfully',
-        });
+            toast({
+                title: 'Vendor Created',
+                description: 'Vendor created and email sent successfully',
+            });
 
-        setCreateVendorOpen(false);
-        // fetchVendors();
+            setCreateVendorOpen(false);
+            // fetchVendors();
 
-    } catch (error) {
+        } catch (error) {
 
-        console.log("error", error);
-        // ✅ Axios error structure
-        // const status = error.response?.status;
-        // const message =
-        //     error.response?.data?.message ??
-        //     'Unable to process request. Please try again.';
+            console.log("error", error);
+            // ✅ Axios error structure
+            // const status = error.response?.status;
+            // const message =
+            //     error.response?.data?.message ??
+            //     'Unable to process request. Please try again.';
 
-        // if (status === 400) {
-        //     toast({
-        //         title: 'Email Failed',
-        //         description: message,
-        //         variant: 'destructive',
-        //     });
-        //     return;
-        // }
+            // if (status === 400) {
+            //     toast({
+            //         title: 'Email Failed',
+            //         description: message,
+            //         variant: 'destructive',
+            //     });
+            //     return;
+            // }
 
-        // toast({
-        //     title: 'Error',
-        //     description: message,
-        //     variant: 'destructive',
-        // });
+            // toast({
+            //     title: 'Error',
+            //     description: message,
+            //     variant: 'destructive',
+            // });
 
-    }
-};
+        }
+    };
 
 
 
@@ -248,16 +252,16 @@ const handleCreateVendor = async (e) => {
 
     const safeBills = Array.isArray(bills) ? bills : [];
 
- const filteredBills = safeBills.filter((bill) => {
-  const matchesStatus =
-    statusFilter === 'all' || bill.status === statusFilter;
-console.log(matchesStatus)
-  const query = searchQuery.toLowerCase();
-  const productName = bill.productName?.toLowerCase() || '';
-  const billNumber = bill.billNumber?.toString().toLowerCase() || '';
+    const filteredBills = safeBills.filter((bill) => {
+        const matchesStatus =
+            statusFilter === 'all' || bill.status === statusFilter;
+        console.log(matchesStatus)
+        const query = searchQuery.toLowerCase();
+        const productName = bill.productName?.toLowerCase() || '';
+        const billNumber = bill.billNumber?.toString().toLowerCase() || '';
 
-  return matchesStatus && (productName.includes(query) || billNumber.includes(query));
-});
+        return matchesStatus && (productName.includes(query) || billNumber.includes(query));
+    });
 
 
     const downloadInvoice = async (purchaseId) => {
@@ -332,7 +336,7 @@ console.log(matchesStatus)
 
 
 
-    
+
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50">
@@ -349,10 +353,10 @@ console.log(matchesStatus)
                         <div className="flex gap-3">
                             <Dialog open={createVendorOpen} onOpenChange={setCreateVendorOpen}>
                                 <DialogTrigger asChild>
-                                    <Button className="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white shadow-md">
+                                    {/* <Button className="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white shadow-md">
                                         <Plus className="w-4 h-4 mr-2" />
                                         Add Vendor
-                                    </Button>
+                                    </Button> */}
                                 </DialogTrigger>
                                 <DialogContent>
                                     <DialogHeader>
@@ -421,14 +425,14 @@ console.log(matchesStatus)
                             <div className="lg:w-64">
                                 <Label htmlFor="vendor-select" className="text-sm font-medium mb-2 block">Filter by Vendor</Label>
                                 <Select value={selectedVendorId} onValueChange={handleVendorChange}>
-                                    <SelectTrigger id="vendor-select" className="border-gray-300">
+                                    <SelectTrigger id="vendor-select" className="border-gray-300 ">
                                         <Users className="w-4 h-4 mr-2 text-gray-500" />
                                         <SelectValue placeholder="Select Vendor" />
                                     </SelectTrigger>
                                     <SelectContent>
                                         <SelectItem value="all">All Vendors</SelectItem>
                                         {vendors.map((vendor) => (
-                                            <SelectItem key={vendor.id} value={vendor.id.toString()}>{vendor.name}</SelectItem>
+                                            <SelectItem className="bg-white" key={vendor.id} value={vendor.user.toString()}>{vendor.vendorName}</SelectItem>
                                         ))}
                                     </SelectContent>
                                 </Select>
@@ -654,8 +658,8 @@ console.log(matchesStatus)
                                                                 size="sm"
                                                                 variant={page === currentPage ? "default" : "outline"}
                                                                 className={`w-9 h-9 p-0 transition-all duration-200 ${page === currentPage
-                                                                        ? "bg-gradient-to-r from-amber-600 to-orange-600 border-none shadow-md hover:scale-105"
-                                                                        : "border-amber-200 hover:bg-amber-50 text-amber-700"
+                                                                    ? "bg-gradient-to-r from-amber-600 to-orange-600 border-none shadow-md hover:scale-105"
+                                                                    : "border-amber-200 hover:bg-amber-50 text-amber-700"
                                                                     }`}
                                                                 onClick={() => setCurrentPage(page)}
                                                             >

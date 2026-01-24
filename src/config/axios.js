@@ -4,6 +4,7 @@ import axios from 'axios';
 // Axios instance
 // --------------------------------------------------
 const axiosInstance = axios.create({
+    // baseURL: import.meta.env.VITE_API_BASE_URL || 'http://103.138.96.35/api',
     baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8084/api',
     timeout: 30000,
     headers: {
@@ -42,7 +43,7 @@ axiosInstance.interceptors.response.use(
         if (error.response?.status === 401) {
             // 🔥 Token expired or invalid
             localStorage.clear();
-            
+
             // Optional: prevent redirect loop
             if (!window.location.pathname.includes('/login')) {
                 window.location.href = '/admin/login';

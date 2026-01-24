@@ -22,6 +22,7 @@ import VendorManagement from "./pages/VendorManagement";
 import BlogManagement from "./pages/BlogManagement";
 import VendorLogin from "./pages/VendorLogin";
 import VendorDashboard from "./pages/VendorDashboard";
+import VendorAccounts from "./pages/VendorAccounts";
 
 import Navbar from "@/components/Navbar";
 import Footer from "./components/Footer";
@@ -85,6 +86,14 @@ const App = () => (
               element={
                 <ProtectedRoute>
                   <VendorManagement />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/vendor-accounts"
+              element={
+                <ProtectedRoute>
+                  <VendorAccounts />
                 </ProtectedRoute>
               }
             />
