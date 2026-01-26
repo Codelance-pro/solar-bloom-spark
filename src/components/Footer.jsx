@@ -20,7 +20,7 @@ const Footer = () => {
 
   const handleSubscribe = () => {
     if (email) {
-      console.log("Subscribed:", email);
+      
       setEmail("");
     }
   };

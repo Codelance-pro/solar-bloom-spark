@@ -97,7 +97,6 @@ const VendorAccounts = () => {
                 },
             });
 
-            console.log(response.data);
 
             // Handle paginated response
             if (response.data.content) {
@@ -184,7 +183,7 @@ const VendorAccounts = () => {
 
     const handleEditClick = (vendor) => {
         setCurrentVendor(vendor);
-        console.log(vendor);
+       
         setEditForm({
             vendorType: vendor.vendorType || '',
             vendorName: vendor.vendorName || '',
@@ -209,7 +208,7 @@ const VendorAccounts = () => {
 
     const handleViewDetails = async (vendor) => {
         try {
-            console.log("sss".vendor);
+            
             const response = await axiosInstance.get(`/users/${vendor}`);
             setViewVendor(response.data);
             setViewDetailsOpen(true);

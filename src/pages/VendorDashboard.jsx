@@ -80,7 +80,7 @@ const VendorDashboard = () => {
 
     const fetchMyBills = async (vendorId, page = 1) => {
         setLoadingBills(true);
-        console.log(vendorId, page);
+
         try {
             const response = await vendorAxios.get(`/vendor/purchase/${vendorId}/bills`, {
                 params: {
@@ -88,7 +88,7 @@ const VendorDashboard = () => {
                     size: itemsPerPage
                 }
             });
-            console.log("Bills Data:", response.data);
+            ("Bills Data:", response.data);
 
             if (response.data.content) {
                 setBills(response.data.content);
@@ -247,7 +247,7 @@ const VendorDashboard = () => {
                 formData.append("file", pdfFile);
             }
 
-            console.log("Submitting payload via Multipart:", model);
+            
 
             await vendorAxios.post('/vendor/purchase', formData, {
                 headers: {
@@ -333,7 +333,7 @@ const VendorDashboard = () => {
 
     const deleteBill = async (purchaseId) => {
         try {
-            console.log(purchaseId);
+            
             await vendorAxios.delete(`/vendor/purchase/${purchaseId}`);
             toast({
                 title: 'Success',

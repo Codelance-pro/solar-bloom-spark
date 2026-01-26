@@ -57,7 +57,7 @@ const VendorManagement = () => {
     const fetchVendors = async () => {
         try {
             const response = await axiosInstance.get('/users/alluser');
-            console.log("response", response.data)
+           
             setVendors(response.data);
         } catch (error) {
             console.error("Failed to fetch vendors:", error);
@@ -67,7 +67,7 @@ const VendorManagement = () => {
     const fetchAllBills = async (page = 1, vendorId = 'all') => {
         setLoading(true);
         try {
-            console.log("page", page, "vendorId", vendorId);
+            
 
             let response;
 
