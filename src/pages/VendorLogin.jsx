@@ -56,7 +56,7 @@ const VendorLogin = () => {
             });
 
             // Redirect to vendor dashboard
-            navigate('/vendor/dashboard');
+            window.location.hash = '#/vendor/dashboard';
         } catch (error) {
             console.error(error);
             toast({
@@ -64,6 +64,7 @@ const VendorLogin = () => {
                 description: error.response?.data?.message || error.message || 'Invalid credentials. Please try again.',
                 variant: 'destructive',
             });
+            window.location.hash = '#/vendor/login';
         } finally {
             setLoading(false);
         }
@@ -87,7 +88,7 @@ const VendorLogin = () => {
                 </CardHeader>
 
                 <CardContent>
-                    <form onSubmit={handleSubmit} className="space-y-5">
+                    <form onSubmit={handleSubmit} noValidate className="space-y-5">
                         <div className="space-y-2">
                             <Label htmlFor="email" className="text-sm font-medium text-gray-700">
                                 Email Address

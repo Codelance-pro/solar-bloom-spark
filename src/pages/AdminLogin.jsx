@@ -54,13 +54,14 @@ const AdminLogin = () => {
             });
 
             // Redirect to admin dashboard
-            navigate('/admin/dashboard');
+            window.location.hash = '#/admin/dashboard';
         } catch (error) {
             toast({
                 title: 'Login Failed',
                 description: error.response?.data?.message || 'Invalid credentials. Please try again.',
                 variant: 'destructive',
             });
+            window.location.hash = '#/admin/login';
         } finally {
             setLoading(false);
         }
@@ -84,7 +85,7 @@ const AdminLogin = () => {
                 </CardHeader>
 
                 <CardContent>
-                    <form onSubmit={handleSubmit} className="space-y-5">
+                    <form onSubmit={handleSubmit} noValidate className="space-y-5">
                         <div className="space-y-2">
                             <Label htmlFor="email" className="text-sm font-medium text-gray-700">
                                 Email Address

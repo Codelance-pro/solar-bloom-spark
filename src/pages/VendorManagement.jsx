@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '@/config/axios';
 import vendorAxios from '@/config/vendorAxios';
@@ -28,6 +28,7 @@ const VendorManagement = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
     const itemsPerPage = 10;
+    const isFirstRender = useRef(true);
     const [createVendorForm, setCreateVendorForm] = useState({
         name: '',
         email: '',
@@ -46,32 +47,53 @@ const VendorManagement = () => {
     }, []);
 
     useEffect(() => {
-        fetchAllBills(currentPage, selectedVendorId);
+        fetchAllBills(currentPage, selectedVendorId, searchQuery);
     }, [currentPage]);
 
-    // useEffect(() => {
-    //     setCurrentPage(1);
-    // }, [selectedVendorId, statusFilter, searchQuery]);
+    // Debounce search
+    useEffect(() => {
+        if (isFirstRender.current) {
+            isFirstRender.current = false;
+            return;
+        }
+
+        const delayDebounceFn = setTimeout(() => {
+            if (currentPage === 1) {
+                fetchAllBills(1, selectedVendorId, searchQuery);
+            } else {
+                setCurrentPage(1);
+            }
+        }, 500);
+
+        return () => clearTimeout(delayDebounceFn);
+    }, [searchQuery]);
 
 
     const fetchVendors = async () => {
         try {
             const response = await axiosInstance.get('/users/alluser');
-           
+
             setVendors(response.data);
         } catch (error) {
             console.error("Failed to fetch vendors:", error);
         }
     };
 
-    const fetchAllBills = async (page = 1, vendorId = 'all') => {
+    const fetchAllBills = async (page = 1, vendorId = 'all', search = '') => {
         setLoading(true);
         try {
-            
-
             let response;
 
-            if (vendorId === 'all') {
+            if (search && search.trim().length > 0) {
+                // Search endpoint
+                response = await axiosInstance.get('vendor/purchase/admin/vendor/bills/search', {
+                    params: {
+                        q: search,
+                        page: page - 1,
+                        size: itemsPerPage,
+                    },
+                });
+            } else if (vendorId === 'all') {
                 // Fetch all bills with pagination
                 response = await axiosInstance.get('/vendor/purchase', {
                     params: {
@@ -109,7 +131,7 @@ const VendorManagement = () => {
     //   try {
     //     const response = await axiosInstance.get(`/admin/purchases/vendor/${vendorId}`);
     //     const data = response.data;
-
+    //
     //     if (Array.isArray(data)) {
     //       setBills(data);
     //     } else if (Array.isArray(data?.content)) {
@@ -127,8 +149,9 @@ const VendorManagement = () => {
 
     const handleVendorChange = (vendorId) => {
         setSelectedVendorId(vendorId);
+        setSearchQuery(''); // Clear search when changing vendor filter to avoid confusion
         setCurrentPage(1); // Reset to first page when changing vendor
-        fetchAllBills(1, vendorId);
+        fetchAllBills(1, vendorId, '');
     };
 
     const handleApproveStatusUpdate = async (billId) => {
@@ -140,7 +163,7 @@ const VendorManagement = () => {
                 description: `Bill approved successfully`,
             });
 
-            fetchAllBills(currentPage, selectedVendorId);
+            fetchAllBills(currentPage, selectedVendorId, searchQuery);
             setSelectedBill(null);
             setAdminRemark('');
         } catch (error) {
@@ -165,7 +188,7 @@ const VendorManagement = () => {
                 description: `Bill rejected successfully`,
             });
 
-            fetchAllBills(currentPage, selectedVendorId);
+            fetchAllBills(currentPage, selectedVendorId, searchQuery);
             setSelectedBill(null);
             setAdminRemark('');
         } catch (error) {
@@ -252,15 +275,17 @@ const VendorManagement = () => {
 
     const safeBills = Array.isArray(bills) ? bills : [];
 
+    // Client-side filtering only for status now, as search is backend-driven
     const filteredBills = safeBills.filter((bill) => {
         const matchesStatus =
             statusFilter === 'all' || bill.status === statusFilter;
-        console.log(matchesStatus)
-        const query = searchQuery.toLowerCase();
-        const productName = bill.productName?.toLowerCase() || '';
-        const billNumber = bill.billNumber?.toString().toLowerCase() || '';
+        // console.log(matchesStatus)
+        // Search is now handled by backend
+        // const query = searchQuery.toLowerCase();
+        // const productName = bill.productName?.toLowerCase() || '';
+        // const billNumber = bill.billNumber?.toString().toLowerCase() || '';
 
-        return matchesStatus && (productName.includes(query) || billNumber.includes(query));
+        return matchesStatus; // && (productName.includes(query) || billNumber.includes(query));
     });
 
 
@@ -463,7 +488,7 @@ const VendorManagement = () => {
                                         <SelectItem value="all">All Status</SelectItem>
                                         <SelectItem value="PENDING">Pending</SelectItem>
                                         <SelectItem value="APPROVED">Approved</SelectItem>
-                                        <SelectItem value="REJECTED">Declined</SelectItem>
+                                        <SelectItem value="DECLINED">Declined</SelectItem>
                                     </SelectContent>
                                 </Select>
                             </div>

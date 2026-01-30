@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create axios instance with default config
 const vendorAxios = axios.create({
-    // baseURL: import.meta.env.VITE_API_BASE_URL || 'http://103.138.96.35/api',
+    // baseURL: import.meta.env.VITE_API_BASE_URL || 'https://api.enfros.net/api',
      baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8084/api',
     timeout: 10000,
     headers: {
@@ -37,7 +37,7 @@ vendorAxios.interceptors.response.use(
         //     localStorage.removeItem('vendorUser');
         //     window.location.href = '/vendor/login';
         // }
-         if (error.response?.status === 403) {
+         if (error.response?.status === 403 || error.response?.status === 401) {
             // 🔥 Token expired or invalid
             localStorage.clear();
 

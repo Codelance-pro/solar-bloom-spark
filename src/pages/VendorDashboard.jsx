@@ -763,6 +763,7 @@ const VendorDashboard = () => {
                                                     <Input
                                                         id="vendorType"
                                                         name="vendorType"
+                                                        disabled
                                                         value={profileForm.vendorType}
                                                         onChange={handleProfileChange}
                                                         placeholder="e.g., SUPPLIER"
@@ -784,6 +785,7 @@ const VendorDashboard = () => {
                                                     <Input
                                                         id="gstNo"
                                                         name="gstNo"
+                                                        disabled
                                                         value={profileForm.gstNo}
                                                         onChange={handleProfileChange}
                                                         className="border-amber-200"
@@ -794,6 +796,7 @@ const VendorDashboard = () => {
                                                     <Input
                                                         id="panNo"
                                                         name="panNo"
+                                                        disabled
                                                         value={profileForm.panNo}
                                                         onChange={handleProfileChange}
                                                         className="border-amber-200"
@@ -882,6 +885,7 @@ const VendorDashboard = () => {
                                                     <Input
                                                         id="bankName"
                                                         name="bankName"
+                                                        disabled
                                                         value={profileForm.bankName}
                                                         onChange={handleProfileChange}
                                                         className="border-amber-200"
@@ -892,6 +896,7 @@ const VendorDashboard = () => {
                                                     <Input
                                                         id="bankAccountNo"
                                                         name="bankAccountNo"
+                                                        disabled
                                                         value={profileForm.bankAccountNo}
                                                         onChange={handleProfileChange}
                                                         className="border-amber-200"
@@ -902,6 +907,7 @@ const VendorDashboard = () => {
                                                     <Input
                                                         id="bankIfsc"
                                                         name="bankIfsc"
+                                                        disabled
                                                         value={profileForm.bankIfsc}
                                                         onChange={handleProfileChange}
                                                         className="border-amber-200"
@@ -912,6 +918,7 @@ const VendorDashboard = () => {
                                                     <Input
                                                         id="bankAccountHolderName"
                                                         name="bankAccountHolderName"
+                                                        disabled
                                                         value={profileForm.bankAccountHolderName}
                                                         onChange={handleProfileChange}
                                                         className="border-amber-200"
@@ -922,6 +929,7 @@ const VendorDashboard = () => {
                                                     <Input
                                                         id="bankCountry"
                                                         name="bankCountry"
+                                                        disabled
                                                         value={profileForm.bankCountry}
                                                         onChange={handleProfileChange}
                                                         className="border-amber-200"

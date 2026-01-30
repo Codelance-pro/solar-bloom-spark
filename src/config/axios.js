@@ -4,8 +4,9 @@ import axios from 'axios';
 // Axios instance
 // --------------------------------------------------
 const axiosInstance = axios.create({
-    // baseURL: import.meta.env.VITE_API_BASE_URL || 'http://103.138.96.35/api',
-    baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8084/api',
+    // baseURL: import.meta.env.VITE_API_BASE_URL || 'https://api.enfros.net/api',
+     baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8084/api',
+    withCredentials:false,
     timeout: 30000,
     headers: {
         'Content-Type': 'application/json',
@@ -40,7 +41,7 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
     (response) => response,
     (error) => {
-        if (error.response?.status === 401) {
+        if (error.response?.status === 401 || error.response?.status === 403) {
             // 🔥 Token expired or invalid
             localStorage.clear();
 
