@@ -3,7 +3,7 @@ import { ArrowRight, Sun, Zap, Phone, Mail, MapPin, Award, Shield, Clock, Chevro
 import { useState, useEffect } from "react";
 import heroImage from "@/assets/hero-solar.jpg";
 import logoImage from "@/assets/logohome.png";
-import solar_landing_match_logo from "@/assets/solar_landing_match_logo.png";
+import solar_landing_match_logo from "@/assets/animated.png";
 import solar1 from "../assets/solar1.jpg"
 import solar2 from "../assets/solar2.jpg"
 import solar3 from "../assets/solar3.jpg"
@@ -161,9 +161,36 @@ const Home = () => {
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener('scroll', handleScroll);
 
+    // Intersection Observer for scroll animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-in');
+        }
+      });
+    }, observerOptions);
+
+    // Observe service cards
+    const serviceCards = document.querySelectorAll('.service-card');
+    serviceCards.forEach(card => observer.observe(card));
+
+    // Observe workflow steps
+    const workflowSteps = document.querySelectorAll('.workflow-step');
+    workflowSteps.forEach(step => observer.observe(step));
+
+    // Observe about section image
+    const aboutImage = document.querySelector('.about-image');
+    if (aboutImage) observer.observe(aboutImage);
+
     return () => {
       clearInterval(timer);
       window.removeEventListener('scroll', handleScroll);
+      observer.disconnect();
     };
   }, [bannerSlides.length]);
 
@@ -202,6 +229,17 @@ const Home = () => {
   };
 
   const SlideIcon = bannerSlides[currentSlide].icon;
+
+  const workflowSteps = [
+    { number: "2", icon: "⚙️", title: "Quality Practices", position: "top" },
+    { number: "1", icon: "🌞", title: "Integrity", position: "bottom" },
+    { number: "4", icon: "🏠", title: "Excellence Through Innovation", position: "top" },
+    { number: "3", icon: "📋", title: "Professionalism", position: "bottom" },
+    { number: "6", icon: "🏭", title: "Lifelong Relationship", position: "top" },
+    { number: "5", icon: "💰", title: "Enhanced Customer Services", position: "bottom" },
+    { number: "7", icon: "📊", title: "Prompt Delivery", position: "top" },
+    { number: "8", icon: "📊", title: "Exhaustive Wide Variety", position: "bottom" }
+  ];
 
   return (
     <>
@@ -247,6 +285,16 @@ const Home = () => {
           0% { background-position: -1000px 0; }
           100% { background-position: 1000px 0; }
         }
+
+        @keyframes slide-up {
+          from { opacity: 0; transform: translateY(50px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes scale-in {
+          from { opacity: 0; transform: scale(0.8); }
+          to { opacity: 1; transform: scale(1); }
+        }
         
         .animate-float { animation: float 3s ease-in-out infinite; }
         .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
@@ -255,6 +303,42 @@ const Home = () => {
         .animate-fade-in-up { animation: fade-in-up 0.6s ease-out forwards; }
         .animate-rotate { animation: rotate-360 20s linear infinite; }
         .animate-bounce-in { animation: bounce-in 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards; }
+        
+        /* Scroll Animation Classes */
+        .service-card,
+        .workflow-step,
+        .about-image {
+          opacity: 0;
+          transform: translateY(50px);
+          transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .service-card.animate-in {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .workflow-step.animate-in {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .about-image.animate-in {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+
+        .service-card:nth-child(1) { transition-delay: 0.1s; }
+        .service-card:nth-child(2) { transition-delay: 0.2s; }
+        .service-card:nth-child(3) { transition-delay: 0.3s; }
+
+        .workflow-step:nth-child(1) { transition-delay: 0.1s; }
+        .workflow-step:nth-child(2) { transition-delay: 0.2s; }
+        .workflow-step:nth-child(3) { transition-delay: 0.3s; }
+        .workflow-step:nth-child(4) { transition-delay: 0.4s; }
+        .workflow-step:nth-child(5) { transition-delay: 0.5s; }
+        .workflow-step:nth-child(6) { transition-delay: 0.6s; }
+        .workflow-step:nth-child(7) { transition-delay: 0.7s; }
         
         .shimmer-effect {
           background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
@@ -456,175 +540,332 @@ const Home = () => {
         </div>
       </section> */}
 
-      {/* Key Highlights */}
-      <section className="py-16 md:py-24 bg-gradient-to-b from-yellow-50 to-amber-50 relative overflow-hidden">
-        {/* Animated Background */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-yellow-300/10 rounded-full blur-3xl animate-float"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-amber-300/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '1.5s' }}></div>
-
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-3xl mx-auto text-center mb-16 animate-fade-in-up">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 text-gray-900">
-              About <span className="bg-gradient-to-r from-yellow-600 to-amber-600 bg-clip-text text-transparent">Our Company</span>
-            </h2>
-            <p className="text-lg md:text-xl text-gray-700">
-              Enfros is a renewable energy service provider specializing in solar
-              power solutions. With over 16  years of combined experience in solar and
-              renewable energy, our directors lead the way. We have completed construction
-              projects totaling over 2000   MW, including Installation&Commissioning
-              (I&C) and Balance of System (BOS). Our goal is to become the LEADING EPC
-              SERVICE PROVIDER in the solar power plant industry.
-            </p>
+      {/* Combined About & Why Choose Us Section */}
+      <section className="py-12 md:py-16 bg-white relative overflow-hidden">
+        <div className="flex items-center">
+          {/* Left Column: Image/Graphic - Fixed to left edge */}
+          <div className="hidden lg:block w-[400px] xl:w-[500px] flex-shrink-0 relative about-image animate-fade-in-up">
+            <img
+              src={solar_landing_match_logo}
+              alt="Enfros Solar Ecosystem"
+              className="w-full h-auto object-contain hover:scale-105 transition-transform duration-500 drop-shadow-xl"
+            />
+            {/* Decorative background blob */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-br from-yellow-50 to-amber-100 rounded-full blur-3xl -z-10 opacity-60"></div>
           </div>
 
+          {/* Right Column: Content - Centered */}
+          <div className="flex-1 flex justify-center">
+            <div className="max-w-2xl px-4 sm:px-6 lg:px-8 space-y-5 animate-slide-in-right">
 
-          <div className="max-w-3xl mx-auto text-center mb-16 animate-fade-in-up">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 text-gray-900">
-              Why <span className="bg-gradient-to-r from-yellow-600 to-amber-600 bg-clip-text text-transparent">Choose Us ?</span>
-            </h2>
-          </div>
 
-          <div className="max-w-6xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-8">
-              {highlights.map((highlight, index) => {
-                const HighlightIcon = highlight.icon;
-                return (
-                  <div
-                    key={index}
-                    className="group relative bg-white rounded-2xl p-8 border-2 border-yellow-200 hover:border-yellow-400 hover:shadow-xl hover:shadow-yellow-200/50 transition-all duration-300 hover-lift animate-bounce-in"
-                    style={{ animationDelay: `${index * 0.2}s`, opacity: 0 }}
-                  >
-                    <div className="relative z-10">
-                      <div className={`inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br ${highlight.colorClass} rounded-xl mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                        <HighlightIcon className="h-8 w-8 text-white group-hover:animate-pulse" />
+              {/* Mobile Image */}
+              <div className="lg:hidden mb-8">
+                <img
+                  src={solar_landing_match_logo}
+                  alt="Enfros Solar Ecosystem"
+                  className="w-full max-w-md mx-auto h-auto object-contain drop-shadow-lg"
+                />
+              </div>
+
+              {/* About Header */}
+              <div>
+                <div className="flex items-center space-x-2 text-yellow-600 font-bold uppercase tracking-widest text-sm mb-2">
+                  <Leaf className="w-4 h-4" />
+                  <span>About Our Company</span>
+                </div>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 leading-none tracking-tight mb-4 uppercase">
+                  ENFROS INDIA <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-amber-600">PRIVATE LIMITED</span>
+                </h2>
+              </div>
+
+              {/* Description */}
+              <div className="text-gray-700 text-base md:text-lg leading-relaxed space-y-3 font-medium">
+                <p>
+                  Enfros is a leading renewable energy service provider specializing in sustainable power solutions. Since 2008, we have been actively involved in solar, wind, and energy storage projects. Our expertise spans project setup, execution, and investment models.
+                </p>
+                <p>
+                  As an ISO-certified contractor, we deliver efficient EPC services, I&C, and BOS solutions. We have completed over 2000 MW of projects, aiming to be the premier service provider in the industry.
+                </p>
+              </div>
+
+              {/* Why Choose Us */}
+              <div className="pt-4">
+                <h3 className="text-2xl font-bold text-gray-900 mb-4 font-sans">Why Choose Us?</h3>
+                <ul className="space-y-2">
+                  {[
+                    "Over 16+ years of experience in the renewable sector",
+                    "Successfully executed large-scale projects (2000+ MW)",
+                    "Strong expertise in project management & engineering",
+                    "Trusted by leading suppliers and vendors",
+                    "ISO-Certified Company"
+                  ].map((item, index) => (
+                    <li key={index} className="flex items-start">
+                      <div className="flex-shrink-0 mt-1">
+                        <div className="w-5 h-5 rounded-full bg-yellow-100 flex items-center justify-center border border-yellow-300">
+                          <CheckCircle2 className="w-3 h-3 text-yellow-700" />
+                        </div>
                       </div>
-                      <h3 className="text-2xl font-bold mb-4 text-gray-900 group-hover:text-yellow-700 transition-colors">
-                        {highlight.title}
-                      </h3>
-                      <p className="text-gray-600 leading-relaxed">
-                        {highlight.desc}
-                      </p>
-                      <div className="mt-6 flex items-center text-yellow-600 font-semibold group-hover:translate-x-2 transition-transform duration-300">
-                        Learn More <ArrowRight className="ml-2 h-5 w-5" />
+                      <div className="ml-3">
+                        <span className="text-base font-semibold text-gray-800">{item}</span>
                       </div>
-                    </div>
-                  </div>
-                );
-              })}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Decorative Bottom Graphic */}
+              <div className="absolute bottom-0 right-0 hidden lg:block opacity-20 pointer-events-none">
+                {/* Reuse an icon or simple graphic to mimic the reference's turbines if possible, or just a nice flare */}
+                <Sun className="w-64 h-64 text-yellow-400 -mb-20 -mr-20 animate-spin-slow" style={{ animationDuration: '60s' }} />
+              </div>
+
             </div>
           </div>
         </div>
       </section>
 
-      {/* Services */}
-      <section className="py-16 md:py-24 bg-gradient-to-b from-amber-50 to-yellow-100 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-yellow-400/20 rounded-full blur-3xl animate-float"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-amber-400/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }}></div>
-        </div>
-
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-3xl mx-auto text-center mb-16 animate-fade-in-up">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 text-gray-900">
-              What We <span className="bg-gradient-to-r from-yellow-600 to-amber-600 bg-clip-text text-transparent"> Do Best</span>
-            </h2>
-            <p className="text-lg md:text-xl text-gray-700">
-              With over 16 years of expertise, Enfros India is a trusted name in EPC
-              and C&I solar services. We leverage advanced solar technologies to provide
-              sustainable and affordable power solutions, ensuring continuous customer value
-              through superior service and rapid response.
-
-            </p>
-          </div>
-
-          <div className="max-w-6xl mx-auto">
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-              {services.map((service, index) => (
-                <a
-                  key={index}
-                  href={service.link}
-                  className="group relative bg-white p-8 rounded-2xl border-2 border-yellow-200 hover:border-yellow-400 hover:shadow-xl hover:shadow-yellow-200/50 transition-all duration-300 hover-lift animate-bounce-in"
-                  style={{ animationDelay: `${index * 0.15}s`, opacity: 0 }}
-                >
-                  <div className="relative z-10 text-center">
-                    <img src={service.image} alt={service.name} className="w-full h-48 object-cover rounded-2xl mb-6 group-hover:scale-105 transition-transform duration-300" />
-                    {/* <div className="text-5xl mb-6 inline-block group-hover:scale-125 transition-transform duration-300">
-                      {service.icon}
-                    </div> */}
-                    <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-yellow-700 transition-colors">
-                      {service.name}
-                    </h3>
-                    <p className="text-gray-600 text-sm mb-4">{service.desc}</p>
-                    <div className="flex items-center justify-center text-yellow-600 font-semibold group-hover:translate-x-2 transition-transform duration-300">
-                      Explore <ArrowRight className="ml-2 h-4 w-4" />
-                    </div>
-                  </div>
-                </a>
-              ))}
-            </div>
-
-            <div className="text-center animate-fade-in-up">
-              <Button
-                size="lg"
-                className="bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 text-white font-semibold shadow-lg hover:shadow-yellow-500/50 transition-all duration-300 hover:scale-105 relative overflow-hidden group"
-              >
-                <span className="absolute inset-0 shimmer-effect"></span>
-                <span className="relative">View All Services</span>
-                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-
-
-      {/* How We Do Section */}
-      <section className="bg-gradient-to-br from-amber-50 via-yellow-50 to-amber-100 relative overflow-hidden pb-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      {/* What We Can Do Section */}
+      <section className="py-16 md:py-24 bg-white relative overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
             {/* Header */}
-            <div className="bg-yellow-400 text-white py-6 px-8 shadow-lg transform -skew-x-12 mx-4 md:mx-auto max-w-4xl mb-16 relative overflow-hidden group">
-              <div className="absolute inset-0 bg-white/10 transform skew-x-12 translate-x-full group-hover:translate-x-0 transition-transform duration-700"></div>
-              <h2 className="text-3xl md:text-5xl font-extrabold text-center uppercase tracking-wider transform skew-x-12 relative z-10 drop-shadow-md">
-                How We Do
-              </h2>
-            </div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 mb-12 uppercase tracking-tight">
+              What We Can Do?
+            </h2>
+            <p className="mb-12 text-gray-700 text-base md:text-lg leading-relaxed space-y-3 font-medium">
+              With over 16 years of expertise, Enfros India is a trusted name in EPC and C&I solar services. We leverage advanced solar technologies to provide sustainable and affordable power solutions, ensuring continuous customer value through superior service and rapid response.
+            </p>
 
-            {/* Grid Items */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 text-center">
+            {/* Cards Grid */}
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {[
-                { icon: Award, title: "Quality", subtitle: "Practices" },
-                { icon: ShieldCheck, title: "Integrity", subtitle: "" },
-                { icon: Lightbulb, title: "Excellence", subtitle: "Through Innovation" },
-                { icon: Users, title: "Professionalism", subtitle: "" },
-                { icon: HeartHandshake, title: "Lifelong", subtitle: "Relationships" },
-                { icon: Headset, title: "Enhanced", subtitle: "Customer Services" },
-                { icon: Truck, title: "Prompt", subtitle: "Delivery" },
-                { icon: Layers, title: "Exhaustive", subtitle: "Wide Variety" }
+                {
+                  image: solar1,
+                  title: "Solar EPC (Engineering, Procurement And Construction)",
+                  description: "Designing and constructing solar power plants with maximum efficiency.",
+                  icon: Sun
+                },
+                {
+                  image: solar2,
+                  title: "Wind EPC (Engineering, Procurement And Construction)",
+                  description: "Implementing wind energy projects optimized for high performance.",
+                  icon: Zap
+                },
+                {
+                  image: solar3,
+                  title: "Battery Energy Storage Solutions (BESS)",
+                  description: "Offering scalable storage systems to ensure energy reliability.",
+                  icon: Battery
+                },
+                {
+                  image: solar4,
+                  title: "Independent Power Production (IPP)",
+                  description: "Generating clean energy through utility-scale projects.",
+                  icon: Lightbulb
+                },
+                {
+                  image: solar5,
+                  title: "Green Hydrogen Solutions",
+                  description: "Innovating with hydrogen energy for a carbon-free fuel future.",
+                  icon: Leaf
+                },
+                {
+                  image: solar7,
+                  title: "Operation & Maintenance",
+                  description: "Providing expert support to maximize energy output and longevity.",
+                  icon: ShieldCheck
+                }
               ].map((item, index) => (
                 <div
                   key={index}
-                  className="group flex flex-col items-center justify-center p-6 hover:bg-white hover:shadow-xl rounded-2xl transition-all duration-300 transform hover:-translate-y-2"
+                  className="service-card group bg-gray-50 rounded-3xl overflow-hidden hover:shadow-2xl transition-all duration-500 opacity-0"
+                  style={{ animationDelay: `${index * 0.2}s` }}
                 >
-                  <div className="relative mb-6">
-                    <div className="absolute inset-0 bg-yellow-100 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <item.icon className="h-16 w-16 text-gray-700 group-hover:text-yellow-600 transition-colors duration-300 relative z-10" strokeWidth={1.5} />
+                  {/* Image */}
+                  <div className="relative h-56 overflow-hidden rounded-t-3xl">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
                   </div>
-                  <h3 className="text-xl font-bold text-gray-800 group-hover:text-yellow-600 transition-colors duration-300 leading-tight">
-                    {item.title}
-                    {item.subtitle && <span className="block text-lg font-medium text-gray-600 group-hover:text-amber-600 mt-1">{item.subtitle}</span>}
-                  </h3>
+
+                  {/* Content */}
+                  <div className="p-6 relative">
+                    {/* Green Icon Badge */}
+                    <div className="absolute -top-8 left-6 w-16 h-16 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-full flex items-center justify-center shadow-lg">
+                      <item.icon className="w-8 h-8 text-white" />
+                    </div>
+
+                    <div className="pt-10">
+                      <h3 className="text-xl font-bold text-gray-900 mb-3 leading-tight">
+                        {item.title}
+                      </h3>
+                      <p className="text-gray-600 text-sm leading-relaxed">
+                        {item.description}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
         </div>
-
-        {/* Decorative Background Elements */}
-        {/* <div className="absolute top-0 left-0 w-64 h-64 bg-teal-300/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-cyan-300/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div> */}
       </section>
+
+
+
+
+
+      {/* How Do We Work Section */}
+      <section className="py-20 md:py-28 bg-gradient-to-br from-amber-50 via-yellow-50 to-amber-100 relative overflow-hidden">
+        <div className="container mx-auto  sm:px-6 lg:px-8">
+          <div className="max-w-7xl mb-20">
+            {/* Header */}
+            <div className="text-center mb-40 mx-auto">
+              {/* <div className="flex items-center justify-center space-x-2 text-yellow-600 font-semibold uppercase tracking-widest text-sm mb-4">
+                <Leaf className="w-5 h-5" />
+                <span>Proposal And Contracting</span>
+              </div> */}
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 uppercase tracking-tight">
+                How Do We Work?
+              </h2>
+            </div>
+
+            {/* Workflow Timeline */}
+            <div className="workflow-container relative max-w-6xl mx-auto">
+              {/* Desktop Timeline - Horizontal Yellow Line */}
+              <div className="hidden lg:block absolute top-1/2 transform -translate-y-1/2"
+                style={{ left: '120px', right: '120px', height: '8px' }}>
+                <div className="h-full bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-600 rounded-full shadow-md"></div>
+              </div>
+
+              {/* Start and Finish Badges Container */}
+              <div className="hidden lg:flex items-center justify-between relative">
+                {/* Start Badge */}
+                <div className="z-20">
+                  <div className="w-32 h-32 bg-gradient-to-br from-yellow-500 to-amber-600 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-2xl hover:scale-105 transition-transform duration-300">
+                    Start
+                  </div>
+                </div>
+
+                {/* Workflow Steps Grid */}
+                <div className="absolute left-0 right-0 flex justify-between items-center px-36">
+                  {workflowSteps.map((step, index) => (
+                    <div
+                      key={index}
+                      className={`workflow-step flex flex-col items-center ${step.position === 'bottom' ? 'flex-col-reverse' : ''
+                        }`}
+                      style={{ width: '130px' }}
+                    >
+                      {/* Vertical Connector Line */}
+                      <div className={`w-1.5 bg-gradient-to-b from-yellow-400 to-amber-500 ${step.position === 'bottom' ? 'h-20 mb-3' : 'h-20 mt-3'
+                        } rounded-full`}></div>
+
+                      {/* Number Badge on Line */}
+                      <div className={`${step.position === 'bottom' ? 'mb-5' : 'mb-5'
+                        }`}>
+                        <div className="w-12 h-12 bg-gradient-to-br from-yellow-500 to-amber-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg border-4 border-white hover:scale-110 transition-transform duration-300">
+                          {step.number}
+                        </div>
+                      </div>
+
+                      {/* Icon Circle */}
+                      <div className="mb-4">
+                        <div className="w-24 h-24 bg-white border-4 border-yellow-500 rounded-full flex items-center justify-center text-4xl shadow-xl hover:scale-110 hover:border-amber-600 transition-all duration-300">
+                          {step.icon}
+                        </div>
+                      </div>
+
+                      {/* Title */}
+                      <div className="text-center">
+                        <h3 className="text-sm font-bold text-gray-900 leading-tight px-2">
+                          {step.title}
+                        </h3>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Finish Badge */}
+                <div className="z-20">
+                  <div className="w-32 h-32 bg-gradient-to-br from-amber-600 to-yellow-700 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-2xl hover:scale-105 transition-transform duration-300">
+                    Finish
+                  </div>
+                </div>
+              </div>
+
+              {/* Mobile/Tablet View */}
+              <div className="lg:hidden grid grid-cols-2 md:grid-cols-4 gap-8">
+                {workflowSteps.map((step, index) => (
+                  <div key={index} className="flex flex-col items-center">
+                    <div className="mb-3">
+                      <div className="w-10 h-10 bg-gradient-to-br from-yellow-500 to-amber-600 rounded-full flex items-center justify-center text-white font-bold text-base shadow-md">
+                        {step.number}
+                      </div>
+                    </div>
+                    <div className="mb-4">
+                      <div className="w-20 h-20 bg-white border-4 border-yellow-500 rounded-full flex items-center justify-center text-3xl shadow-lg">
+                        {step.icon}
+                      </div>
+                    </div>
+                    <div className="text-center">
+                      <h3 className="text-xs font-bold text-gray-900 leading-tight">
+                        {step.title}
+                      </h3>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Decorative Solar Panel Image */}
+              <div className="hidden xl:block absolute -right-32 top-1/2 transform -translate-y-1/2 w-80 h-80 opacity-20 pointer-events-none">
+                <svg viewBox="0 0 200 200" className="w-full h-full">
+                  {/* Wind Turbine */}
+                  <rect x="95" y="80" width="10" height="100" fill="#f59e0b" opacity="0.3" />
+
+                  {/* Solar Panel */}
+                  <g transform="translate(130, 120)">
+                    <rect x="0" y="0" width="60" height="40" fill="#eab308" opacity="0.4" rx="2" />
+                    <line x1="20" y1="0" x2="20" y2="40" stroke="#d97706" strokeWidth="1" opacity="0.3" />
+                    <line x1="40" y1="0" x2="40" y2="40" stroke="#d97706" strokeWidth="1" opacity="0.3" />
+                    <line x1="0" y1="13" x2="60" y2="13" stroke="#d97706" strokeWidth="1" opacity="0.3" />
+                    <line x1="0" y1="27" x2="60" y2="27" stroke="#d97706" strokeWidth="1" opacity="0.3" />
+                  </g>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <style jsx>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .workflow-step {
+          animation: fadeInUp 0.6s ease-out;
+          animation-fill-mode: both;
+        }
+
+        .workflow-step:nth-child(1) { animation-delay: 0.1s; }
+        .workflow-step:nth-child(2) { animation-delay: 0.2s; }
+        .workflow-step:nth-child(3) { animation-delay: 0.3s; }
+        .workflow-step:nth-child(4) { animation-delay: 0.4s; }
+        .workflow-step:nth-child(5) { animation-delay: 0.5s; }
+        .workflow-step:nth-child(6) { animation-delay: 0.6s; }
+        .workflow-step:nth-child(7) { animation-delay: 0.7s; }
+      `}</style>
+      </section>
+
     </>
   );
 };
