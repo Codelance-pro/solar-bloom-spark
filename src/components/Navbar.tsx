@@ -5,6 +5,7 @@ import {
   Calculator
 } from "lucide-react";
 import logo from "/logo(1).png";
+import logo2 from "../assets/enfros-logo.png";
 import { useNavigate } from "react-router-dom";
 
 // User type
@@ -56,12 +57,15 @@ const Navbar = () => {
 
   const menuItems = [
     { name: "Home", path: "/", icon: <Home className="w-5 h-5" /> },
-    { name: "SolarCalculator", path: "/calculator", icon: <Calculator className="w-5 h-5" /> },    
-      { name: "Careers", path: "/career ", icon: <FileText className="w-5 h-5" /> },
-    { name: "Products", path: "/products", icon: <Package className="w-5 h-5" /> },
-    { name: "Projects", path: "/projects", icon: <Folder className="w-5 h-5" /> },
-    { name: "Blogs", path: "/blog", icon: <ShoppingBag className="w-5 h-5" /> },
     { name: "About Us", path: "/about", icon: <Info className="w-5 h-5" /> },
+    { name: "Services", path: "/services", icon: <Phone className="w-5 h-5" /> },
+     { name: "Projects", path: "/projects", icon: <Folder className="w-5 h-5" /> },
+     { name: "Products", path: "/products", icon: <Package className="w-5 h-5" /> },
+     { name: "Careers", path: "/career ", icon: <FileText className="w-5 h-5" /> },
+     { name: "Contact", path: "/contact", icon: <Phone className="w-5 h-5" /> },
+    // { name: "SolarCalculator", path: "/calculator", icon: <Calculator className="w-5 h-5" /> },    
+    // { name: "Blogs", path: "/blog", icon: <ShoppingBag className="w-5 h-5" /> },
+    
   ];
 
   return (
@@ -77,9 +81,9 @@ const Navbar = () => {
           {/* LOGO */}
           <div className="flex items-center space-x-3 cursor-pointer" onClick={() => navigate("/")}>
             <img
-              src={logo}
+              src={logo2}
               alt="Logo"
-              className="h-20 w-40 p-2  hover:scale-105 transition-transform"
+              className="h-20 w-60 p-2  hover:scale-105 transition-transform"
             />
           </div>
 

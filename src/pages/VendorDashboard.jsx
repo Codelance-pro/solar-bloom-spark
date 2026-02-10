@@ -11,6 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, LogOut, FileText, Upload, Plus, Download, Image as ImageIcon, User, Save } from 'lucide-react';
 import { uploadToCloudinary } from '@/lib/cloudinary';
+import logo2 from "../assets/enfros-logo.png";
 
 const VendorDashboard = () => {
     const navigate = useNavigate();
@@ -55,6 +56,9 @@ const VendorDashboard = () => {
     const [billForm, setBillForm] = useState({
         productName: '',
         billNumber: '',
+        projectNumber: '',
+        projectCode: '',
+        poNumber: '',
         amount: '',
         // billImage: '',
         billPdfUrl: ''
@@ -88,7 +92,7 @@ const VendorDashboard = () => {
                     size: itemsPerPage
                 }
             });
-            ("Bills Data:", response.data);
+            console.log("Bills Data:", response.data);
 
             if (response.data.content) {
                 setBills(response.data.content);
@@ -220,15 +224,11 @@ const VendorDashboard = () => {
         setSubmitting(true);
         try {
             // let imageUrl = '';
-
-
             // const fileInput = document.getElementById('billImage');
             // const file = fileInput?.files[0];
-
             // if (file) {
             //     imageUrl = await uploadToCloudinary(file);
             // }
-
 
             const pdfInput = document.getElementById('billPdf');
             const pdfFile = pdfInput?.files[0];
@@ -247,7 +247,7 @@ const VendorDashboard = () => {
                 formData.append("file", pdfFile);
             }
 
-            
+
 
             await vendorAxios.post('/vendor/purchase', formData, {
                 headers: {
@@ -264,6 +264,9 @@ const VendorDashboard = () => {
             setBillForm({
                 productName: '',
                 billNumber: '',
+                projectNumber: '',
+                projectCode: '',
+                poNumber: '',
                 amount: '',
                 billImage: '',
                 billPdf: ''
@@ -333,7 +336,7 @@ const VendorDashboard = () => {
 
     const deleteBill = async (purchaseId) => {
         try {
-            
+
             await vendorAxios.delete(`/vendor/purchase/${purchaseId}`);
             toast({
                 title: 'Success',
@@ -342,9 +345,14 @@ const VendorDashboard = () => {
             fetchMyBills(user.id, currentPage);
         } catch (error) {
             console.error('Error deleting bill:', error);
+
+            const backendMessage =
+                error?.response?.data?.message ||
+                error?.response?.data ||
+                'Failed to delete bill';
             toast({
                 title: 'Error',
-                description: 'Failed to delete bill',
+                description: backendMessage,
                 variant: 'destructive',
             });
         }
@@ -354,20 +362,27 @@ const VendorDashboard = () => {
         <div className="min-h-screen bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50">
             {/* Header */}
             <header className="bg-white/80 backdrop-blur-md border-b border-amber-200 sticky top-0 z-20">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                        <div className="bg-gradient-to-br from-amber-500 to-orange-600 p-2 rounded-lg shadow-md">
-                            <FileText className="w-5 h-5 text-white" />
+                        <div className="">
+                            {/* <FileText className="w-5 h-5 text-white" /> */}
+                            <img
+                                src={logo2}
+                                alt="Logo"
+                                className="h-20 w-60 p-2  hover:scale-105 transition-transform"
+                            />
                         </div>
-                        <h1 className="text-xl font-bold bg-gradient-to-r from-amber-700 to-orange-800 bg-clip-text text-transparent">
-                            Vendor Portal
-                        </h1>
+                       
                     </div>
+
+                    <h1 className="text-xl font-bold bg-gradient-to-r from-amber-700 to-orange-800 bg-clip-text text-transparent">
+                        Vendor Portal
+                    </h1>
 
                     <div className="flex items-center gap-4">
                         <div className="text-sm text-right hidden sm:block">
-                            <p className="font-medium text-gray-800">{user?.name || 'Vendor'}</p>
-                            <p className="text-gray-500 text-xs">{user?.email}</p>
+                            <h1 className="font-semibold text-gray-800 ">Welcome back, {profileData?.vendorName || 'Vendor'}</h1>
+                            {/* <p className="text-gray-500 text-xs">{profileData?.email}</p> */}
                         </div>
                         <Button
                             variant="ghost"
@@ -383,7 +398,7 @@ const VendorDashboard = () => {
 
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <Tabs defaultValue="submit" className="space-y-6">
-                    <TabsList className="grid w-full grid-cols-3 max-w-[600px] bg-amber-100/50">
+                    <TabsList className="grid w-full grid-cols-3 max-w-[600px] bg-amber-100/50 mx-auto">
                         <TabsTrigger
                             value="submit"
                             className="data-[state=active]:bg-white data-[state=active]:text-amber-700 data-[state=active]:shadow-sm"
@@ -405,7 +420,7 @@ const VendorDashboard = () => {
                     </TabsList>
 
                     <TabsContent value="submit" className="space-y-4">
-                        <Card className="max-w-2xl border-amber-200/50 shadow-lg">
+                        <Card className="max-w-2xl border-amber-200/50 shadow-lg mx-auto">
                             <CardHeader>
                                 <CardTitle className="text-amber-900">Submit Bill Details</CardTitle>
                                 <CardDescription>
@@ -435,6 +450,45 @@ const VendorDashboard = () => {
                                                 name="billNumber"
                                                 placeholder="INV-2024-001"
                                                 value={billForm.billNumber}
+                                                onChange={handleFormChange}
+                                                required
+                                                className="border-amber-200 focus:border-amber-500 focus:ring-amber-500"
+                                            />
+                                        </div>
+
+                                        <div className="space-y-2">
+                                            <Label htmlFor="projectNumber">Project Number</Label>
+                                            <Input
+                                                id="projectNumber"
+                                                name="projectNumber"
+                                                placeholder="PRJ-001"
+                                                value={billForm.projectNumber}
+                                                onChange={handleFormChange}
+                                                required
+                                                className="border-amber-200 focus:border-amber-500 focus:ring-amber-500"
+                                            />
+                                        </div>
+
+                                        <div className="space-y-2">
+                                            <Label htmlFor="projectCode">Project Code</Label>
+                                            <Input
+                                                id="projectCode"
+                                                name="projectCode"
+                                                placeholder="PC-123"
+                                                value={billForm.projectCode}
+                                                onChange={handleFormChange}
+                                                required
+                                                className="border-amber-200 focus:border-amber-500 focus:ring-amber-500"
+                                            />
+                                        </div>
+
+                                        <div className="space-y-2">
+                                            <Label htmlFor="poNumber">PO Number</Label>
+                                            <Input
+                                                id="poNumber"
+                                                name="poNumber"
+                                                placeholder="PO-456"
+                                                value={billForm.poNumber}
                                                 onChange={handleFormChange}
                                                 required
                                                 className="border-amber-200 focus:border-amber-500 focus:ring-amber-500"
@@ -550,7 +604,11 @@ const VendorDashboard = () => {
                                                 <TableRow>
                                                     <TableHead>Bill #</TableHead>
                                                     <TableHead>Product</TableHead>
-                                                    <TableHead>Date</TableHead>
+                                                    <TableHead>Project #</TableHead>
+                                                    <TableHead>Project Code</TableHead>
+                                                    <TableHead>PO #</TableHead>
+                                                    <TableHead>CreatedDate</TableHead>
+                                                    <TableHead>ReviewDate</TableHead>
                                                     <TableHead>Amount</TableHead>
                                                     {/* <TableHead>Image</TableHead> */}
                                                     <TableHead>PDF</TableHead>
@@ -564,7 +622,11 @@ const VendorDashboard = () => {
                                                     <TableRow key={bill.id} className="hover:bg-amber-50/50">
                                                         <TableCell className="font-medium">{bill.billNumber}</TableCell>
                                                         <TableCell>{bill.productName}</TableCell>
+                                                        <TableCell>{bill.projectNumber || '-'}</TableCell>
+                                                        <TableCell>{bill.projectCode || '-'}</TableCell>
+                                                        <TableCell>{bill.poNumber || '-'}</TableCell>
                                                         <TableCell>{bill.createdAt ? new Date(bill.createdAt).toLocaleDateString() : 'N/A'}</TableCell>
+                                                        <TableCell>{bill.reviewedAt ? new Date(bill.reviewedAt).toLocaleDateString() : 'N/A'}</TableCell>
                                                         <TableCell>₹{Number(bill.amount).toLocaleString()}</TableCell>
                                                         {/* <TableCell>
                                                             <img
@@ -586,7 +648,6 @@ const VendorDashboard = () => {
                                                                 <span className="text-gray-400">-</span>
                                                             )}
                                                         </TableCell>
-
                                                         <TableCell>{getStatusBadge(bill.status)}</TableCell>
                                                         <TableCell className="max-w-xs truncate text-gray-500">
                                                             {bill.adminRemark || '-'}

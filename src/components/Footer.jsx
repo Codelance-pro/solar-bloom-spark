@@ -124,7 +124,11 @@ const Footer = () => {
                 <div>
                   <p className="text-sm text-black">Corporate Office</p>
                   <p className="font-semibold text-yellow-400">No.6, Indra Priyadarshini Nagar, Perumbakkam, Chennai – 600100</p>
-                </div>
+                </div> 
+                <div>
+                  <p className="text-sm text-black">Registered Office</p>
+                  <p className="font-semibold text-yellow-400">No. 14, Bharath Complex,Near Ram Theater, Pudukkottai – 622003</p>
+                </div>               
               </div>
               <div className="flex items-start space-x-3 group">
                 <div className="bg-blue-900/50 p-2 rounded-lg group-hover:bg-yellow-500 transition-colors">
@@ -132,7 +136,7 @@ const Footer = () => {
                 </div>
                 <div>
                   <p className="text-sm text-black">Business Hours</p>
-                  <p className="font-semibold text-yellow-400">Mon - Fri: 9AM - 6PM</p>
+                  <p className="font-semibold text-yellow-400">Mon - Sat: 9AM - 6PM</p>
                 </div>
               </div>
             </div>

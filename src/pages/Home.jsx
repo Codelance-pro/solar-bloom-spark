@@ -1,18 +1,19 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sun, Zap, Phone, Mail, MapPin, Award, Shield, Clock, ChevronLeft, ChevronRight, TrendingUp, Leaf, DollarSign, CheckCircle2, Star, Calculator, Battery, Home as HomeIcon, Users, Globe } from "lucide-react";
+import { ArrowRight, Sun, Zap, Phone, Mail, MapPin, Award, Shield, Clock, ChevronLeft, ChevronRight, TrendingUp, Leaf, DollarSign, CheckCircle2, Star, Calculator, Battery, Home as HomeIcon, Users, Globe, Lightbulb, HeartHandshake, Headset, Truck, Layers, ShieldCheck } from "lucide-react";
 import { useState, useEffect } from "react";
 import heroImage from "@/assets/hero-solar.jpg";
 import logoImage from "@/assets/logohome.png";
 import solar_landing_match_logo from "@/assets/solar_landing_match_logo.png";
-import solar1 from "@/assets/solar1.jpg";
-import solar2 from "@/assets/solar2.jpg";
-import solar3 from "@/assets/solar3.jpg";
-import solar4 from "@/assets/solar4.jpg";
-import solar5 from "@/assets/solar5.jpg";
-import solar6 from "@/assets/solar6.JPG";
-import solar7 from "@/assets/solar7.JPG";
-import solar8 from "@/assets/solar8.JPG";
-import solar9 from "@/assets/solar9.JPG";
+import solar1 from "../assets/solar1.jpg"
+import solar2 from "../assets/solar2.jpg"
+import solar3 from "../assets/solar3.jpg"
+import solar4 from "../assets/solar4.jpg"
+import solar5 from "../assets/solar5.png"
+import solar6 from "../assets/solar6.JPG"
+import solar7 from "../assets/solar7.jpg";
+// import solar8 from "@/assets/solar8.JPG";
+// import solar9 from "@/assets/solar9.JPG";
+import solar10 from "../assets/solar10.jpg";
 
 
 
@@ -50,23 +51,50 @@ const Home = () => {
   ];
 
   const services = [
-     {
-      name: "Utility Scale EPC",
+    {
+      name: "Utility-Scale Solar Power Plants",
       icon: "⚡",
+      image: solar1,
       link: "#services",
       desc: "Turnkey solar energy system provider",
       color: "from-yellow-500 to-amber-600"
     },
     {
-      name: "Utility Scale BOS, I & C",
+      name: "Agriculture & Farming Solar Solutions",
       icon: "🔧",
+      image: solar2,
       link: "#services",
       desc: "Solar project contracting",
       color: "from-amber-500 to-yellow-600"
     },
     {
-      name: "MW Scale C & I",
+      name: "Warehouse & Industrial Rooftop Solar",
       icon: "🏢",
+      image: solar3,
+      link: "#services",
+      desc: "Rooftop solar Turnkey service provider",
+      color: "from-yellow-400 to-amber-500"
+    },
+    {
+      name: "Villas & Residential Solar Systems",
+      icon: "🏢",
+      link: "#services",
+      image: solar7,
+      desc: "Rooftop solar Turnkey service provider",
+      color: "from-yellow-400 to-amber-500"
+    },
+    {
+      name: "Manufacturing Unit Solar Installations",
+      icon: "🏢",
+      image: solar4,
+      link: "#services",
+      desc: "Rooftop solar Turnkey service provider",
+      color: "from-yellow-400 to-amber-500"
+    },
+    {
+      name: "Landscape & Open-Area Solar Projects",
+      icon: "🏢",
+      image: solar5,
       link: "#services",
       desc: "Rooftop solar Turnkey service provider",
       color: "from-yellow-400 to-amber-500"
@@ -77,28 +105,28 @@ const Home = () => {
     {
       icon: TrendingUp,
       title: "Proven Track Record",
-      desc: "Proven track record in large-scale solar projects",
+      desc: "16+ Years of Industry Experience | 1.6+ GW Project Portfolio",
       colorClass: "from-yellow-500 to-yellow-600",
       bgClass: "bg-black/40"
     },
     {
       icon: Users,
       title: "Skilled Team",
-      desc: "Skilled technical and project management team",
+      desc: "Strong Engineering & Project Teams",
       colorClass: "from-amber-500 to-amber-600",
       bgClass: "bg-black/40"
     },
     {
       icon: Globe,
       title: "Strong Network",
-      desc: "Strong vendor and partner network",
+      desc: "Scalable Execution Capability | Trusted by Leading Energy Brands",
       colorClass: "from-yellow-600 to-amber-600",
       bgClass: "bg-black/40"
     },
     {
       icon: Clock,
       title: "Timely Delivery",
-      desc: "Focus on timely delivery and customer satisfaction",
+      desc: "Proven On-Time Delivery Record",
       colorClass: "from-yellow-500 to-amber-500",
       bgClass: "bg-black/40"
     }
@@ -273,7 +301,7 @@ const Home = () => {
 
         <div className="absolute inset-0 z-0">
           <img
-            src={solar6}
+            src={solar10}
             alt="Solar background"
             className="w-full h-full object-cover"
           />
@@ -296,12 +324,12 @@ const Home = () => {
 
                 {/* <img src={logoImage} alt="Solar background" className="w-80 h-40 mt-10" /> */}
 
-                   <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight text-white animate-slide-in-left delay-100">
-                  Powering a Greener Tomorrow with{" "}
+                <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight text-white animate-slide-in-left delay-100">
+                  Powering the Future with Reliable{" "}
                   <span className="bg-yellow-400 bg-clip-text text-transparent">
-                    Smart Solar Solutions
+                    Solar & Renewable Energy Solutions
                   </span>
-                </h1>      
+                </h1>
 
                 {/* Main Heading */}
                 {/* <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight text-white animate-slide-in-left delay-100">
@@ -372,7 +400,7 @@ const Home = () => {
       </section>
 
       {/* Animated Banner Slider */}
-      <section className="py-8 overflow-hidden bg-gradient-to-r from-amber-100 to-yellow-100">
+      {/* <section className="py-8 overflow-hidden bg-gradient-to-r from-amber-100 to-yellow-100">
         <div className={`bg-gradient-to-r ${bannerSlides[currentSlide].gradient} transition-all duration-1000`}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div className="flex items-center justify-between">
@@ -412,7 +440,7 @@ const Home = () => {
               </button>
             </div>
 
-            {/* Slide Indicators */}
+            Slide Indicators
             <div className="flex justify-center space-x-2 mt-6">
               {bannerSlides.map((_, index) => (
                 <button
@@ -426,7 +454,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Key Highlights */}
       <section className="py-16 md:py-24 bg-gradient-to-b from-yellow-50 to-amber-50 relative overflow-hidden">
@@ -437,11 +465,23 @@ const Home = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl mx-auto text-center mb-16 animate-fade-in-up">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 text-gray-900">
-              Why Choose <span className="bg-gradient-to-r from-yellow-600 to-amber-600 bg-clip-text text-transparent">Solar Power?</span>
+              About <span className="bg-gradient-to-r from-yellow-600 to-amber-600 bg-clip-text text-transparent">Our Company</span>
             </h2>
             <p className="text-lg md:text-xl text-gray-700">
-              Experience the future of energy with our premium solar solutions
+              Enfros is a renewable energy service provider specializing in solar
+              power solutions. With over 16  years of combined experience in solar and
+              renewable energy, our directors lead the way. We have completed construction
+              projects totaling over 2000   MW, including Installation&Commissioning
+              (I&C) and Balance of System (BOS). Our goal is to become the LEADING EPC
+              SERVICE PROVIDER in the solar power plant industry.
             </p>
+          </div>
+
+
+          <div className="max-w-3xl mx-auto text-center mb-16 animate-fade-in-up">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 text-gray-900">
+              Why <span className="bg-gradient-to-r from-yellow-600 to-amber-600 bg-clip-text text-transparent">Choose Us ?</span>
+            </h2>
           </div>
 
           <div className="max-w-6xl mx-auto">
@@ -486,10 +526,14 @@ const Home = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl mx-auto text-center mb-16 animate-fade-in-up">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 text-gray-900">
-              Our <span className="bg-gradient-to-r from-yellow-600 to-amber-600 bg-clip-text text-transparent">Premium Services</span>
+              What We <span className="bg-gradient-to-r from-yellow-600 to-amber-600 bg-clip-text text-transparent"> Do Best</span>
             </h2>
             <p className="text-lg md:text-xl text-gray-700">
-              Comprehensive solar solutions tailored to your needs
+              With over 16 years of expertise, Enfros India is a trusted name in EPC
+              and C&I solar services. We leverage advanced solar technologies to provide
+              sustainable and affordable power solutions, ensuring continuous customer value
+              through superior service and rapid response.
+
             </p>
           </div>
 
@@ -503,9 +547,10 @@ const Home = () => {
                   style={{ animationDelay: `${index * 0.15}s`, opacity: 0 }}
                 >
                   <div className="relative z-10 text-center">
-                    <div className="text-5xl mb-6 inline-block group-hover:scale-125 transition-transform duration-300">
+                    <img src={service.image} alt={service.name} className="w-full h-48 object-cover rounded-2xl mb-6 group-hover:scale-105 transition-transform duration-300" />
+                    {/* <div className="text-5xl mb-6 inline-block group-hover:scale-125 transition-transform duration-300">
                       {service.icon}
-                    </div>
+                    </div> */}
                     <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-yellow-700 transition-colors">
                       {service.name}
                     </h3>
@@ -534,82 +579,51 @@ const Home = () => {
 
 
 
-      {/* Contact Section */}
-      <section className="py-16 md:py-24 bg-gradient-to-br from-yellow-400 via-amber-400 to-yellow-500 relative overflow-hidden">
-        {/* Animated Particles */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-10 left-10 w-4 h-4 bg-white/30 rounded-full animate-float"></div>
-          <div className="absolute top-20 right-20 w-6 h-6 bg-white/20 rounded-full animate-float" style={{ animationDelay: '0.5s' }}></div>
-          <div className="absolute bottom-20 left-1/4 w-5 h-5 bg-white/25 rounded-full animate-float" style={{ animationDelay: '1s' }}></div>
-          <div className="absolute bottom-40 right-1/3 w-3 h-3 bg-white/30 rounded-full animate-float" style={{ animationDelay: '1.5s' }}></div>
-        </div>
-
+      {/* How We Do Section */}
+      <section className="bg-gradient-to-br from-amber-50 via-yellow-50 to-amber-100 relative overflow-hidden pb-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16 animate-fade-in-up">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 text-white">
-                Looking for a reliable Solar EPC partner?
+          <div className="max-w-7xl mx-auto">
+            {/* Header */}
+            <div className="bg-yellow-400 text-white py-6 px-8 shadow-lg transform -skew-x-12 mx-4 md:mx-auto max-w-4xl mb-16 relative overflow-hidden group">
+              <div className="absolute inset-0 bg-white/10 transform skew-x-12 translate-x-full group-hover:translate-x-0 transition-transform duration-700"></div>
+              <h2 className="text-3xl md:text-5xl font-extrabold text-center uppercase tracking-wider transform skew-x-12 relative z-10 drop-shadow-md">
+                How We Do
               </h2>
-              <p className="text-lg md:text-xl text-white/95">
-                Delivering quality solar projects with speed, safety, and excellence.
-              </p>
             </div>
 
-            <div className="max-w-4xl mx-auto">
-              <div className="grid md:grid-cols-3 gap-6 mb-12">
-                {contacts.map((contact, index) => {
-                  const ContactIcon = contact.icon;
-                  return (
-                    <div
-                      key={index}
-                      className="group bg-white/95 backdrop-blur-sm p-8 rounded-2xl text-gray-900 text-center border-2 border-yellow-300 hover:border-white hover:shadow-xl transition-all duration-300 hover-lift animate-bounce-in"
-                      style={{ animationDelay: `${index * 0.15}s`, opacity: 0 }}
-                    >
-                      <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-yellow-200 to-amber-200 rounded-2xl mb-6 group-hover:from-yellow-300 group-hover:to-amber-300 transition-all shadow-md group-hover:scale-110 group-hover:rotate-6 duration-300">
-                        <ContactIcon className="h-8 w-8 text-yellow-700 group-hover:animate-pulse" />
-                      </div>
-                      <h3 className="font-bold text-lg mb-3">{contact.title}</h3>
-                      <p className="text-gray-700">{contact.info}</p>
-                    </div>
-                  );
-                })}
-              </div>
-
-              <div className="bg-white/95 backdrop-blur-lg rounded-2xl p-8 md:p-12 border-2 border-yellow-300 shadow-2xl animate-fade-in-up hover:scale-105 transition-transform duration-500">
-                <div className="grid md:grid-cols-2 gap-8 md:gap-12">
-                  <div className="space-y-6">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-6">Get Your Free Quote</h3>
-                    <div className="space-y-4">
-                      {quoteFeatures.map((item, i) => (
-                        <div
-                          key={i}
-                          className="flex items-center space-x-3 text-gray-800 animate-slide-in-left"
-                          style={{ animationDelay: `${i * 0.1}s` }}
-                        >
-                          <CheckCircle2 className="h-6 w-6 text-yellow-600 animate-bounce" style={{ animationDelay: `${i * 0.2}s` }} />
-                          <span className="text-gray-700">{item}</span>
-                        </div>
-                      ))}
-                    </div>
+            {/* Grid Items */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 text-center">
+              {[
+                { icon: Award, title: "Quality", subtitle: "Practices" },
+                { icon: ShieldCheck, title: "Integrity", subtitle: "" },
+                { icon: Lightbulb, title: "Excellence", subtitle: "Through Innovation" },
+                { icon: Users, title: "Professionalism", subtitle: "" },
+                { icon: HeartHandshake, title: "Lifelong", subtitle: "Relationships" },
+                { icon: Headset, title: "Enhanced", subtitle: "Customer Services" },
+                { icon: Truck, title: "Prompt", subtitle: "Delivery" },
+                { icon: Layers, title: "Exhaustive", subtitle: "Wide Variety" }
+              ].map((item, index) => (
+                <div
+                  key={index}
+                  className="group flex flex-col items-center justify-center p-6 hover:bg-white hover:shadow-xl rounded-2xl transition-all duration-300 transform hover:-translate-y-2"
+                >
+                  <div className="relative mb-6">
+                    <div className="absolute inset-0 bg-yellow-100 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <item.icon className="h-16 w-16 text-gray-700 group-hover:text-yellow-600 transition-colors duration-300 relative z-10" strokeWidth={1.5} />
                   </div>
-                  <div className="flex flex-col justify-center">
-                    <Button
-                      size="lg"
-                      className="bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 text-white text-lg px-8 py-6 font-bold shadow-lg hover:shadow-yellow-600/50 transition-all duration-300 w-full hover:scale-105 relative overflow-hidden group"
-                    >
-                      <span className="absolute inset-0 shimmer-effect"></span>
-                      <span className="relative">Request Free Quote</span>
-                      <ArrowRight className="ml-2 h-6 w-6 group-hover:translate-x-1 transition-transform" />
-                    </Button>
-                    <p className="text-gray-600 text-sm mt-4 text-center animate-pulse">
-                      No obligation • 100% Free • Get response within 24 hours
-                    </p>
-                  </div>
+                  <h3 className="text-xl font-bold text-gray-800 group-hover:text-yellow-600 transition-colors duration-300 leading-tight">
+                    {item.title}
+                    {item.subtitle && <span className="block text-lg font-medium text-gray-600 group-hover:text-amber-600 mt-1">{item.subtitle}</span>}
+                  </h3>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
+
+        {/* Decorative Background Elements */}
+        {/* <div className="absolute top-0 left-0 w-64 h-64 bg-teal-300/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-cyan-300/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div> */}
       </section>
     </>
   );

@@ -101,6 +101,7 @@ const VendorManagement = () => {
                         size: itemsPerPage,
                     },
                 });
+                console.log("response", response.data);
             } else {
                 // Fetch vendor-specific bills with pagination using new endpoint
                 response = await axiosInstance.get(`/vendor/purchase/${vendorId}/bills`, {
@@ -522,8 +523,13 @@ const VendorManagement = () => {
                                                 <TableHead>ID</TableHead>
                                                 <TableHead>Product Name</TableHead>
                                                 <TableHead>Bill Number</TableHead>
+                                                <TableHead>Project #</TableHead>
+                                                <TableHead>Project Code</TableHead>
+                                                <TableHead>PO #</TableHead>
                                                 <TableHead>Amount</TableHead>
                                                 <TableHead>Status</TableHead>
+                                                <TableHead>CreatedAt</TableHead>
+                                                <TableHead>Reviewed At</TableHead>
                                                 <TableHead>Admin Remark</TableHead>
                                                 <TableHead>PDF</TableHead>
                                                 <TableHead>Invoice</TableHead>
@@ -536,8 +542,13 @@ const VendorManagement = () => {
                                                     <TableCell className="font-medium">#{bill.id}</TableCell>
                                                     <TableCell>{bill.productName}</TableCell>
                                                     <TableCell>{bill.billNumber}</TableCell>
+                                                    <TableCell>{bill.projectNumber || '-'}</TableCell>
+                                                    <TableCell>{bill.projectCode || '-'}</TableCell>
+                                                    <TableCell>{bill.poNumber || '-'}</TableCell>
                                                     <TableCell className="font-semibold">₹{bill.amount?.toLocaleString()}</TableCell>
                                                     <TableCell>{getStatusBadge(bill.status)}</TableCell>
+                                                    <TableCell>{bill.createdAt?.split('T')[0]}</TableCell>
+                                                    <TableCell>{bill.reviewedAt?.split('T')[0]}</TableCell>
                                                     <TableCell className="max-w-xs truncate">{bill.adminRemark || '-'}</TableCell>
                                                     <TableCell>
                                                         {bill.billPdfUrl ? (
@@ -589,6 +600,18 @@ const VendorManagement = () => {
                                                                             <div>
                                                                                 <Label className="text-sm font-medium text-gray-700">Bill Number</Label>
                                                                                 <p className="mt-1 text-sm">{selectedBill.billNumber}</p>
+                                                                            </div>
+                                                                            <div>
+                                                                                <Label className="text-sm font-medium text-gray-700">Project Number</Label>
+                                                                                <p className="mt-1 text-sm">{selectedBill.projectNumber || '-'}</p>
+                                                                            </div>
+                                                                            <div>
+                                                                                <Label className="text-sm font-medium text-gray-700">Project Code</Label>
+                                                                                <p className="mt-1 text-sm">{selectedBill.projectCode || '-'}</p>
+                                                                            </div>
+                                                                            <div>
+                                                                                <Label className="text-sm font-medium text-gray-700">PO Number</Label>
+                                                                                <p className="mt-1 text-sm">{selectedBill.poNumber || '-'}</p>
                                                                             </div>
                                                                             <div>
                                                                                 <Label className="text-sm font-medium text-gray-700">Amount</Label>
