@@ -230,13 +230,29 @@ const Contact: React.FC = () => {
 
     setIsSubmitting(true);
 
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: "06ecfe40-dcb0-4c29-af8f-8ed7f5f638a6", // Placeholder - replace with your real key
+          subject: `Contact Form Submission: ${formData.subject}`,
+          from_name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          location: formData.location,
+          message: formData.message,
+          to: "codelanceofficial@gmail.com"
+        }),
+      });
 
-      // Reset form after submission
-      setTimeout(() => {
+      const result = await response.json();
+      if (result.success) {
+        setIsSubmitted(true);
+        // Reset form after submission
         setFormData({
           name: '',
           email: '',
@@ -245,9 +261,15 @@ const Contact: React.FC = () => {
           message: '',
           location: ''
         });
-        setIsSubmitted(false);
-      }, 3000);
-    }, 1500);
+      } else {
+        alert("Failed to send message. Please try again.");
+      }
+    } catch (err) {
+      console.error("Mail Error:", err);
+      alert("An error occurred. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {

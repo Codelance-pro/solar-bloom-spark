@@ -2,7 +2,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import {
     MapPin, Clock, Briefcase, GraduationCap, IndianRupee,
-    CheckCircle2, ChevronRight, Phone, Mail, Building2, ArrowLeft, Send, User
+    CheckCircle2, ChevronRight, Phone, Mail, Building2, ArrowLeft, Send, User, Loader2
 } from 'lucide-react';
 
 import civil from '../assets/jobdeatil.jpg';
@@ -83,7 +83,7 @@ const jobsData = {
             "Supportive leadership and structured project teams.",
             "Competitive remuneration with on-site allowances.",
         ],
-         howToApply: [
+        howToApply: [
             "Send your resume and cover letter to careers@enfrosindia.com or +91 7418096372",
             "With the subject line: “Civil Site Supervisor  - Solar Project."
         ],
@@ -121,7 +121,7 @@ const jobsData = {
             "Friendly and supportive workplace.",
             "Opportunities for growth and learning.",
         ],
-         howToApply: [
+        howToApply: [
             "Send your resume and cover letter to careers@enfrosindia.com or +91 7418096372",
             "With the subject line: “Safety Supervisor – Enfros"
         ],
@@ -161,7 +161,7 @@ const jobsData = {
             "Friendly and supportive workplace.",
             "Opportunities for growth and learning.",
         ],
-         howToApply: [
+        howToApply: [
             "Send your resume and cover letter to careers@enfrosindia.com or +91 7418096372",
             "With the subject line: “Quality Engineer – Solar EPC"
         ],
@@ -199,7 +199,7 @@ const jobsData = {
             "Friendly and supportive workplace.",
             "Opportunities for growth and learning.",
         ],
-         howToApply: [
+        howToApply: [
             "Send your resume and cover letter to careers@enfrosindia.com or +91 7418096372",
             "With the subject line: “Project Manager – Solar EPC"
         ],
@@ -244,25 +244,64 @@ const IconSalary = () => (
 // ─── Application Form ────────────────────────────────────────────────────────
 const ApplicationForm = ({ jobTitle, applyEmail, applySubject }) => {
     const [form, setForm] = useState({ firstName: '', lastName: '', phone: '', email: '', designation: '', message: '' });
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitted, setSubmitted] = useState(false);
+    const [error, setError] = useState(false);
 
     const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const mailtoLink = `mailto:${applyEmail}?subject=${encodeURIComponent(applySubject)}&body=${encodeURIComponent(
-            `Name: ${form.firstName} ${form.lastName}\nEmail: ${form.email}\nPhone: ${form.phone}\nDesignation: ${form.designation}\n\nMessage:\n${form.message}`
-        )}`;
-        window.location.href = mailtoLink;
-        setSubmitted(true);
+        setIsSubmitting(true);
+        setError(false);
+
+        try {
+            // NOTE: Replace 'YOUR_ACCESS_KEY_HERE' with your real Web3Forms Access Key
+            // Get one for free at https://web3forms.com/
+            const response = await fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                },
+                body: JSON.stringify({
+                    access_key: "06ecfe40-dcb0-4c29-af8f-8ed7f5f638a6", // Placeholder - replace with your real key
+                    subject: `New Job Application: ${jobTitle} - ${applySubject}`,
+                    from_name: `${form.firstName} ${form.lastName}`,
+                    email: form.email,
+                    phone: form.phone,
+                    designation: form.designation || jobTitle,
+                    message: form.message,
+                    application_details: `
+                        Full Name: ${form.firstName} ${form.lastName}
+                        Email: ${form.email}
+                        Phone: ${form.phone}
+                        Designation: ${form.designation}
+                        Job Title: ${jobTitle}
+                    `,
+                }),
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                setSubmitted(true);
+            } else {
+                setError(true);
+            }
+        } catch (err) {
+            console.error("Mail Error:", err);
+            setError(true);
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     if (submitted) {
         return (
-            <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: 16, padding: 40, textAlign: 'center' }}>
+            <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: 16, padding: 40, textAlign: 'center', animation: 'scale-in 0.5s ease' }}>
                 <CheckCircle2 size={56} color="#22c55e" style={{ margin: '0 auto 16px' }} />
-                <h3 style={{ fontSize: 20, fontWeight: 700, color: '#166534', marginBottom: 8 }}>Application Submitted!</h3>
-                <p style={{ color: '#15803d' }}>Thank you for your interest. Your email client should have opened. We'll review your application and be in touch.</p>
+                <h3 style={{ fontSize: 24, fontWeight: 800, color: '#166534', marginBottom: 12 }}>Application Received!</h3>
+                <p style={{ color: '#15803d', fontSize: 16 }}>Thank you for applying. Your details have been sent to our recruitment team at <span style={{ fontWeight: 700 }}>codelanceofficial@gmail.com</span>. We'll review your profile and get back to you shortly.</p>
             </div>
         );
     }
@@ -331,19 +370,25 @@ const ApplicationForm = ({ jobTitle, applyEmail, applySubject }) => {
                     onFocus={e => e.target.style.borderColor = '#f59e0b'}
                     onBlur={e => e.target.style.borderColor = '#e5e7eb'} />
             </div>
-            <button type="submit" style={{
-                background: 'linear-gradient(135deg,#f59e0b,#eab308)', color: 'white', fontWeight: 700,
-                padding: '14px 32px', borderRadius: 10, border: 'none', cursor: 'pointer', fontSize: 16,
+            <button type="submit" disabled={isSubmitting} style={{
+                background: isSubmitting ? '#9ca3af' : 'linear-gradient(135deg,#f59e0b,#eab308)', color: 'white', fontWeight: 700,
+                padding: '14px 32px', borderRadius: 10, border: 'none', cursor: isSubmitting ? 'not-allowed' : 'pointer', fontSize: 16,
                 display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
                 boxShadow: '0 4px 16px rgba(245,158,11,0.4)', transition: 'all 0.2s', fontFamily: 'inherit',
             }}
-                onMouseEnter={e => e.target.style.opacity = '0.9'}
-                onMouseLeave={e => e.target.style.opacity = '1'}>
-                <Send size={18} />
-                Submit Application
+                onMouseEnter={e => !isSubmitting && (e.target.style.opacity = '0.9')}
+                onMouseLeave={e => !isSubmitting && (e.target.style.opacity = '1')}>
+                {isSubmitting ? <><Loader2 className="animate-spin" size={18} /> Sending...</> : <><Send size={18} /> Submit Application</>}
             </button>
+
+            {error && (
+                <p style={{ color: '#ef4444', fontSize: 14, textAlign: 'center', marginTop: -10 }}>
+                    Oops! Something went wrong. Please try again or email us directly.
+                </p>
+            )}
+
             <p style={{ fontSize: 12, color: '#9ca3af', textAlign: 'center' }}>
-                Your application will be sent to <span style={{ fontWeight: 600, color: '#d97706' }}>{applyEmail}</span>
+                Your application will be sent to <span style={{ fontWeight: 600, color: '#d97706' }}>codelanceofficial@gmail.com</span>
             </p>
         </form>
     );
@@ -483,14 +528,14 @@ const JobDetail = () => {
                         </div>
                     </div>
 
-                     <div style={{ background: 'white', borderRadius: 24, padding: '48px', boxShadow: '0 4px 32px rgba(0,0,0,0.05)', border: '1px solid #fde68a' }}>
+                    <div style={{ background: 'white', borderRadius: 24, padding: '48px', boxShadow: '0 4px 32px rgba(0,0,0,0.05)', border: '1px solid #fde68a' }}>
                         {sectionTitle('Why Join Us')}
                         <div style={{ marginTop: 12 }}>
                             {job.whyJoin.map((item, i) => bulletItem(item, i))}
                         </div>
                     </div>
 
-                      <div style={{ background: 'white', borderRadius: 24, padding: '48px', boxShadow: '0 4px 32px rgba(0,0,0,0.05)', border: '1px solid #fde68a' }}>
+                    <div style={{ background: 'white', borderRadius: 24, padding: '48px', boxShadow: '0 4px 32px rgba(0,0,0,0.05)', border: '1px solid #fde68a' }}>
                         {sectionTitle('How to Apply')}
                         <div style={{ marginTop: 12 }}>
                             {job.howToApply.map((item, i) => bulletItem(item, i))}
