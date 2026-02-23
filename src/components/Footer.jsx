@@ -74,7 +74,7 @@ const Footer = () => {
 
       {/* Newsletter Section */}
       <div className="border-b border-yellow-500/20 relative z-10">
-        <div className="container mx-auto px-4 ">
+        <div className="container mx-auto px-3 ">
           {/* Newsletter content commented out */}
         </div>
       </div>
@@ -135,7 +135,7 @@ const Footer = () => {
                 </div>                */}
               </div>
 
-   <div className="flex  items-start space-x-3 group">
+   <div className="flex items-start space-x-3 group">
                 <div className="bg-blue-900/50 p-2 rounded-lg group-hover:bg-yellow-500 transition-colors">
                   <MapPin className="h-5 w-5 text-yellow-800 group-hover:text-blue-950"  />
                 </div>
@@ -226,22 +226,9 @@ const Footer = () => {
         </div>
 
         {/* Certifications */}
-        <div className="border-t border-b border-yellow-500/20 py-8 mb-8">
-          <div className="flex flex-wrap items-center justify-center gap-8">
-            {certifications.map((cert, index) => (
-              <div
-                key={index}
-                className="flex items-center space-x-2 bg-black px-6 py-3 rounded-xl hover:bg-yellow-500 hover:scale-105 transition-all group"
-              >
-                <span className="text-2xl">{cert.icon}</span>
-                <span className="font-semibold text-sm text-yellow-400 group-hover:text-blue-950">{cert.name}</span>
-              </div>
-            ))}
-          </div>
-        </div>
+        <div className="border-t border-b border-yellow-500/20 py-6  flex ">
 
-        {/* Social Links & Bottom Bar */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Social Media */}
           <div className="flex items-center space-x-3">
             <span className="text-black mr-2">Follow Us:</span>
@@ -258,6 +245,18 @@ const Footer = () => {
                 </a>
               );
             })}
+          </div>
+
+           <div className="flex flex-wrap items-center justify-center gap-2">
+            {certifications.map((cert, index) => (
+              <div
+                key={index}
+                className="flex items-center  bg-black px-3 py-3 rounded-xl hover:bg-yellow-500 hover:scale-105 transition-all group"
+              >
+                <span className="text-2xl">{cert.icon}</span>
+                <span className="font-semibold text-sm text-yellow-400 group-hover:text-blue-950">{cert.name}</span>
+              </div>
+            ))}
           </div>
 
           {/* Copyright */}
@@ -280,6 +279,48 @@ const Footer = () => {
             </div>
           </div>
         </div>
+        </div>
+
+        {/* Social Links & Bottom Bar */}
+        {/* <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+          Social Media
+          <div className="flex items-center space-x-3">
+            <span className="text-black mr-2">Follow Us:</span>
+            {socialLinks.map((social, index) => {
+              const SocialIcon = social.icon;
+              return (
+                <a
+                  key={index}
+                  href={social.href}
+                  aria-label={social.name}
+                  className="bg-blue-900/50 p-3 rounded-xl hover:bg-yellow-500 hover:scale-110 transition-all duration-300 group"
+                >
+                  <SocialIcon className="h-5 w-5 text-yellow-800 group-hover:text-blue-950" />
+                </a>
+              );
+            })}
+          </div>
+
+          Copyright
+          <div className="text-center md:text-right">
+            <p className="text-black text-sm">
+              © {new Date().getFullYear()} ENFROS India Solutions Pvt. Ltd. All rights reserved.
+            </p>
+            <div className="flex flex-wrap justify-center md:justify-end gap-4 mt-2">
+              <a href="#privacy" className="text-black hover:text-yellow-800 text-sm transition-colors">
+                Privacy Policy
+              </a>
+              <span className="text-black">•</span>
+              <a href="#terms" className="text-black hover:text-yellow-800 text-sm transition-colors">
+                Terms of Service
+              </a>
+              <span className="text-black">•</span>
+              <a href="#cookies" className="text-black hover:text-yellow-800 text-sm transition-colors">
+                Cookie Policy
+              </a>
+            </div>
+          </div>
+        </div> */}
       </div>
 
       {/* Decorative Bottom Element */}
