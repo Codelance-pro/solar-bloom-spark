@@ -555,7 +555,7 @@ const JobDetail = () => {
 
                     {/* Section: Other Roles */}
                     <div style={{ marginTop: 40 }}>
-                        <h2 style={{ fontSize: 32, fontWeight: 900, color: '#111827', textAlign: 'center', marginBottom: 40, fontFamily: 'Raleway, sans-serif' }}>Other Open Roles</h2>
+                        <h2 style={{ fontSize: 32, fontWeight: 900, color: '#111827', textAlign: 'center', marginBottom: 40, fontFamily: 'Raleway, sans-serif' }}>OTHER OPEN ROLES</h2>
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 24 }}>
                             {otherJobs.slice(0, 3).map((j) => (
                                 <div key={j.slug} className="other-job-card" onClick={() => navigate(`/career/${j.slug}`)} style={{ padding: '24px', alignItems: 'flex-start', flexDirection: 'column', gap: 16 }}>
