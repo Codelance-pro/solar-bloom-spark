@@ -85,7 +85,7 @@ const Careers = () => {
   ];
 
   return (
-    <div className="pt-24 bg-gradient-to-b from-amber-50 via-yellow-50 to-amber-100 min-h-screen">
+    <div className=" bg-gradient-to-b from-amber-50 via-yellow-50 to-amber-100 min-h-screen">
       <style>{`
         @keyframes slideInDown {
           from { opacity: 0; transform: translateY(-60px); }
@@ -133,37 +133,14 @@ const Careers = () => {
         .stagger-3 { animation-delay: 0.3s; }
         .stagger-4 { animation-delay: 0.4s; }
 
-               .hero-banner {
-          position: relative;
-          overflow: hidden;
-          background: #f0fdf4;
-        }
-        .hero-banner .hero-bg {
-          position: absolute;
-          inset: 0;
-          background-image: url('https://images.unsplash.com/photo-1611365892117-00ac5ef43c90?w=1600&h=700&fit=crop');
-          background-size: cover;
-          background-position: center right;
-          z-index: 0;
-        }
-        .hero-banner .hero-overlay {
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(
-            to right,
-            rgba(240, 253, 244, 1) 0%,
-            rgba(240, 253, 244, 0.97) 30%,
-            rgba(240, 253, 244, 0.80) 50%,
-            rgba(240, 253, 244, 0.2) 70%,
-            rgba(240, 253, 244, 0) 100%
-          );
-          z-index: 1;
-        }
+          .hero-banner { position: relative; overflow: hidden; }
+                .hero-bg { position: absolute; inset: 0; background-image: url('https://images.unsplash.com/photo-1611365892117-00ac5ef43c90?w=1600&h=700&fit=crop'); background-size: cover; background-position: center right; z-index: 0; }
+                .hero-overlay { position: absolute; inset: 0; z-index: 1; background: linear-gradient(to right, rgba(255,251,235,1) 0%, rgba(255,251,235,0.97) 30%, rgba(255,251,235,0.80) 55%, rgba(255,251,235,0.1) 100%); }
       `}</style>
 
 
 
-      <div className="hero-banner pt-20" style={{ minHeight: 'auto', display: 'flex', alignItems: 'center' }}>
+      <div className="hero-banner" style={{ paddingTop: 80, display: 'flex', alignItems: 'center' }}>
         <div className="hero-bg" />
         <div className="hero-overlay" />
 

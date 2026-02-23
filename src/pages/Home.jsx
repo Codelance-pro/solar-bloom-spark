@@ -27,7 +27,13 @@ import client6 from "../assets/client6.jpeg";
 import client7 from "../assets/client7.jpeg";
 import client8 from "../assets/client8.jpeg";
 import client9 from "../assets/client9.jpg";
-// import client10 from "../assets/client10.jpeg";
+import client10 from "../assets/client10.jpeg";
+import client11 from "../assets/client11.jpeg";
+import client12 from "../assets/client12.jpeg";
+import client13 from "../assets/client13.jpeg";
+import client14 from "../assets/client14.jpeg";
+import client15 from "../assets/client15.jpeg";
+
 
 
 
@@ -167,6 +173,10 @@ const Home = () => {
   ];
 
   useEffect(() => {
+    // Force preloading of the heavy hero image
+    const img = new Image();
+    img.src = homepage1;
+
     setIsVisible(true);
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % bannerSlides.length);
@@ -397,13 +407,15 @@ const Home = () => {
           }}></div>
         </div> */}
 
-        <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 z-0 bg-amber-100">
           <img
             src={homepage1}
             alt="Solar background"
-            className="w-full h-full object-cover"
+            className={`w-full h-full object-cover transition-opacity duration-700 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
+            loading="eager"
+            fetchPriority="high"
           />
-          {/* <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/40 to-yellow-900/40"></div> */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-transparent"></div>
         </div>
 
         {/* Content */}
@@ -591,7 +603,7 @@ const Home = () => {
                       <span>About Our Company</span>
                     </div>
                     <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 leading-none tracking-tight mb-4 uppercase">
-                      ENFROS INDIA <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-amber-600">PRIVATE LIMITED</span>
+                      ENFROS INDIA SOLUTION <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-amber-600">PRIVATE LIMITED</span>
                     </h2>
                   </div>
 
@@ -898,7 +910,7 @@ const Home = () => {
               </h2>
               <div className="w-32 h-2 bg-gradient-to-r from-yellow-500 to-amber-600 mx-auto rounded-full mb-10"></div>
               <p className="text-gray-600 font-medium text-lg md:text-xl max-w-3xl mx-auto">
-                Our clients, like our people, are our most treasured assets. We nurture every client relationship with commitment, passion, and integrity, 
+                Our clients, like our people, are our most treasured assets. We nurture every client relationship with commitment, passion, and integrity,
                 which is the reason why most of our clients have been with us throughout our journey.
               </p>
             </div>
@@ -912,16 +924,16 @@ const Home = () => {
                 { name: "BHEL", logo: client2 },
                 { name: "L&T", logo: client4 },
                 { name: "ABB", logo: "https://upload.wikimedia.org/wikipedia/commons/0/00/ABB_logo.svg" },
-                { name: "Waaree", logo: "https://www.waaree.com/images/waaree-logo.png" },
-                { name: "Tata Power", logo: "https://upload.wikimedia.org/wikipedia/commons/3/36/Tata_Power_logo.svg" },
-                { name: "Sterling & Wilson", logo: "https://upload.wikimedia.org/wikipedia/commons/3/3b/Sterling_and_Wilson_logo.png" },
+                { name: "Waaree", logo: client14 },
+                { name: "Tata Power", logo: client13 },
+                { name: "Sterling & Wilson", logo: client10 },
                 { name: "Welspun", logo: client1 },
                 { name: "GMR", logo: client3 },
                 { name: "Cleantech Solar", logo: client8 },
-                { name: "Hild Energy", logo : client9 },
-                { name: "Svaryu Energy", logo: "https://www.svaryuenergy.com/assets/img/logo.png" },
-                { name: "Mahindra Susten", logo: "https://upload.wikimedia.org/wikipedia/en/a/ad/Mahindra_Susten_logo.jpg" },
-                { name: "Refex", logo: "https://refex.co.in/images/logo.png" },
+                { name: "Hild Energy", logo: client9 },
+                { name: "Svaryu Energy", logo: client12 },
+                { name: "Mahindra Susten", logo: client15 },
+                { name: "Refex", logo: client11 },
                 { name: "Siemens", logo: "https://upload.wikimedia.org/wikipedia/commons/5/5f/Siemens-logo.svg" }
               ].map((client, index) => (
                 <div

@@ -89,8 +89,8 @@ const Footer = () => {
                 <Sun className="h-8 w-8 text-blue-950" />
               </div>
               <div>
-                <h2 className="text-2xl font-bold text-yellow-400">Enfros India Solutions </h2>
-                <p className="text-sm text-yellow-300">Pvt. Ltd.</p>
+                <h2 className="text-2xl font-bold text-yellow-800">Enfros India Solutions </h2>
+                <p className="text-sm text-yellow-800">Pvt. Ltd.</p>
               </div>
             </div>
             <p className="text-black mb-6 leading-relaxed">
@@ -101,57 +101,57 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-start space-x-3 group">
                 <div className="bg-blue-900/50 p-2 rounded-lg group-hover:bg-yellow-500 transition-colors">
-                  <Phone className="h-5 w-5 text-yellow-400 group-hover:text-blue-950" />
+                  <Phone className="h-5 w-5 text-yellow-800 group-hover:text-blue-950" />
                 </div>
                 <div>
                   <p className="text-sm text-black">Call Us</p>
-                  <p className="font-semibold text-yellow-400">+91 98765 43210</p>
+                  <p className="font-semibold text-yellow-800">+91 98765 43210</p>
                 </div>
               </div>
               <div className="flex items-start space-x-3 group">
                 <div className="bg-blue-900/50 p-2 rounded-lg group-hover:bg-yellow-500 transition-colors">
-                  <Mail className="h-5 w-5 text-yellow-400 group-hover:text-blue-950" />
+                  <Mail className="h-5 w-5 text-yellow-800 group-hover:text-blue-950" />
                 </div>
                 <div>
                   <p className="text-sm text-black">Email Us</p>
-                  <p className="font-semibold text-yellow-400">info@enfrosindia.com</p>
+                  <p className="font-semibold text-yellow-800">info@enfrosindia.com</p>
                 </div>
               </div>
               <div className="flex  items-start space-x-3 group">
                 <div className="bg-blue-900/50 p-2 rounded-lg group-hover:bg-yellow-500 transition-colors">
-                  <MapPin className="h-5 w-5 text-yellow-400 group-hover:text-blue-950"  />
+                  <MapPin className="h-5 w-5 text-yellow-800 group-hover:text-blue-950"  />
                 </div>
                 <div>
                   <p className="text-sm text-black">Corporate Office</p>
-                  <p className="font-semibold text-yellow-400">No.6, Indra Priyadarshini Nagar, Perumbakkam, Chennai – 600100</p>
+                  <p className="font-semibold text-yellow-800">No.6, Indra Priyadarshini Nagar, Perumbakkam, Chennai – 600100</p>
                    {/* <div>
                   <p className="text-sm text-black">Registered Office</p>
-                  <p className="font-semibold text-yellow-400">No. 14, Bharath Complex,Near Ram Theater, Pudukkottai – 622003</p>
+                  <p className="font-semibold text-yellow-800">No. 14, Bharath Complex,Near Ram Theater, Pudukkottai – 622003</p>
                 </div>  */}
                 </div> 
                 {/* <div>
                   <p className="text-sm text-black">Registered Office</p>
-                  <p className="font-semibold text-yellow-400">No. 14, Bharath Complex,Near Ram Theater, Pudukkottai – 622003</p>
+                  <p className="font-semibold text-yellow-800">No. 14, Bharath Complex,Near Ram Theater, Pudukkottai – 622003</p>
                 </div>                */}
               </div>
 
    <div className="flex  items-start space-x-3 group">
                 <div className="bg-blue-900/50 p-2 rounded-lg group-hover:bg-yellow-500 transition-colors">
-                  <MapPin className="h-5 w-5 text-yellow-400 group-hover:text-blue-950"  />
+                  <MapPin className="h-5 w-5 text-yellow-800 group-hover:text-blue-950"  />
                 </div>
                 <div>
                   <p className="text-sm text-black">Registered Office</p>
-                  <p className="font-semibold text-yellow-400">No. 14, Bharath Complex,Near Ram Theater, Pudukkottai – 622003</p>
+                  <p className="font-semibold text-yellow-800">No. 14, Bharath Complex,Near Ram Theater, Pudukkottai – 622003</p>
                 </div>               
               </div>
 
               <div className="flex items-start space-x-3 group">
                 <div className="bg-blue-900/50 p-2 rounded-lg group-hover:bg-yellow-500 transition-colors">
-                  <Clock className="h-5 w-5 text-yellow-400 group-hover:text-blue-950" />
+                  <Clock className="h-5 w-5 text-yellow-800 group-hover:text-blue-950" />
                 </div>
                 <div>
                   <p className="text-sm text-black">Business Hours</p>
-                  <p className="font-semibold text-yellow-400">Mon - Sat: 9AM - 6PM</p>
+                  <p className="font-semibold text-yellow-800">Mon - Sat: 9AM - 6PM</p>
                 </div>
               </div>
             </div>
@@ -159,7 +159,7 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-xl font-bold mb-6 relative text-yellow-400">
+            <h3 className="text-xl font-bold mb-6 relative text-yellow-800">
               Quick Links
               <span className="absolute -bottom-2 left-0 w-12 h-1 bg-gradient-to-r from-yellow-400 to-amber-500 rounded-full"></span>
             </h3>
@@ -168,9 +168,9 @@ const Footer = () => {
                 <li key={index}>
                   <a
                     href={link.href}
-                    className="text-black hover:text-yellow-400 transition-colors flex items-center group"
+                    className="text-black hover:text-yellow-800 transition-colors flex items-center group"
                   >
-                    <ArrowRight className="h-4 w-4 mr-2 opacity-0 -ml-6 group-hover:opacity-100 group-hover:ml-0 transition-all text-yellow-400" />
+                    <ArrowRight className="h-4 w-4 mr-2 opacity-0 -ml-6 group-hover:opacity-100 group-hover:ml-0 transition-all text-yellow-800" />
                     {link.name}
                   </a>
                 </li>
@@ -180,7 +180,7 @@ const Footer = () => {
 
           {/* Services */}
           <div>
-            <h3 className="text-xl font-bold mb-6 relative text-yellow-400">
+            <h3 className="text-xl font-bold mb-6 relative text-yellow-800">
               Services
               <span className="absolute -bottom-2 left-0 w-12 h-1 bg-gradient-to-r from-yellow-400 to-amber-500 rounded-full"></span>
             </h3>
@@ -193,9 +193,9 @@ const Footer = () => {
                 <li key={index}>
                   <a
                     href={service.href}
-                    className="text-black hover:text-yellow-400 transition-colors flex items-center group"
+                    className="text-black hover:text-yellow-800 transition-colors flex items-center group"
                   >
-                    <ArrowRight className="h-4 w-4 mr-2 opacity-0 -ml-6 group-hover:opacity-100 group-hover:ml-0 transition-all text-yellow-400" />
+                    <ArrowRight className="h-4 w-4 mr-2 opacity-0 -ml-6 group-hover:opacity-100 group-hover:ml-0 transition-all text-yellow-800" />
                     {service.name}
                   </a>
                 </li>
@@ -205,7 +205,7 @@ const Footer = () => {
 
           {/* Resources */}
           <div>
-            <h3 className="text-xl font-bold mb-6 relative text-yellow-400">
+            <h3 className="text-xl font-bold mb-6 relative text-yellow-800">
               Resources
               <span className="absolute -bottom-2 left-0 w-12 h-1 bg-gradient-to-r from-yellow-400 to-amber-500 rounded-full"></span>
             </h3>
@@ -214,9 +214,9 @@ const Footer = () => {
                 <li key={index}>
                   <a
                     href={resource.href}
-                    className="text-black hover:text-yellow-400 transition-colors flex items-center group"
+                    className="text-black hover:text-yellow-800 transition-colors flex items-center group"
                   >
-                    <ArrowRight className="h-4 w-4 mr-2 opacity-0 -ml-6 group-hover:opacity-100 group-hover:ml-0 transition-all text-yellow-400" />
+                    <ArrowRight className="h-4 w-4 mr-2 opacity-0 -ml-6 group-hover:opacity-100 group-hover:ml-0 transition-all text-yellow-800" />
                     {resource.name}
                   </a>
                 </li>
@@ -254,7 +254,7 @@ const Footer = () => {
                   aria-label={social.name}
                   className="bg-blue-900/50 p-3 rounded-xl hover:bg-yellow-500 hover:scale-110 transition-all duration-300 group"
                 >
-                  <SocialIcon className="h-5 w-5 text-yellow-400 group-hover:text-blue-950" />
+                  <SocialIcon className="h-5 w-5 text-yellow-800 group-hover:text-blue-950" />
                 </a>
               );
             })}
@@ -266,15 +266,15 @@ const Footer = () => {
               © {new Date().getFullYear()} ENFROS India Solutions Pvt. Ltd. All rights reserved.
             </p>
             <div className="flex flex-wrap justify-center md:justify-end gap-4 mt-2">
-              <a href="#privacy" className="text-black hover:text-yellow-400 text-sm transition-colors">
+              <a href="#privacy" className="text-black hover:text-yellow-800 text-sm transition-colors">
                 Privacy Policy
               </a>
               <span className="text-black">•</span>
-              <a href="#terms" className="text-black hover:text-yellow-400 text-sm transition-colors">
+              <a href="#terms" className="text-black hover:text-yellow-800 text-sm transition-colors">
                 Terms of Service
               </a>
               <span className="text-black">•</span>
-              <a href="#cookies" className="text-black hover:text-yellow-400 text-sm transition-colors">
+              <a href="#cookies" className="text-black hover:text-yellow-800 text-sm transition-colors">
                 Cookie Policy
               </a>
             </div>

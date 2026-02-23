@@ -29,6 +29,12 @@ import client6 from "../assets/client6.jpeg";
 import client7 from "../assets/client7.jpeg";
 import client8 from "../assets/client8.jpeg";
 import client9 from "../assets/client9.jpg";
+import client10 from "../assets/client10.jpeg";
+import client11 from "../assets/client11.jpeg";
+import client12 from "../assets/client12.jpeg";
+import client13 from "../assets/client13.jpeg";
+import client14 from "../assets/client14.jpeg";
+import client15 from "../assets/client15.jpeg";
 
 // Intersection Observer Hook for scroll animations
 const useScrollAnimation = () => {
@@ -529,16 +535,16 @@ const About: React.FC = () => {
                 { name: "BHEL", logo: client2 },
                 { name: "L&T", logo: client4 },
                 { name: "ABB", logo: "https://upload.wikimedia.org/wikipedia/commons/0/00/ABB_logo.svg" },
-                { name: "Waaree", logo: "https://www.waaree.com/images/waaree-logo.png" },
-                { name: "Tata Power", logo: "https://upload.wikimedia.org/wikipedia/commons/3/36/Tata_Power_logo.svg" },
-                { name: "Sterling & Wilson", logo: "https://upload.wikimedia.org/wikipedia/commons/3/3b/Sterling_and_Wilson_logo.png" },
+                { name: "Waaree", logo: client14 },
+                { name: "Tata Power", logo: client13 },
+                { name: "Sterling & Wilson", logo: client10 },
                 { name: "Welspun", logo: client1 },
                 { name: "GMR", logo: client3 },
                 { name: "Cleantech Solar", logo: client8 },
                 { name: "Hild Energy", logo: client9 },
-                { name: "Svaryu Energy", logo: "https://www.svaryuenergy.com/assets/img/logo.png" },
-                { name: "Mahindra Susten", logo: "https://upload.wikimedia.org/wikipedia/en/a/ad/Mahindra_Susten_logo.jpg" },
-                { name: "Refex", logo: "https://refex.co.in/images/logo.png" },
+                { name: "Svaryu Energy", logo: client12 },
+                { name: "Mahindra Susten", logo: client11 },
+                { name: "Refex", logo: client15 },
                 { name: "Siemens", logo: "https://upload.wikimedia.org/wikipedia/commons/5/5f/Siemens-logo.svg" }
               ].map((client, index) => (
                 <div
