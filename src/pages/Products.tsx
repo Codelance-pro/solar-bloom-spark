@@ -779,9 +779,9 @@ const Products: React.FC = () => {
         </section>
 
         {/* CTA Section */}
-        <section ref={ctaAnim.ref} className={`relative overflow-hidden rounded-3xl shadow-2xl ${ctaAnim.isVisible ? 'animate-scale-in' : 'opacity-0'}`}>
+        <section ref={ctaAnim.ref} className={` relative overflow-hidden rounded-3xl shadow-2xl ${ctaAnim.isVisible ? 'animate-scale-in' : 'opacity-0'}`}>
           <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 via-amber-400 to-yellow-500 animate-shimmer"></div>
-          <div className="relative p-12 text-center text-white">
+          <div className="relative p-12 text-center text-white bg-amber-500  ">
             <div className="inline-flex items-center justify-center w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full mb-8 shadow-xl animate-pulse-ring">
               <Phone className="w-10 h-10 text-white" />
             </div>

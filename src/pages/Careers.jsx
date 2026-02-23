@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { Briefcase, Users, Rocket, HeartHandshake, Star, CheckCircle2, Mail, MapPin, Clock, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -40,28 +41,39 @@ const Careers = () => {
 
   const jobs = [
     {
-      title: "Solar Project Engineer",
-      location: "Chennai, India",
+      title: "Civil Engineer",
+      slug: "civil-engineer",
+      location: "Pan India",
       type: "Full-Time",
-      desc: "Responsible for planning, designing, and commissioning solar EPC projects."
+      desc: "Responsible for planning, designing, and commissioning solar EPC civil works."
     },
     {
-      title: "Site Supervisor (Solar)",
-      location: "Coimbatore, India",
+      title: "Civil Site Supervisor",
+      slug: "civil-site-supervisor",
+      location: "Pan India",
       type: "Full-Time",
       desc: "Manage site execution, vendor coordination, and installation quality."
     },
     {
-      title: "Sales Executive – Solar Solutions",
-      location: "Madurai, India",
+      title: "Safety Supervisor",
+      slug: "safety-supervisor",
+      location: "Chennai",
       type: "Full-Time",
-      desc: "Identify leads, promote solar solutions, and manage customer relations."
+      desc: "Enforce HSE policies, identify hazards, and ensure a zero-incident site."
     },
     {
-      title: "Electrical Engineer – Solar EPC",
-      location: "Bangalore, India",
+      title: "Quality Engineer",
+      slug: "quality-engineer",
+      location: "Pan India",
       type: "Full-Time",
-      desc: "Design PV systems, prepare SLDs, and support technical documentation."
+      desc: "Conduct QA/QC inspections and ensure compliance with IEC/IS standards."
+    },
+      {
+      title: "Project Manager",
+      slug: "project-manager",
+      location: "Pan India",
+      type: "Full-Time",
+      desc: "Responsible for planning, execution, and commissioning of solar EPC projects."
     },
   ];
 
@@ -120,23 +132,82 @@ const Careers = () => {
         .stagger-2 { animation-delay: 0.2s; }
         .stagger-3 { animation-delay: 0.3s; }
         .stagger-4 { animation-delay: 0.4s; }
+
+               .hero-banner {
+          position: relative;
+          overflow: hidden;
+          background: #f0fdf4;
+        }
+        .hero-banner .hero-bg {
+          position: absolute;
+          inset: 0;
+          background-image: url('https://images.unsplash.com/photo-1611365892117-00ac5ef43c90?w=1600&h=700&fit=crop');
+          background-size: cover;
+          background-position: center right;
+          z-index: 0;
+        }
+        .hero-banner .hero-overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(
+            to right,
+            rgba(240, 253, 244, 1) 0%,
+            rgba(240, 253, 244, 0.97) 30%,
+            rgba(240, 253, 244, 0.80) 50%,
+            rgba(240, 253, 244, 0.2) 70%,
+            rgba(240, 253, 244, 0) 100%
+          );
+          z-index: 1;
+        }
       `}</style>
 
+
+
+      <div className="hero-banner pt-20" style={{ minHeight: 'auto', display: 'flex', alignItems: 'center' }}>
+        <div className="hero-bg" />
+        <div className="hero-overlay" />
+
+        {/* Content — left side, above overlays */}
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-8 py-16 md:py-28">
+          <div className="anim-up max-w-xl">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 mb-5 leading-tight">
+              Careers
+            </h1>
+            <p className="text-gray-700 text-base md:text-lg leading-relaxed mb-0" style={{ textAlign: 'justify' }}>
+              Careers at Enfros India Solutions Pvt. Ltd.<br></br>
+              Renewable Energy & Solar EPC Job Opportunities in India
+              Looking for solar jobs in India?
+
+            </p>
+          </div>
+        </div>
+
+        {/* Breadcrumb — bottom right, like the reference */}
+        <nav
+          className="absolute bottom-4 right-4 md:bottom-6 md:right-8 z-10 flex items-center gap-2 text-xs md:text-sm bg-white/80 backdrop-blur-sm px-3 py-2 md:px-5 md:py-2.5 rounded-lg shadow-sm"
+        >
+          <span className="text-gray-600 hover:text-amber-600 cursor-pointer transition-colors font-medium">Home</span>
+          <span className="text-amber-500 font-bold text-base">»</span>
+          <span className="text-gray-900 font-semibold">Careers</span>
+        </nav>
+      </div>
+
       {/* ================= HERO SECTION ================= */}
-      <section className="relative bg-gradient-to-br from-yellow-400 via-amber-500 to-yellow-600 text-white py-24 overflow-hidden">
+      {/* <section className="relative text-white py-24 overflow-hidden">
         <div className="absolute top-10 left-20 w-64 h-64 bg-white/20 rounded-full blur-3xl animate-wave"></div>
         <div className="absolute bottom-10 right-20 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-wave" style={{ animationDelay: '1s' }}></div>
 
         <div ref={heroAnim.ref} className="container mx-auto px-4 relative z-10">
           <div className={`${heroAnim.isVisible ? 'animate-slide-down' : 'opacity-0'}`}>
-            <h1 className="text-5xl md:text-6xl font-bold mb-4 drop-shadow-lg">
+            <h1 className="text-2xl text-black md:text-4xl font-bold mb-4 drop-shadow-lg">
               Join Our Solar Revolution
             </h1>
           </div>
           <div className={`${heroAnim.isVisible ? 'animate-blur-in' : 'opacity-0'} stagger-1`}>
-            <p className="text-white/90 max-w-2xl text-lg md:text-xl mb-8">
-              Be part of a mission-driven team working towards a sustainable future.
-              Together, we build clean energy solutions that power the world.
+            <p className="text-black  text-lg md:text-xl mb-8">
+              Join Enfros India Solutions Pvt. Ltd., a leading Solar EPC and Renewable
+              Energy company, and build your career in one of the fastest-growing industries
+              in the world.
             </p>
           </div>
 
@@ -148,10 +219,10 @@ const Careers = () => {
             </Button>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* ================= STATS SECTION ================= */}
-      <section className="py-16 -mt-12 relative z-20">
+      {/* <section className="py-16 -mt-12 relative z-20">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
@@ -173,10 +244,10 @@ const Careers = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* ================= CULTURE SECTION ================= */}
-      <section ref={cultureAnim.ref} className="py-20">
+      {/* <section ref={cultureAnim.ref} className="py-20">
         <div className="container mx-auto px-4">
           <div className={`text-center mb-12 ${cultureAnim.isVisible ? 'animate-slide-down' : 'opacity-0'}`}>
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
@@ -206,60 +277,63 @@ const Careers = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
-      {/* ================= JOB LISTINGS ================= */}
-      <section ref={jobsAnim.ref} className="py-20 bg-white/50">
+      {/* ================= JOB LISTINGS (New Design) ================= */}
+      <section ref={jobsAnim.ref} className="py-12 md:py-20 bg-gray-50/50">
         <div className="container mx-auto px-4">
 
-          <div className={`flex items-center justify-between mb-12 ${jobsAnim.isVisible ? 'animate-slide-down' : 'opacity-0'}`}>
-            <div>
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900">Current Openings</h2>
-              <div className="w-20 h-1 bg-gradient-to-r from-yellow-500 to-amber-500 mt-3 rounded-full"></div>
-            </div>
-            <div className={`${jobsAnim.isVisible ? 'animate-rotate-in' : 'opacity-0'} stagger-1`}>
-              <Briefcase className="h-12 w-12 text-yellow-600" />
-            </div>
+          {/* Header Card "Join Our Team" */}
+          <div className={`bg-white rounded-xl shadow-lg p-8 md:p-12 mb-12 max-w-6xl mx-auto border border-gray-100 ${jobsAnim.isVisible ? 'animate-slide-down' : 'opacity-0'}`}>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Join Our Team</h2>
+            <p className="text-gray-600 text-lg leading-relaxed">
+              At Enfros India Solutions Pvt. Ltd., we're creating a workplace where passionate individuals can thrive while driving a greener future.
+              If you're looking for a career that makes a real impact, you're in the right place. Come be a part of our journey toward sustainable energy solutions!
+            </p>
           </div>
 
-          <div className="grid gap-6">
+          {/* Job Cards Grid */}
+          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {jobs.map((job, i) => (
               <div
                 key={i}
-                className={`group bg-white border-2 border-yellow-200 rounded-2xl p-6 md:p-8 hover:border-yellow-400 hover:shadow-2xl transition-all duration-300 relative overflow-hidden ${jobsAnim.isVisible ? `animate-pop-in stagger-${(i % 4) + 1}` : 'opacity-0'}`}
+                className={`group bg-white rounded-xl shadow-lg p-8 flex flex-col items-center text-center border border-gray-100 hover:shadow-2xl transition-all duration-300 ${jobsAnim.isVisible ? `animate-pop-in stagger-${(i % 4) + 1}` : 'opacity-0'}`}
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-yellow-50 to-amber-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                {/* Icon Area */}
+                <div className="mb-6 transform group-hover:scale-110 transition-transform duration-300">
+                  {i === 0 && <Briefcase className="w-16 h-16 text-blue-500" />}
+                  {i === 1 && <Users className="w-16 h-16 text-purple-500" />}
+                  {i === 2 && <TrendingUp className="w-16 h-16 text-green-500" />}
+                  {i === 3 && <Briefcase className="w-16 h-16 text-orange-500" />}
+                  {i > 3 && <Briefcase className="w-16 h-16 text-gray-500" />}
+                </div>
 
-                <div className="relative z-10">
-                  <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                    <div className="flex-1">
-                      <h3 className="text-2xl font-bold text-gray-900 group-hover:text-yellow-600 transition-colors duration-300 mb-2">
-                        {job.title}
-                      </h3>
+                {/* Job Title */}
+                {/* Job Title */}
+                <h3 className="text-xl font-bold text-amber-500 mb-2">
+                  {job.title} – Solar Industry
+                </h3>
 
-                      <div className="flex flex-wrap gap-4 text-gray-600 text-sm mb-4">
-                        <span className="flex items-center">
-                          <MapPin className="w-4 h-4 mr-1 text-yellow-500" />
-                          {job.location}
-                        </span>
-                        <span className="flex items-center">
-                          <Clock className="w-4 h-4 mr-1 text-yellow-500" />
-                          {job.type}
-                        </span>
-                      </div>
+                {/* Location/Type (kept from original content but styled minimally) */}
+                <div className="flex items-center justify-center gap-2 text-xs font-medium text-gray-400 mb-4 uppercase tracking-wider">
+                  <span>{job.location}</span>
+                  <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
+                  <span>{job.type}</span>
+                </div>
+                {/* <p className="text-gray-500 text-sm mb-6 line-clamp-2">
+                  {job.desc}
+                </p> */}
 
-                      <p className="bg-yellow-50 border border-yellow-100 rounded-xl p-4 text-gray-700 max-w-2xl">
-                        {job.desc}
-                      </p>
-                    </div>
-
-                    <Button
-                      className="bg-gradient-to-r from-yellow-500 to-amber-600 text-white hover:from-yellow-600 hover:to-amber-700 transition-all duration-300 px-8 py-6 text-lg font-semibold shadow-lg hover:shadow-xl hover:scale-105 whitespace-nowrap"
+                <div className="mt-auto pt-4">
+                  <Link to={`/career/${job.slug}`}>
+                    <button
+                      className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-8 rounded shadow-md transition-all duration-300 uppercase text-sm tracking-wide"
                     >
                       Apply Now
-                    </Button>
-                  </div>
+                    </button>
+                  </Link>
                 </div>
+
               </div>
             ))}
           </div>
@@ -267,7 +341,7 @@ const Careers = () => {
       </section>
 
       {/* ================= CTA SECTION ================= */}
-      <section ref={ctaAnim.ref} className="py-20 relative overflow-hidden">
+      {/* <section ref={ctaAnim.ref} className="py-20 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-yellow-400 via-amber-500 to-yellow-600"></div>
         <div className="absolute top-0 left-0 w-full h-full">
           <div className="absolute top-10 right-10 w-64 h-64 bg-white/20 rounded-full blur-3xl animate-wave"></div>
@@ -297,7 +371,7 @@ const Careers = () => {
             </Button>
           </div>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 };

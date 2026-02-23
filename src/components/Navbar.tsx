@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import {
   Menu, X, ChevronDown, LogOut, User, Settings, FileText,
-  Home, Info, Package, Folder, Phone, BookOpen,ShoppingBag,
+  Home, Info, Package, Folder, Phone, BookOpen, ShoppingBag,
   Calculator
 } from "lucide-react";
 import logo from "/logo(1).png";
@@ -59,13 +59,13 @@ const Navbar = () => {
     { name: "Home", path: "/", icon: <Home className="w-5 h-5" /> },
     { name: "About Us", path: "/about", icon: <Info className="w-5 h-5" /> },
     { name: "Services", path: "/services", icon: <Phone className="w-5 h-5" /> },
-     { name: "Projects", path: "/projects", icon: <Folder className="w-5 h-5" /> },
-     { name: "Products", path: "/products", icon: <Package className="w-5 h-5" /> },
-     { name: "Careers", path: "/career ", icon: <FileText className="w-5 h-5" /> },
-     { name: "Contact", path: "/contact", icon: <Phone className="w-5 h-5" /> },
+    { name: "Projects", path: "/projects", icon: <Folder className="w-5 h-5" /> },
+    { name: "Products", path: "/products", icon: <Package className="w-5 h-5" /> },
+    { name: "Careers", path: "/career ", icon: <FileText className="w-5 h-5" /> },
+    { name: "Contact", path: "/contact", icon: <Phone className="w-5 h-5" /> },
     // { name: "SolarCalculator", path: "/calculator", icon: <Calculator className="w-5 h-5" /> },    
     // { name: "Blogs", path: "/blog", icon: <ShoppingBag className="w-5 h-5" /> },
-    
+
   ];
 
   return (
@@ -153,13 +153,13 @@ const Navbar = () => {
                   <button
                     key={item.name}
                     onClick={() => goToPage(item.path)}
-                    className="relative group px-4 py-2 text-gray-300 hover:text-gold transition"
+                    className="relative group px-6 py-2 text-gray-300 hover:text-gold transition"
                   >
-                    <div className="flex items-center space-x-2">
-                      <span className=" text-black font-semibold opacity-70 group-hover:opacity-100">{item.icon}</span>
-                      <span className="text-black font-semibold">{item.name}</span>
+                    <div className="flex justify-center items-center space-x-10">
+                      {/* <span className=" text-black font-semibold opacity-70 group-hover:opacity-100">{item.icon}</span> */}
+                      <span className="text-black font-semibold text-lg">{item.name}</span>
                     </div>
-                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gold transition-all duration-300 group-hover:w-3/4"></span>
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
                   </button>
                 );
               })
@@ -241,7 +241,7 @@ const Navbar = () => {
                   onClick={() => goToPage(item.path)}
                   className="flex items-center space-x-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800/40 rounded-lg"
                 >
-                  {item.icon}
+                  {/* {item.icon} */}
                   <span>{item.name}</span>
                 </button>
               ))}

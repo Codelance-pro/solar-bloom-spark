@@ -14,6 +14,20 @@ import solar7 from "../assets/solar7.jpg";
 // import solar8 from "@/assets/solar8.JPG";
 // import solar9 from "@/assets/solar9.JPG";
 import solar10 from "../assets/solar10.jpg";
+import homepage from "../assets/homepage.jpeg";
+import homepage1 from "../assets/homepage1.jpg";
+import homepage2 from "../assets/homepage2.jpg";
+// import clientsGrid from "@/assets/clients-grid.png";
+import client1 from "../assets/client1.jpeg";
+import client2 from "../assets/client2.jpeg";
+import client3 from "../assets/client3.jpeg";
+import client4 from "../assets/client4.jpeg";
+import client5 from "../assets/client5.jpeg";
+import client6 from "../assets/client6.jpeg";
+import client7 from "../assets/client7.jpeg";
+import client8 from "../assets/client8.jpeg";
+import client9 from "../assets/client9.jpg";
+// import client10 from "../assets/client10.jpeg";
 
 
 
@@ -231,14 +245,14 @@ const Home = () => {
   const SlideIcon = bannerSlides[currentSlide].icon;
 
   const workflowSteps = [
-    { number: "2", icon: "⚙️", title: "Quality Practices", position: "top" },
-    { number: "1", icon: "🌞", title: "Integrity", position: "bottom" },
-    { number: "4", icon: "🏠", title: "Excellence Through Innovation", position: "top" },
-    { number: "3", icon: "📋", title: "Professionalism", position: "bottom" },
-    { number: "6", icon: "🏭", title: "Lifelong Relationship", position: "top" },
-    { number: "5", icon: "💰", title: "Enhanced Customer Services", position: "bottom" },
-    { number: "7", icon: "📊", title: "Prompt Delivery", position: "top" },
-    { number: "8", icon: "📊", title: "Exhaustive Wide Variety", position: "bottom" }
+    { number: "2", icon: "🤝", title: "Quality Practices", position: "top" },
+    { number: "1", icon: "⚙️", title: "Integrity", position: "bottom" },
+    { number: "4", icon: "🧑‍💼", title: "Excellence Through Innovation", position: "top" },
+    { number: "3", icon: "💡", title: "Professionalism", position: "bottom" },
+    { number: "6", icon: "🎧", title: "Lifelong Relationship", position: "top" },
+    { number: "5", icon: "💰", title: "Customer Services", position: "bottom" },
+    { number: "7", icon: "🔗", title: "Prompt Delivery", position: "top" },
+    { number: "8", icon: "🧩", title: "Exhaustive Wide Variety", position: "bottom" }
   ];
 
   return (
@@ -385,7 +399,7 @@ const Home = () => {
 
         <div className="absolute inset-0 z-0">
           <img
-            src={solar10}
+            src={homepage1}
             alt="Solar background"
             className="w-full h-full object-cover"
           />
@@ -541,94 +555,98 @@ const Home = () => {
       </section> */}
 
       {/* Combined About & Why Choose Us Section */}
-      <section className="py-12 md:py-16 bg-white relative overflow-hidden">
-        <div className="flex items-center">
-          {/* Left Column: Image/Graphic - Fixed to left edge */}
-          <div className="hidden lg:block w-[400px] xl:w-[500px] flex-shrink-0 relative about-image animate-fade-in-up">
-            <img
-              src={solar_landing_match_logo}
-              alt="Enfros Solar Ecosystem"
-              className="w-full h-auto object-contain hover:scale-105 transition-transform duration-500 drop-shadow-xl"
-            />
-            {/* Decorative background blob */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-br from-yellow-50 to-amber-100 rounded-full blur-3xl -z-10 opacity-60"></div>
-          </div>
-
-          {/* Right Column: Content - Centered */}
-          <div className="flex-1 flex justify-center">
-            <div className="max-w-2xl px-4 sm:px-6 lg:px-8 space-y-5 animate-slide-in-right">
-
-
-              {/* Mobile Image */}
-              <div className="lg:hidden mb-8">
+      <section className="py-20 md:py-32 bg-white relative overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-12">
+          <div className="max-w-[1600px] mx-auto">
+            <div className="flex items-center justify-center lg:justify-start">
+              {/* Left Column: Image/Graphic - Fixed to left edge */}
+              <div className="hidden lg:block w-[400px] xl:w-[500px] 2xl:w-[550px] flex-shrink-0 relative about-image animate-fade-in-up">
                 <img
                   src={solar_landing_match_logo}
                   alt="Enfros Solar Ecosystem"
-                  className="w-full max-w-md mx-auto h-auto object-contain drop-shadow-lg"
+                  className="w-full h-auto object-contain hover:scale-105 transition-transform duration-500 drop-shadow-xl"
                 />
+                {/* Decorative background blob */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-br from-yellow-50 to-amber-100 rounded-full blur-3xl -z-10 opacity-60"></div>
               </div>
 
-              {/* About Header */}
-              <div>
-                <div className="flex items-center space-x-2 text-yellow-600 font-bold uppercase tracking-widest text-sm mb-2">
-                  <Leaf className="w-4 h-4" />
-                  <span>About Our Company</span>
+              {/* Right Column: Content - Centered */}
+              <div className="flex-1 flex justify-center lg:justify-start lg:pl-12 xl:pl-16 2xl:pl-20">
+                <div className="max-w-2xl px-4 sm:px-6 lg:px-8 space-y-5 animate-slide-in-right">
+
+
+                  {/* Mobile Image */}
+                  <div className="lg:hidden mb-8">
+                    <img
+                      src={solar_landing_match_logo}
+                      alt="Enfros Solar Ecosystem"
+                      className="w-full max-w-md mx-auto h-auto object-contain drop-shadow-lg"
+                    />
+                  </div>
+
+                  {/* About Header */}
+                  <div>
+                    <div className="flex items-center space-x-2 text-yellow-600 font-bold uppercase tracking-widest text-sm mb-2">
+                      <Leaf className="w-4 h-4" />
+                      <span>About Our Company</span>
+                    </div>
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 leading-none tracking-tight mb-4 uppercase">
+                      ENFROS INDIA <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-amber-600">PRIVATE LIMITED</span>
+                    </h2>
+                  </div>
+
+                  {/* Description */}
+                  <div className="text-gray-700 text-base md:text-lg leading-relaxed space-y-3 font-medium">
+                    <p>
+                      Enfros is a leading renewable energy service provider specializing in sustainable power solutions. Since 2008, we have been actively involved in solar, wind, and energy storage projects. Our expertise spans project setup, execution, and investment models.
+                    </p>
+                    <p>
+                      As an ISO-certified contractor, we deliver efficient EPC services, I&C, and BOS solutions. We have completed over 2000 MW of projects, aiming to be the premier service provider in the industry.
+                    </p>
+                  </div>
+
+                  {/* Why Choose Us */}
+                  <div className="pt-4">
+                    <h3 className="text-2xl font-bold text-gray-900 mb-4 font-sans">Why Choose Us?</h3>
+                    <ul className="space-y-2">
+                      {[
+                        "Over 16+ years of experience in the renewable sector",
+                        "Successfully executed large-scale projects (2000+ MW)",
+                        "Strong expertise in project management & engineering",
+                        "Trusted by leading suppliers and vendors",
+                        "ISO-Certified Company"
+                      ].map((item, index) => (
+                        <li key={index} className="flex items-start">
+                          <div className="flex-shrink-0 mt-1">
+                            <div className="w-5 h-5 rounded-full bg-yellow-100 flex items-center justify-center border border-yellow-300">
+                              <CheckCircle2 className="w-3 h-3 text-yellow-700" />
+                            </div>
+                          </div>
+                          <div className="ml-3">
+                            <span className="text-base font-semibold text-gray-800">{item}</span>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Decorative Bottom Graphic */}
+                  <div className="absolute bottom-0 right-0 hidden lg:block opacity-20 pointer-events-none">
+                    {/* Reuse an icon or simple graphic to mimic the reference's turbines if possible, or just a nice flare */}
+                    <Sun className="w-64 h-64 text-yellow-400 -mb-20 -mr-20 animate-spin-slow" style={{ animationDuration: '60s' }} />
+                  </div>
+
                 </div>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 leading-none tracking-tight mb-4 uppercase">
-                  ENFROS INDIA <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-amber-600">PRIVATE LIMITED</span>
-                </h2>
               </div>
-
-              {/* Description */}
-              <div className="text-gray-700 text-base md:text-lg leading-relaxed space-y-3 font-medium">
-                <p>
-                  Enfros is a leading renewable energy service provider specializing in sustainable power solutions. Since 2008, we have been actively involved in solar, wind, and energy storage projects. Our expertise spans project setup, execution, and investment models.
-                </p>
-                <p>
-                  As an ISO-certified contractor, we deliver efficient EPC services, I&C, and BOS solutions. We have completed over 2000 MW of projects, aiming to be the premier service provider in the industry.
-                </p>
-              </div>
-
-              {/* Why Choose Us */}
-              <div className="pt-4">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4 font-sans">Why Choose Us?</h3>
-                <ul className="space-y-2">
-                  {[
-                    "Over 16+ years of experience in the renewable sector",
-                    "Successfully executed large-scale projects (2000+ MW)",
-                    "Strong expertise in project management & engineering",
-                    "Trusted by leading suppliers and vendors",
-                    "ISO-Certified Company"
-                  ].map((item, index) => (
-                    <li key={index} className="flex items-start">
-                      <div className="flex-shrink-0 mt-1">
-                        <div className="w-5 h-5 rounded-full bg-yellow-100 flex items-center justify-center border border-yellow-300">
-                          <CheckCircle2 className="w-3 h-3 text-yellow-700" />
-                        </div>
-                      </div>
-                      <div className="ml-3">
-                        <span className="text-base font-semibold text-gray-800">{item}</span>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Decorative Bottom Graphic */}
-              <div className="absolute bottom-0 right-0 hidden lg:block opacity-20 pointer-events-none">
-                {/* Reuse an icon or simple graphic to mimic the reference's turbines if possible, or just a nice flare */}
-                <Sun className="w-64 h-64 text-yellow-400 -mb-20 -mr-20 animate-spin-slow" style={{ animationDuration: '60s' }} />
-              </div>
-
             </div>
           </div>
         </div>
       </section>
 
       {/* What We Can Do Section */}
-      <section className="py-16 md:py-24 bg-white relative overflow-hidden">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-7xl mx-auto">
+      <section className="py-20 md:py-32 bg-white relative overflow-hidden text-center lg:text-left">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-12">
+          <div className="max-w-[1600px] mx-auto">
             {/* Header */}
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 mb-12 uppercase tracking-tight">
               What We Can Do?
@@ -642,38 +660,38 @@ const Home = () => {
               {[
                 {
                   image: solar1,
-                  title: "Solar EPC (Engineering, Procurement And Construction)",
-                  description: "Designing and constructing solar power plants with maximum efficiency.",
+                  title: "Utility-Scale Solar Power Plants",
+                  description: "Designing and executing large-scale solar power plants for high efficiency and long-term energy generation.",
                   icon: Sun
                 },
                 {
                   image: solar2,
-                  title: "Wind EPC (Engineering, Procurement And Construction)",
-                  description: "Implementing wind energy projects optimized for high performance.",
+                  title: "Agriculture & Farming Solar Solutions",
+                  description: "Providing solar solutions for irrigation, pumps, and farm operations to reduce energy costs and improve productivity.",
                   icon: Zap
                 },
                 {
                   image: solar3,
-                  title: "Battery Energy Storage Solutions (BESS)",
-                  description: "Offering scalable storage systems to ensure energy reliability.",
+                  title: "Warehouse & Industrial Rooftop Solar",
+                  description: "Installing rooftop solar systems for warehouses and industries to optimize power usage and operational savings.",
                   icon: Battery
                 },
                 {
                   image: solar4,
-                  title: "Independent Power Production (IPP)",
-                  description: "Generating clean energy through utility-scale projects.",
+                  title: "Villas & Residential Solar Systems",
+                  description: "Delivering reliable and eco-friendly solar power solutions for homes and residential communities.",
                   icon: Lightbulb
                 },
                 {
                   image: solar5,
-                  title: "Green Hydrogen Solutions",
-                  description: "Innovating with hydrogen energy for a carbon-free fuel future.",
+                  title: "Manufacturing Unit Solar Installations",
+                  description: "Implementing customized solar installations for manufacturing units to ensure uninterrupted and cost-effective energy.",
                   icon: Leaf
                 },
                 {
                   image: solar7,
-                  title: "Operation & Maintenance",
-                  description: "Providing expert support to maximize energy output and longevity.",
+                  title: "Landscape & Open-Area Solar Projects",
+                  description: "Developing solar projects in open lands and large landscapes to maximize clean energy generation.",
                   icon: ShieldCheck
                 }
               ].map((item, index) => (
@@ -702,7 +720,7 @@ const Home = () => {
                       <h3 className="text-xl font-bold text-gray-900 mb-3 leading-tight">
                         {item.title}
                       </h3>
-                      <p className="text-gray-600 text-sm leading-relaxed">
+                      <p className="text-gray-600 text-md leading-relaxed">
                         {item.description}
                       </p>
                     </div>
@@ -719,9 +737,9 @@ const Home = () => {
 
 
       {/* How Do We Work Section */}
-      <section className="py-20 md:py-28 bg-gradient-to-br from-amber-50 via-yellow-50 to-amber-100 relative overflow-hidden">
-        <div className="container mx-auto  sm:px-6 lg:px-8">
-          <div className="max-w-7xl mb-20">
+      <section className="py-24 md:py-36 bg-gradient-to-br from-amber-50 via-yellow-50 to-amber-100 relative overflow-hidden">
+        <div className="container mx-auto sm:px-6 lg:px-12">
+          <div className="max-w-[1600px] mb-20 mx-auto">
             {/* Header */}
             <div className="text-center mb-40 mx-auto">
               {/* <div className="flex items-center justify-center space-x-2 text-yellow-600 font-semibold uppercase tracking-widest text-sm mb-4">
@@ -760,19 +778,22 @@ const Home = () => {
                       style={{ width: '130px' }}
                     >
                       {/* Vertical Connector Line */}
-                      <div className={`w-1.5 bg-gradient-to-b from-yellow-400 to-amber-500 ${step.position === 'bottom' ? 'h-20 mb-3' : 'h-20 mt-3'
+                      <div className={`w-1.5 bg-gradient-to-b from-yellow-400 to-amber-500 ${step.position === 'bottom' ? 'h-10 mb-10' : 'h-10 mt-10'
                         } rounded-full`}></div>
 
+                      {/* Gap spacer to prevent touching */}
+                      <div className={step.position === 'bottom' ? 'h-4' : 'h-4'}></div>
+
                       {/* Number Badge on Line */}
-                      <div className={`${step.position === 'bottom' ? 'mb-5' : 'mb-5'
+                      <div className={`${step.position === 'bottom' ? 'mb-1' : 'mb-5'
                         }`}>
-                        <div className="w-12 h-12 bg-gradient-to-br from-yellow-500 to-amber-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg border-4 border-white hover:scale-110 transition-transform duration-300">
+                        <div className="w-12 h-12 mt-10 mb-5 bg-gradient-to-br from-yellow-500 to-amber-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg border-4 border-white hover:scale-110 transition-transform duration-300">
                           {step.number}
                         </div>
                       </div>
 
                       {/* Icon Circle */}
-                      <div className="mb-4">
+                      <div className="mb-4 mt-5">
                         <div className="w-24 h-24 bg-white border-4 border-yellow-500 rounded-full flex items-center justify-center text-4xl shadow-xl hover:scale-110 hover:border-amber-600 transition-all duration-300">
                           {step.icon}
                         </div>
@@ -864,6 +885,75 @@ const Home = () => {
         .workflow-step:nth-child(6) { animation-delay: 0.6s; }
         .workflow-step:nth-child(7) { animation-delay: 0.7s; }
       `}</style>
+      </section>
+
+      {/* Trusted Clients Section */}
+      <section className="py-24 md:py-36 bg-white relative overflow-hidden border-t border-gray-100">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-12">
+          <div className="max-w-[1600px] mx-auto">
+            {/* Header */}
+            <div className="text-center mb-20">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 uppercase tracking-tight mb-6">
+                Trusted by <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-amber-600">Leading Clients</span>
+              </h2>
+              <div className="w-32 h-2 bg-gradient-to-r from-yellow-500 to-amber-600 mx-auto rounded-full mb-10"></div>
+              <p className="text-gray-600 font-medium text-lg md:text-xl max-w-3xl mx-auto">
+                Our clients, like our people, are our most treasured assets. We nurture every client relationship with commitment, passion, and integrity, 
+                which is the reason why most of our clients have been with us throughout our journey.
+              </p>
+            </div>
+
+            {/* Clients Grid */}
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-2 items-center justify-items-center">
+              {[
+                { name: "Reliance", logo: client7 },
+                { name: "Adani", logo: client6 },
+                { name: "NTPC", logo: client5 },
+                { name: "BHEL", logo: client2 },
+                { name: "L&T", logo: client4 },
+                { name: "ABB", logo: "https://upload.wikimedia.org/wikipedia/commons/0/00/ABB_logo.svg" },
+                { name: "Waaree", logo: "https://www.waaree.com/images/waaree-logo.png" },
+                { name: "Tata Power", logo: "https://upload.wikimedia.org/wikipedia/commons/3/36/Tata_Power_logo.svg" },
+                { name: "Sterling & Wilson", logo: "https://upload.wikimedia.org/wikipedia/commons/3/3b/Sterling_and_Wilson_logo.png" },
+                { name: "Welspun", logo: client1 },
+                { name: "GMR", logo: client3 },
+                { name: "Cleantech Solar", logo: client8 },
+                { name: "Hild Energy", logo : client9 },
+                { name: "Svaryu Energy", logo: "https://www.svaryuenergy.com/assets/img/logo.png" },
+                { name: "Mahindra Susten", logo: "https://upload.wikimedia.org/wikipedia/en/a/ad/Mahindra_Susten_logo.jpg" },
+                { name: "Refex", logo: "https://refex.co.in/images/logo.png" },
+                { name: "Siemens", logo: "https://upload.wikimedia.org/wikipedia/commons/5/5f/Siemens-logo.svg" }
+              ].map((client, index) => (
+                <div
+                  key={index}
+                  className="group relative w-full h-48 md:h-36 shadow-lg flex items-center justify-center  bg-white rounded-2xl border border-gray-100 "
+                >
+                  <img
+                    src={client.logo}
+                    alt={`${client.name} logo`}
+                    className="w-64 max-h-24 object-contain  group-hover:grayscale-0 transition-all duration-500 transform group-hover:scale-110"
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                      const span = document.createElement('span');
+                      span.className = 'text-gray-400 font-bold text-center text-lg';
+                      span.innerText = client.name;
+                      e.target.parentNode.appendChild(span);
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* Bottom Quote */}
+            <div className="mt-24 text-center">
+              <div className="inline-flex items-center space-x-4 bg-yellow-50 px-10 py-5 rounded-full border border-yellow-100 shadow-sm">
+                <Star className="w-6 h-6 text-yellow-500 fill-yellow-500" />
+                <span className="text-gray-800 font-bold text-xl italic uppercase tracking-wider">Empowering Industry Leaders with Sustainable Excellence</span>
+                <Star className="w-6 h-6 text-yellow-500 fill-yellow-500" />
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
     </>

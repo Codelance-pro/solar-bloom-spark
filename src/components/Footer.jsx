@@ -89,8 +89,8 @@ const Footer = () => {
                 <Sun className="h-8 w-8 text-blue-950" />
               </div>
               <div>
-                <h2 className="text-2xl font-bold text-yellow-400">ENFROS India</h2>
-                <p className="text-sm text-yellow-300">Solutions Pvt. Ltd.</p>
+                <h2 className="text-2xl font-bold text-yellow-400">Enfros India Solutions </h2>
+                <p className="text-sm text-yellow-300">Pvt. Ltd.</p>
               </div>
             </div>
             <p className="text-black mb-6 leading-relaxed">
@@ -117,19 +117,34 @@ const Footer = () => {
                   <p className="font-semibold text-yellow-400">info@enfrosindia.com</p>
                 </div>
               </div>
-              <div className="flex items-start space-x-3 group">
+              <div className="flex  items-start space-x-3 group">
                 <div className="bg-blue-900/50 p-2 rounded-lg group-hover:bg-yellow-500 transition-colors">
-                  <MapPin className="h-5 w-5 text-yellow-400 group-hover:text-blue-950" />
+                  <MapPin className="h-5 w-5 text-yellow-400 group-hover:text-blue-950"  />
                 </div>
                 <div>
                   <p className="text-sm text-black">Corporate Office</p>
                   <p className="font-semibold text-yellow-400">No.6, Indra Priyadarshini Nagar, Perumbakkam, Chennai – 600100</p>
+                   {/* <div>
+                  <p className="text-sm text-black">Registered Office</p>
+                  <p className="font-semibold text-yellow-400">No. 14, Bharath Complex,Near Ram Theater, Pudukkottai – 622003</p>
+                </div>  */}
                 </div> 
+                {/* <div>
+                  <p className="text-sm text-black">Registered Office</p>
+                  <p className="font-semibold text-yellow-400">No. 14, Bharath Complex,Near Ram Theater, Pudukkottai – 622003</p>
+                </div>                */}
+              </div>
+
+   <div className="flex  items-start space-x-3 group">
+                <div className="bg-blue-900/50 p-2 rounded-lg group-hover:bg-yellow-500 transition-colors">
+                  <MapPin className="h-5 w-5 text-yellow-400 group-hover:text-blue-950"  />
+                </div>
                 <div>
                   <p className="text-sm text-black">Registered Office</p>
                   <p className="font-semibold text-yellow-400">No. 14, Bharath Complex,Near Ram Theater, Pudukkottai – 622003</p>
                 </div>               
               </div>
+
               <div className="flex items-start space-x-3 group">
                 <div className="bg-blue-900/50 p-2 rounded-lg group-hover:bg-yellow-500 transition-colors">
                   <Clock className="h-5 w-5 text-yellow-400 group-hover:text-blue-950" />

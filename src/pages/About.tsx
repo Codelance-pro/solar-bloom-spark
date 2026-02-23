@@ -1,50 +1,34 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { 
-  Users, 
-  Target, 
-  Award, 
-  Shield, 
-  Heart, 
-  Star, 
+import {
+  Users,
+  Target,
+  Award,
+  Shield,
+  Heart,
+  Star,
   Briefcase,
   Globe,
   Lightbulb,
   TrendingUp,
-  Building,
   MapPin,
-  Clock,
-  CheckCircle
+  CheckCircle,
+  ChevronRight,
+  Zap,
+  Leaf,
+  Settings,
+  BarChart2
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
-// Type definitions
-interface TeamMember {
-  id: number;
-  name: string;
-  role: string;
-  description: string;
-  imageUrl: string;
-}
-
-interface Value {
-  id: number;
-  title: string;
-  description: string;
-  icon: React.ReactNode;
-}
-
-interface Reason {
-  id: number;
-  title: string;
-  description: string;
-  icon: React.ReactNode;
-}
-
-interface Milestone {
-  id: number;
-  year: string;
-  title: string;
-  description: string;
-}
+import client1 from "../assets/client1.jpeg";
+import client2 from "../assets/client2.jpeg";
+import client3 from "../assets/client3.jpeg";
+import client4 from "../assets/client4.jpeg";
+import client5 from "../assets/client5.jpeg";
+import client6 from "../assets/client6.jpeg";
+import client7 from "../assets/client7.jpeg";
+import client8 from "../assets/client8.jpeg";
+import client9 from "../assets/client9.jpg";
 
 // Intersection Observer Hook for scroll animations
 const useScrollAnimation = () => {
@@ -54,21 +38,13 @@ const useScrollAnimation = () => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
+        if (entry.isIntersecting) setIsVisible(true);
       },
       { threshold: 0.1 }
     );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
+    if (ref.current) observer.observe(ref.current);
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
-      }
+      if (ref.current) observer.unobserve(ref.current);
     };
   }, []);
 
@@ -76,526 +52,529 @@ const useScrollAnimation = () => {
 };
 
 const About: React.FC = () => {
-  const headerAnim = useScrollAnimation();
-  const profileAnim = useScrollAnimation();
-  const missionAnim = useScrollAnimation();
+  const aboutAnim = useScrollAnimation();
+  const whyAnim = useScrollAnimation();
+  const visionAnim = useScrollAnimation();
+  const valuesAnim = useScrollAnimation();
+  const journeyAnim = useScrollAnimation();
   const teamAnim = useScrollAnimation();
-  const timelineAnim = useScrollAnimation();
-  const reasonsAnim = useScrollAnimation();
-  const ctaAnim = useScrollAnimation();
+  const clientsAnim = useScrollAnimation();
 
-  // Team members data
-  const teamMembers: TeamMember[] = [
-    {
-      id: 1,
-      name: "Alex Johnson",
-      role: "CEO & Founder",
-      description: "15+ years in tech industry",
-      imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face"
-    },
-    {
-      id: 2,
-      name: "Sarah Chen",
-      role: "CTO",
-      description: "AI & Machine Learning expert",
-      imageUrl: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=400&fit=crop&crop=face"
-    },
-    {
-      id: 3,
-      name: "Marcus Rivera",
-      role: "Head of Operations",
-      description: "Operations management specialist",
-      imageUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face"
-    },
-    {
-      id: 4,
-      name: "Priya Sharma",
-      role: "Head of Innovation",
-      description: "Product development leader",
-      imageUrl: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&h=400&fit=crop&crop=face"
-    },
+  const teamMembers = [
+    { id: 1, name: "KARTHICK RAMAIAH", role: "Managing Director", description: "Expertly leading Enfros with proven project expertise", imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face" },
+    { id: 2, name: "IGNASI", role: "Director - Operation", description: "AI & Machine Learning expert", imageUrl: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=400&fit=crop&crop=face" },
+    { id: 3, name: "JEGANIDHI KRISHNAN", role: "Director - Technical", description: "Operations management specialist", imageUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face" },
+    { id: 4, name: "S.SHANTHI", role: "Director - Commercial", description: "Product development leader", imageUrl: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&h=400&fit=crop&crop=face" },
   ];
 
-  // Values data
-  const values: Value[] = [
-    {
-      id: 1,
-      title: "Innovation",
-      description: "Constantly pushing boundaries to deliver cutting-edge solutions",
-      icon: <Lightbulb className="w-8 h-8 text-yellow-600" />
-    },
-    {
-      id: 2,
-      title: "Integrity",
-      description: "Building trust through transparency and ethical practices",
-      icon: <Shield className="w-8 h-8 text-amber-600" />
-    },
-    {
-      id: 3,
-      title: "Excellence",
-      description: "Committed to delivering exceptional quality in everything we do",
-      icon: <Award className="w-8 h-8 text-yellow-600" />
-    },
-    {
-      id: 4,
-      title: "Collaboration",
-      description: "Working together to achieve extraordinary results",
-      icon: <Users className="w-8 h-8 text-amber-600" />
-    },
+  const coreValues = [
+    { id: 1, title: "Safety", icon: <Shield className="w-10 h-10" />, description: "We believe that the success of any renewable energy project begins with a safe working environment. We adhere to strict safety standards to protect our employees, clients, and communities." },
+    { id: 2, title: "Quality", icon: <Award className="w-10 h-10" />, description: "We are committed to providing top-tier renewable energy solutions by adhering to the highest industry standards. Quality assurance is embedded in every phase of our projects." },
+    { id: 3, title: "Collaboration", icon: <Users className="w-10 h-10" />, description: "We believe that the best results come from working together—with our clients, employees, industry partners, and communities through open communication and teamwork." },
+    { id: 4, title: "Sustainability", icon: <Leaf className="w-10 h-10" />, description: "We are dedicated to creating energy solutions that preserve the environment for future generations, focusing on reducing carbon emissions and promoting renewable energy adoption." },
+    { id: 5, title: "Innovation", icon: <Lightbulb className="w-10 h-10" />, description: "We stay ahead by embracing innovation. From adopting the latest renewable technologies to streamlining project delivery, we provide cutting-edge solutions that shape the future." },
+    { id: 6, title: "Efficiency", icon: <Zap className="w-10 h-10" />, description: "Our processes are designed to deliver projects on time, within budget, and with maximum operational performance, ensuring sustainable growth for our clients and partners." },
   ];
 
-  // Reasons to choose us
-  const reasons: Reason[] = [
-    {
-      id: 1,
-      title: "Proven Track Record",
-      description: "Proven track record in large-scale solar projects",
-      icon: <TrendingUp className="w-6 h-6" />
-    },
-    {
-      id: 2,
-      title: "Skilled Team",
-      description: "Skilled technical and project management team",
-      icon: <Users className="w-6 h-6" />
-    },
-    {
-      id: 3,
-      title: "Strong Network",
-      description: "Strong vendor and partner network",
-      icon: <Globe className="w-6 h-6" />
-    },
-    {
-      id: 4,
-      title: "Timely Delivery",
-      description: "Focus on timely delivery and customer satisfaction",
-      icon: <Star className="w-6 h-6" />
-    },
-  ];
-
-  // Milestones
-  const milestones: Milestone[] = [
-    {
-      id: 1,
-      year: "2010",
-      title: "Company Founded",
-      description: "Started as a small tech startup with 5 employees"
-    },
-    {
-      id: 2,
-      year: "2013",
-      title: "First Major Client",
-      description: "Secured partnership with Fortune 500 company"
-    },
-    {
-      id: 3,
-      year: "2016",
-      title: "Global Expansion",
-      description: "Opened offices in Europe and Asia"
-    },
-    {
-      id: 4,
-      year: "2020",
-      title: "Digital Transformation",
-      description: "Successfully transitioned to full digital services"
-    },
-    {
-      id: 5,
-      year: "2023",
-      title: "Industry Recognition",
-      description: "Awarded 'Best Tech Company' by Global Tech Awards"
-    }
+  const clients = [
+    "Adani Green", "Tata Power", "Greenko", "ReNew Power", "Azure Power", "Hero Future", "Torrent Power", "Sembcorp", "ACME Solar", "Vikram Solar", "Waaree", "Sterling & Wilson"
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 via-yellow-50 to-amber-100 pt-24 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <div className="min-h-screen bg-white font-sans overflow-x-hidden">
       <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&family=Open+Sans:wght@400;500;600&display=swap');
+
+        * { font-family: 'Open Sans', sans-serif; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Raleway', sans-serif; }
+
         @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(40px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+          from { opacity: 0; transform: translateY(60px); }
+          to { opacity: 1; transform: translateY(0); }
         }
-
         @keyframes fadeInLeft {
-          from {
-            opacity: 0;
-            transform: translateX(-40px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
+          from { opacity: 0; transform: translateX(-30px); }
+          to { opacity: 1; transform: translateX(0); }
         }
-
         @keyframes fadeInRight {
-          from {
-            opacity: 0;
-            transform: translateX(40px);
+          from { opacity: 0; transform: translateX(30px); }
+          to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+
+        .anim-up { animation: fadeInUp 0.7s ease-out forwards; }
+        .anim-left { animation: fadeInLeft 0.7s ease-out forwards; }
+        .anim-right { animation: fadeInRight 0.7s ease-out forwards; }
+
+        .d1 { animation-delay: 0.1s; }
+        .d2 { animation-delay: 0.2s; }
+        .d3 { animation-delay: 0.3s; }
+        .d4 { animation-delay: 0.4s; }
+        .d5 { animation-delay: 0.5s; }
+        .d6 { animation-delay: 0.6s; }
+
+        .marquee-track {
+          display: flex;
+          width: max-content;
+          animation: marquee 20s linear infinite;
+        }
+        .marquee-track:hover { animation-play-state: paused; }
+
+          .hero-banner {
+          position: relative;
+          overflow: hidden;
+          background: #f0fdf4;
+        }
+        .hero-banner .hero-bg {
+          position: absolute;
+          inset: 0;
+          background-image: url('https://images.unsplash.com/photo-1611365892117-00ac5ef43c90?w=1600&h=700&fit=crop');
+          background-size: cover;
+          background-position: center right;
+          z-index: 0;
+        }
+        .hero-banner .hero-overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(
+            to right,
+            rgba(240, 253, 244, 1) 0%,
+            rgba(240, 253, 244, 0.97) 30%,
+            rgba(240, 253, 244, 0.80) 50%,
+            rgba(240, 253, 244, 0.2) 70%,
+            rgba(240, 253, 244, 0) 100%
+          );
+          z-index: 1;
+        }
+
+        .section-label {
+          font-family: 'Raleway', sans-serif;
+          font-size: 0.8rem;
+          font-weight: 700;
+          letter-spacing: 0.15em;
+          text-transform: uppercase;
+          color: #d97706;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          margin-bottom: 12px;
+        }
+        .section-label::before {
+          content: '◈';
+          font-size: 1rem;
+        }
+
+        .value-card {
+          border: 1px solid #fde68a;
+          border-top: 3px solid #d97706;
+          transition: all 0.3s ease;
+        }
+        .value-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 12px 32px rgba(217, 119, 6, 0.15);
+          border-color: #d97706;
+        }
+
+        .team-card {
+          overflow: hidden;
+          transition: all 0.3s ease;
+        }
+        .team-card:hover { transform: translateY(-6px); }
+        .team-card:hover .team-img { transform: scale(1.06); }
+        .team-img { transition: transform 0.5s ease; }
+
+        .why-item {
+          display: flex;
+          align-items: flex-start;
+          gap: 12px;
+          padding: 12px 0;
+          border-bottom: 1px solid #fef3c7;
+        }
+        .why-item:last-child { border-bottom: none; }
+
+        .image-mosaic {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: auto auto;
+          gap: 10px;
+        }
+        @media (max-width: 640px) {
+          .image-mosaic {
+            grid-template-columns: 1fr;
+            grid-template-rows: auto;
           }
-          to {
-            opacity: 1;
-            transform: translateX(0);
+          .image-mosaic .img-tall {
+            grid-row: auto;
           }
         }
-
-        @keyframes scaleIn {
-          from {
-            opacity: 0;
-            transform: scale(0.8);
-          }
-          to {
-            opacity: 1;
-            transform: scale(1);
-          }
+        .image-mosaic .img-tall {
+          grid-row: 1 / 3;
         }
 
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-20px); }
+        // .journey-banner {
+        //   background: linear-gradient(135deg, #1c1917 0%, #44260a 100%);
+        //   position: relative;
+        //   overflow: hidden;
+        // }
+        .journey-banner::after {
+          content: '';
+          position: absolute;
+          right: -60px;
+          top: -60px;
+          width: 300px;
+          height: 300px;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(217,119,6,0.2) 0%, transparent 70%);
         }
-
-        @keyframes pulse-ring {
-          0% {
-            transform: scale(0.95);
-            box-shadow: 0 0 0 0 rgba(234, 179, 8, 0.7);
-          }
-          70% {
-            transform: scale(1);
-            box-shadow: 0 0 0 20px rgba(234, 179, 8, 0);
-          }
-          100% {
-            transform: scale(0.95);
-            box-shadow: 0 0 0 0 rgba(234, 179, 8, 0);
-          }
-        }
-
-        .animate-on-scroll {
-          animation: fadeInUp 0.8s ease-out forwards;
-        }
-
-        .animate-fade-in-left {
-          animation: fadeInLeft 0.8s ease-out forwards;
-        }
-
-        .animate-fade-in-right {
-          animation: fadeInRight 0.8s ease-out forwards;
-        }
-
-        .animate-scale-in {
-          animation: scaleIn 0.6s ease-out forwards;
-        }
-
-        .animate-float {
-          animation: float 3s ease-in-out infinite;
-        }
-
-        .animate-pulse-ring {
-          animation: pulse-ring 2s ease-out infinite;
-        }
-
-        .stagger-1 { animation-delay: 0.1s; }
-        .stagger-2 { animation-delay: 0.2s; }
-        .stagger-3 { animation-delay: 0.3s; }
-        .stagger-4 { animation-delay: 0.4s; }
-        .stagger-5 { animation-delay: 0.5s; }
-        .stagger-6 { animation-delay: 0.6s; }
       `}</style>
 
-      <div className="max-w-7xl mx-auto">
+      {/* ─── Hero Banner ─── */}
+      <div className="hero-banner pt-20" style={{ minHeight: 'auto', display: 'flex', alignItems: 'center' }}>
+        <div className="hero-bg" />
+        <div className="hero-overlay" />
 
-        {/* Animated Background Elements */}
-        <div className="fixed top-20 right-20 w-64 h-64 bg-yellow-300/20 rounded-full blur-3xl animate-float pointer-events-none"></div>
-        <div className="fixed bottom-20 left-20 w-96 h-96 bg-amber-300/20 rounded-full blur-3xl animate-float pointer-events-none" style={{ animationDelay: '1s' }}></div>
-        <div className="fixed top-1/2 left-1/2 w-80 h-80 bg-yellow-400/10 rounded-full blur-3xl animate-float pointer-events-none" style={{ animationDelay: '2s' }}></div>
-
-        {/* Header Section */}
-        <div
-          ref={headerAnim.ref}
-          className={`text-center mb-20 ${headerAnim.isVisible ? 'animate-on-scroll' : 'opacity-0'}`}
-        >
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-            About <span className="bg-gradient-to-r from-yellow-600 to-amber-600 bg-clip-text text-transparent">Our Company</span>
-          </h1>
-          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-            We are dedicated to transforming industries through innovative solutions and exceptional service.
-          </p>
+        {/* Content — left side, above overlays */}
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-8 py-16 md:py-28">
+          <div className="anim-up max-w-xl">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 mb-5 leading-tight">
+              About Us
+            </h1>
+            <p className="text-gray-700 text-base md:text-lg leading-relaxed mb-0" style={{ textAlign: 'justify' }}>
+              Committed to sustainable power, ENFROS excels in solar EPC solutions with over 16 years of combined experience and 2000+ MW of successfully completed projects. Our integrated approach includes setup, execution, and Operation and Maintenance for longer savings of our partners.
+            </p>
+          </div>
         </div>
 
-        {/* Company Profile Section */}
-        <section ref={profileAnim.ref} className="mb-20 relative">
-          <div className={`flex items-center mb-12 ${profileAnim.isVisible ? 'animate-fade-in-left' : 'opacity-0'}`}>
-            <div className="w-12 h-12 bg-gradient-to-r from-yellow-500 to-amber-500 rounded-lg flex items-center justify-center mr-4 shadow-lg">
-              <Briefcase className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <h2 className="text-3xl font-bold text-gray-900">Company Profile</h2>
-              <p className="text-gray-600 mt-2">Our journey of excellence</p>
-            </div>
-          </div>
+        {/* Breadcrumb — bottom right, like the reference */}
+        <nav
+          className="absolute bottom-4 right-4 md:bottom-6 md:right-8 z-10 flex items-center gap-2 text-xs md:text-sm bg-white/80 backdrop-blur-sm px-3 py-2 md:px-5 md:py-2.5 rounded-lg shadow-sm"
+        >
+          <span className="text-gray-600 hover:text-amber-600 cursor-pointer transition-colors font-medium">Home</span>
+          <span className="text-amber-500 font-bold text-base">»</span>
+          <span className="text-gray-900 font-semibold">About</span>
+        </nav>
+      </div>
 
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className={profileAnim.isVisible ? 'animate-fade-in-left' : 'opacity-0'}>
-              <p className="text-gray-700 text-lg mb-8 leading-relaxed">
-                ENFROS is a renewable energy service provider specializing in solar power solutions. With over 16 years of combined experience in solar and renewable energy, our directors lead the way. We have successfully completed construction projects totaling over 2000 MW, including Installation & Commissioning (I&C) and Balance of System (BOS).
-              </p>
-              <p className="text-gray-700 text-lg mb-8 leading-relaxed">
-                Our goal is to become the LEADING EPC SERVICE PROVIDER in the solar power plant industry.
-              </p>
+      <section className="py-12 md:py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div
+            ref={aboutAnim.ref}
+            className={`grid lg:grid-cols-2 gap-10 md:gap-20 items-center ${aboutAnim.isVisible ? '' : 'opacity-0'}`}
+          >
+            {/* Left: image */}
 
-              <div className="grid grid-cols-2 gap-6 mb-8">
+
+            <div className={`rounded-2xl overflow-hidden shadow-xl ${aboutAnim.isVisible ? 'anim-up' : 'opacity-0'} order-2 lg:order-1`}>
+              <img src="https://images.unsplash.com/photo-1611365892117-00ac5ef43c90?w=800&h=600&fit=crop" alt="Solar farm" className="w-full h-48 md:h-auto object-cover" />
+            </div>
+
+            {/* Right: content */}
+            <div className={`${aboutAnim.isVisible ? 'anim-up d2' : 'opacity-0'} order-1 lg:order-2`}>
+              <div className="section-label">About Us</div>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 ">
+                Empowering the Future with <span className="text-amber-600">Solar Energy Solutions.</span>
+              </h2>
+              <p className="text-black leading-7 md:leading-8 text-base md:text-lg mb-5" style={{ textAlign: 'justify' }}>
+                ENFROS is a renewable energy service provider specializing in solar power solutions. With over 16  years of combined experience in solar and renewable energy, our directors lead the way. We  have successfully completed construction projects totaling   over   2000   MW,   including   Installation
+                & Commissioning (I&C) and Balance of System (BOS).
+                Our goal is to become the LEADING EPC SERVICE PROVIDER in the solar
+                power plant industry.
+              </p>
+              {/* <p className="text-gray-600 leading-relaxed mb-8">
+                Our goal is to become the <strong className="text-amber-700">LEADING EPC SERVICE PROVIDER</strong> in the solar power plant industry, delivering high-quality and innovative renewable energy solutions to our clients.
+              </p> */}
+              {/* <div className="grid grid-cols-2 gap-4">
                 {[
                   { value: '16+', label: 'Years Experience' },
-                  { value: '2000+', label: 'MW Projects Completed' },
+                  { value: '2000+', label: 'MW Completed' },
                   { value: 'EPC', label: 'Turnkey Solutions' },
-                  { value: 'India', label: 'Service Area' }
-                ].map((stat, index) => (
-                  <div
-                    key={index}
-                    className={`bg-white p-6 rounded-xl border-2 border-yellow-200 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 ${profileAnim.isVisible ? `animate-scale-in stagger-${index + 1}` : 'opacity-0'
-                      }`}
-                  >
-                    <div className="text-3xl font-bold bg-gradient-to-r from-yellow-600 to-amber-600 bg-clip-text text-transparent mb-2">
-                      {stat.value}
-                    </div>
-                    <div className="text-gray-600">{stat.label}</div>
+                  { value: 'Chennai', label: 'Headquarters' }
+                ].map((stat, i) => (
+                  <div key={i} className="bg-amber-50 border border-amber-200 rounded-xl p-5">
+                    <div className="text-2xl font-bold text-amber-700 mb-1">{stat.value}</div>
+                    <div className="text-sm text-gray-600 font-medium">{stat.label}</div>
                   </div>
                 ))}
-              </div>
-
-              <div className="flex items-center text-gray-700">
-                <MapPin className="w-5 h-5 mr-2 text-yellow-600" />
+              </div> */}
+              {/* <div className="flex items-center mt-6 text-gray-600 text-sm">
+                <MapPin className="w-4 h-4 mr-2 text-amber-600 shrink-0" />
                 <span>Headquartered in Chennai, Tamil Nadu, India</span>
-              </div>
-            </div>
-
-            <div className={`relative group ${profileAnim.isVisible ? 'animate-fade-in-right' : 'opacity-0'}`}>
-              <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/30 to-amber-400/30 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
-              <div className="relative overflow-hidden rounded-2xl shadow-2xl border-2 border-yellow-200 group-hover:border-yellow-400 transition-all duration-300">
-                <img
-                  src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800&h=600&fit=crop"
-                  alt="Company Office"
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-yellow-900/30 via-transparent to-transparent"></div>
-              </div>
+              </div> */}
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Mission, Vision & Values Section */}
-        <section ref={missionAnim.ref} className="mb-20">
-          <div className={`flex items-center mb-12 ${missionAnim.isVisible ? 'animate-fade-in-left' : 'opacity-0'}`}>
-            <div className="w-12 h-12 bg-gradient-to-r from-amber-500 to-yellow-500 rounded-lg flex items-center justify-center mr-4 shadow-lg">
-              <Target className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <h2 className="text-3xl font-bold text-gray-900">Mission, Vision & Values</h2>
-              <p className="text-gray-600 mt-2">Our guiding principles</p>
-            </div>
-          </div>
-
-          <div className="grid lg:grid-cols-3 gap-8">
-            {/* Mission Card */}
-            <div className={`bg-white p-8 rounded-2xl border-2 border-yellow-200 shadow-lg hover:shadow-2xl hover:shadow-yellow-200/50 transition-all duration-300 group hover:-translate-y-2 ${missionAnim.isVisible ? 'animate-scale-in stagger-1' : 'opacity-0'
-              }`}>
-              <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300 shadow-lg">
-                <Target className="w-7 h-7 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Mission</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Leverage solar energy to provide consumers with reliable and affordable power, delivering high-quality and innovative renewable energy solutions.
-              </p>
-              <p className="text-gray-600 leading-relaxed mt-4">
-                Ensure continuous customer value through outstanding service and rapid response times.
+      <section className="py-12 md:py-20 bg-amber-50">
+        <div className="max-w-7xl mx-auto px-6">
+          <div
+            ref={whyAnim.ref}
+            className={`grid lg:grid-cols-2 gap-12 md:gap-16 items-center ${whyAnim.isVisible ? '' : 'opacity-0'}`}
+          >
+            {/* Left: content */}
+            <div className={whyAnim.isVisible ? 'anim-up' : 'opacity-0'}>
+              <div className="section-label">#1 Solar Energy Solution</div>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8 leading-tight">
+                Why Choose <span className="text-amber-600">ENFROS?</span>
+              </h2>
+              {/* <div className="space-y-1">
+                {[
+                  { icon: <TrendingUp className="w-5 h-5 text-amber-600" />, text: "Proven track record in large-scale solar projects" },
+                  { icon: <Users className="w-5 h-5 text-amber-600" />, text: "Skilled technical and project management team" },
+                  { icon: <Globe className="w-5 h-5 text-amber-600" />, text: "Strong vendor and partner network across India" },
+                  { icon: <Star className="w-5 h-5 text-amber-600" />, text: "Focus on timely delivery and customer satisfaction" },
+                  { icon: <Shield className="w-5 h-5 text-amber-600" />, text: "16+ years of combined renewable energy expertise" },
+                  { icon: <Award className="w-5 h-5 text-amber-600" />, text: "ISO-certified practices and government-approved contractor" },
+                ].map((item, i) => (
+                  <div key={i} className="why-item">
+                    <div className="mt-0.5 shrink-0">{item.icon}</div>
+                    <span className="text-gray-700">{item.text}</span>
+                  </div>
+                ))}
+              </div> */}
+              <p className="text-black leading-8 text-lg mb-8" style={{ textAlign: 'justify' }}>
+                With over 16 years of experience, Enfros is a leading EPC and C&I solar services provider. We leverage solar energy to offer consumers reliable and affordable power, delivering high-quality and innovative renewable  energy  solutions.  Our  commitment  is  to  ensure continuous customer value through outstanding service and rapid response times.
               </p>
             </div>
 
-            {/* Vision Card */}
-            <div className={`bg-white p-8 rounded-2xl border-2 border-yellow-200 shadow-lg hover:shadow-2xl hover:shadow-yellow-200/50 transition-all duration-300 group hover:-translate-y-2 ${missionAnim.isVisible ? 'animate-scale-in stagger-2' : 'opacity-0'
-              }`}>
-              <div className="w-14 h-14 bg-gradient-to-br from-yellow-500 to-amber-500 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300 shadow-lg">
+            {/* Right: image */}
+            <div className={`image-mosaic ${whyAnim.isVisible ? 'anim-up d2' : 'opacity-0'}`}>
+              <div className="img-tall rounded-2xl overflow-hidden shadow-lg">
+                <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=600&h=700&fit=crop" alt="Solar panels" className="w-full h-full object-cover" />
+              </div>
+              <div className="rounded-2xl overflow-hidden shadow-lg">
+                <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=400&h=280&fit=crop" alt="Office" className="w-full h-full object-cover" />
+              </div>
+              <div className="rounded-2xl overflow-hidden shadow-lg">
+                <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=400&h=280&fit=crop" alt="Energy" className="w-full h-full object-cover" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-12 md:py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div ref={visionAnim.ref} className={`grid md:grid-cols-2 gap-8 md:gap-10 ${visionAnim.isVisible ? '' : 'opacity-0'}`}>
+            {/* Vision */}
+            <div className={`border border-amber-200 rounded-2xl p-10 ${visionAnim.isVisible ? 'anim-up' : 'opacity-0'}`}>
+              <div className="w-14 h-14 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-xl flex items-center justify-center mb-6 shadow-md">
                 <Globe className="w-7 h-7 text-white" />
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Vision</h3>
               <p className="text-gray-600 leading-relaxed">
-                For over 16 years, we have had one goal in mind: customer service. Our vision is not just to complete projects but also to build relationships with our customers and clients through commitment, reliability, and excellence in every facet of the company.
+                For over 16 years, we have had one goal in mind: customer service. Our vision is not just to complete projects but also to  build  relationships  with  our  customers  and  clients through  commitment,  reliability,  and  excellence  in  every facet of the company
+
               </p>
             </div>
 
-            {/* Values Card */}
-            <div className={`bg-white p-8 rounded-2xl border-2 border-yellow-200 shadow-lg hover:shadow-2xl hover:shadow-yellow-200/50 transition-all duration-300 group hover:-translate-y-2 ${missionAnim.isVisible ? 'animate-scale-in stagger-3' : 'opacity-0'
-              }`}>
-              <div className="w-14 h-14 bg-gradient-to-br from-amber-500 to-yellow-500 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300 shadow-lg">
-                <Heart className="w-7 h-7 text-white" />
+            {/* Mission */}
+            <div className={`border border-amber-200 rounded-2xl p-10 ${visionAnim.isVisible ? 'anim-up d2' : 'opacity-0'}`}>
+              <div className="w-14 h-14 bg-gradient-to-br from-yellow-500 to-amber-600 rounded-xl flex items-center justify-center mb-6 shadow-md">
+                <Target className="w-7 h-7 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Values</h3>
-              <div className="space-y-4 mt-6">
-                {values.map((value) => (
-                  <div key={value.id} className="flex items-start group/item">
-                    <div className="mr-4 mt-1 group-hover/item:scale-110 transition-transform duration-300">
-                      {value.icon}
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-gray-900 group-hover/item:text-yellow-600 transition-colors duration-300">
-                        {value.title}
-                      </h4>
-                      <p className="text-sm text-gray-600 mt-1">{value.description}</p>
-                    </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Mission</h3>
+              <div className="space-y-3 text-gray-600">
+                {[
+                  "Leverage solar energy to provide consumers with reliable and affordable power.",
+                  "Deliver high-quality and innovative renewable energy solutions.",
+                  "Ensure continuous customer value through outstanding service and rapid response times.",
+                ].map((point, i) => (
+                  <div key={i} className="flex items-start gap-3">
+                    <span className="text-amber-500 font-bold mt-0.5">◈</span>
+                    <span>{point}</span>
                   </div>
                 ))}
               </div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Our Team Section */}
-        {/* <section ref={teamAnim.ref} className="mb-20">
-          <div className={`flex items-center mb-12 ${teamAnim.isVisible ? 'animate-fade-in-left' : 'opacity-0'}`}>
-            <div className="w-12 h-12 bg-gradient-to-r from-yellow-500 to-amber-500 rounded-lg flex items-center justify-center mr-4 shadow-lg">
-              <Users className="w-6 h-6 text-white" />
+      {/* ─── Core Values ─── */}
+      <section className="py-12 md:py-20 bg-amber-50">
+        <div className="max-w-7xl mx-auto px-6">
+          <div ref={valuesAnim.ref} className={valuesAnim.isVisible ? '' : 'opacity-0'}>
+            <div className={`text-center mb-10 md:mb-14 ${valuesAnim.isVisible ? 'anim-up' : ''}`}>
+              <div className="section-label justify-center">Our Principles</div>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900">Our Core Values</h2>
             </div>
-            <div>
-              <h2 className="text-3xl font-bold text-gray-900">Our Leadership</h2>
-              <p className="text-gray-600 mt-2">Meet the experts behind our success</p>
-            </div>
-          </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {teamMembers.map((member, index) => (
-              <div
-                key={member.id}
-                className={`bg-white rounded-2xl overflow-hidden border-2 border-yellow-200 shadow-lg hover:shadow-2xl hover:shadow-yellow-200/50 transition-all duration-300 group hover:-translate-y-2 ${teamAnim.isVisible ? `animate-scale-in stagger-${index + 1}` : 'opacity-0'
-                  }`}
-              >
-                <div className="h-64 overflow-hidden relative">
-                  <img
-                    src={member.imageUrl}
-                    alt={member.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-yellow-900/40 via-transparent to-transparent"></div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {coreValues.map((val, i) => (
+                <div
+                  key={val.id}
+                  className={`value-card bg-white rounded-2xl p-8 ${valuesAnim.isVisible ? `anim-up d${i + 1}` : 'opacity-0'}`}
+                >
+                  <div className="text-amber-500 mb-5">{val.icon}</div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">{val.title}</h3>
+                  <p className="text-gray-600 text-sm leading-relaxed">{val.description}</p>
+                  <button className="mt-5 text-amber-600 text-sm font-semibold hover:text-amber-800 transition-colors flex items-center gap-1">
+                    Read More <ChevronRight className="w-4 h-4" />
+                  </button>
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-gray-900 group-hover:text-yellow-600 transition-colors duration-300">
-                    {member.name}
-                  </h3>
-                  <p className="text-yellow-600 font-medium mb-2">{member.role}</p>
-                  <p className="text-gray-600 text-sm">{member.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section> */}
-
-        {/* Timeline Section */}
-        {/* <section ref={timelineAnim.ref} className="mb-20">
-          <div className={`flex items-center mb-12 ${timelineAnim.isVisible ? 'animate-fade-in-left' : 'opacity-0'}`}>
-            <div className="w-12 h-12 bg-gradient-to-r from-amber-500 to-yellow-500 rounded-lg flex items-center justify-center mr-4 shadow-lg">
-              <Clock className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <h2 className="text-3xl font-bold text-gray-900">Our Journey</h2>
-              <p className="text-gray-600 mt-2">Milestones of excellence</p>
+              ))}
             </div>
           </div>
+        </div>
+      </section>
 
-          <div className="relative">
-           
-            <div className="absolute left-0 lg:left-1/2 transform lg:-translate-x-1/2 w-0.5 h-full bg-gradient-to-b from-yellow-500 via-amber-400 to-transparent"></div>
-
-            {milestones.map((milestone, index) => (
-              <div
-                key={milestone.id}
-                className={`relative mb-12 ${index % 2 === 0 ? 'lg:pr-1/2 lg:pl-8 lg:text-right' : 'lg:pl-1/2 lg:pr-8 lg:text-left'}`}
-              >
-                <div className={`flex items-center ${index % 2 === 0 ? 'lg:justify-end' : ''}`}>
-                  {index % 2 === 0 && (
-                    <div className="hidden lg:block w-8 h-8 bg-gradient-to-r from-yellow-500 to-amber-500 rounded-full border-4 border-white absolute left-1/2 transform -translate-x-1/2 animate-pulse-ring shadow-lg"></div>
-                  )}
-                  <div className={`bg-white p-6 rounded-2xl border-2 border-yellow-200 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 w-full lg:w-96 ${index % 2 === 0 ? 'lg:mr-8' : 'lg:ml-8'} ${timelineAnim.isVisible ? `animate-scale-in stagger-${index + 1}` : 'opacity-0'
-                    }`}>
-                    <div className="flex items-center mb-4">
-                      <div className="w-10 h-10 bg-gradient-to-r from-yellow-500 to-amber-500 rounded-lg flex items-center justify-center mr-4 shadow-md">
-                        <CheckCircle className="w-5 h-5 text-white" />
-                      </div>
-                      <span className="text-2xl font-bold text-yellow-600">{milestone.year}</span>
-                    </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">{milestone.title}</h3>
-                    <p className="text-gray-600">{milestone.description}</p>
-                  </div>
-                  {index % 2 !== 0 && (
-                    <div className="hidden lg:block w-8 h-8 bg-gradient-to-r from-yellow-500 to-amber-500 rounded-full border-4 border-white absolute left-1/2 transform -translate-x-1/2 animate-pulse-ring shadow-lg"></div>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        </section> */}
-
-        {/* Why Choose Us Section */}
-        <section ref={reasonsAnim.ref}>
-          <div className={`flex items-center mb-12 ${reasonsAnim.isVisible ? 'animate-fade-in-left' : 'opacity-0'}`}>
-            <div className="w-12 h-12 bg-gradient-to-r from-yellow-500 to-amber-500 rounded-lg flex items-center justify-center mr-4 shadow-lg">
-              <Star className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <h2 className="text-3xl font-bold text-gray-900">Why Choose Us</h2>
-              <p className="text-gray-600 mt-2">What sets us apart</p>
-            </div>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-            {reasons.map((reason, index) => (
-              <div
-                key={reason.id}
-                className={`bg-white p-8 rounded-2xl border-2 border-yellow-200 shadow-lg hover:shadow-2xl hover:shadow-yellow-200/50 transition-all duration-300 group hover:-translate-y-2 ${reasonsAnim.isVisible ? `animate-scale-in stagger-${index + 1}` : 'opacity-0'
-                  }`}
-              >
-                <div className="w-14 h-14 bg-gradient-to-r from-yellow-100 to-amber-100 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300 border-2 border-yellow-300">
-                  <div className="text-yellow-600 transform group-hover:scale-110 transition-transform duration-300">
-                    {reason.icon}
-                  </div>
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-4 group-hover:text-yellow-600 transition-colors duration-300">
-                  {reason.title}
-                </h3>
-                <p className="text-gray-600 leading-relaxed">{reason.description}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* CTA Section */}
-          <div ref={ctaAnim.ref} className={`relative overflow-hidden rounded-3xl shadow-2xl ${ctaAnim.isVisible ? 'animate-scale-in' : 'opacity-0'}`}>
-            <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/30 via-amber-400/30 to-yellow-400/30"></div>
-            <div className="relative bg-gradient-to-br from-yellow-400 via-amber-400 to-yellow-500 p-12 text-center">
-              <div className="inline-flex items-center justify-center w-20 h-20 bg-white rounded-full mb-8 shadow-xl animate-pulse-ring">
-                <Star className="w-10 h-10 text-yellow-600" />
-              </div>
-              <h3 className="text-3xl lg:text-4xl font-bold mb-6 text-white">
-                Ready to Transform <span className="text-gray-900">Your Business?</span>
-              </h3>
-              <p className="text-white/90 mb-10 max-w-2xl mx-auto text-lg">
-                Join thousands of satisfied clients who have transformed their businesses with our innovative solutions.
+      <section className="py-12 md:py-20 ">
+        <div className="max-w-7xl mx-auto px-6 ">
+          <div
+            ref={journeyAnim.ref}
+            className=" rounded-3xl p-8 md:p-16 inset-0 bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-600 animate-pulse-gold"
+          >
+            <div className={`max-w-3xl z-10 ${journeyAnim.isVisible ? 'anim-up' : 'opacity-0'}`}>
+              <div className="section-label" style={{ color: 'black' }}>Forward Together</div>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 leading-tight">Our Journey Ahead</h2>
+              <p className="text-white text-lg leading-relaxed mb-8">
+                As the world embraces the transition to <strong className="text-white">clean energy</strong>, ENFROS is committed to being at the forefront—delivering <strong className="text-white">solar EPC projects that power economies, sustain the environment, and secure the future</strong>.
               </p>
-              <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                <button className="bg-white text-yellow-700 px-10 py-4 rounded-xl font-bold text-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 shadow-lg">
-                  Get Started Free
-                </button>
-                <button className="bg-transparent border-2 border-white text-white px-10 py-4 rounded-xl font-bold text-lg hover:bg-white/10 transition-all duration-300">
+              <p className="text-white leading-relaxed mb-10">
+                <strong className="text-white">Partner with us</strong> on the journey towards a <strong className="text-white">cleaner, greener, and more sustainable future.</strong>
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link to="/contact">
+                  <button className="w-full sm:w-auto bg-amber-500 hover:bg-amber-400 text-black px-8 py-3.5 rounded-xl font-bold transition-all duration-300 hover:shadow-lg hover:shadow-amber-500/30">
+                    Get Started
+                  </button>
+                </Link>
+                {/* <button className=" bg-amber-500  text-black hover:bg-white/10 px-8 py-3.5 rounded-xl font-bold transition-all duration-300">
                   Schedule Demo
-                </button>
+                </button> */}
               </div>
-              <p className="text-white/80 mt-8 text-sm">
-                No credit card required • 30-day free trial • 24/7 support
-              </p>
             </div>
           </div>
-        </section>
-      </div>
+        </div>
+      </section>
+
+      {/* ─── Meet Our Team ─── */}
+      <section className="py-12 md:py-20 bg-amber-50">
+        <div className="max-w-7xl mx-auto px-6">
+          <div ref={teamAnim.ref} className={teamAnim.isVisible ? '' : 'opacity-0'}>
+            <div className={`text-center mb-10 md:mb-14 ${teamAnim.isVisible ? 'anim-up' : ''}`}>
+              <div className="section-label justify-center">Team of Innovators</div>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900">Meet Our Expert Team Members</h2>
+            </div>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {teamMembers.map((member, i) => (
+                <div
+                  key={member.id}
+                  className={`team-card bg-white border border-amber-100 rounded-2xl shadow-md hover:shadow-xl ${teamAnim.isVisible ? `anim-up d${i + 1}` : 'opacity-0'}`}
+                >
+                  <div className="h-64 overflow-hidden rounded-t-2xl bg-amber-50">
+                    <img src={member.imageUrl} alt={member.name} className="team-img w-full h-full object-cover object-top" />
+                  </div>
+                  <div className="p-6 text-center">
+                    <h3 className="text-lg font-bold text-gray-900">{member.name}</h3>
+                    <p className="text-amber-600 font-semibold text-sm mt-1">{member.role}</p>
+                    {/* <p className="text-gray-500 text-xs mt-2">{member.description}</p> */}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Trusted Clients (Marquee) ─── */}
+      {/* <section className="py-16 bg-amber-50 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 mb-10" ref={clientsAnim.ref}>
+          <div className={`text-center ${clientsAnim.isVisible ? 'anim-up' : 'opacity-0'}`}>
+            <div className="section-label justify-center">See Who Relies on Us</div>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">Trusted by Leading Clients</h2>
+          </div>
+        </div>
+        <div className="overflow-hidden">
+          <div className="marquee-track">
+            {[...clients, ...clients].map((client, i) => (
+              <div
+                key={i}
+                className="mx-6 px-8 py-4 bg-white border border-amber-200 rounded-xl shadow-sm text-gray-700 font-semibold text-sm whitespace-nowrap hover:border-amber-400 hover:text-amber-700 transition-colors duration-300"
+              >
+                {client}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section> */}
+
+      {/* Trusted Clients Section */}
+      <section className="py-16 md:py-24 md:py-36 bg-white relative overflow-hidden border-t border-gray-100" ref={clientsAnim.ref}>
+        <div className={`container mx-auto px-4 sm:px-6 lg:px-12 ${clientsAnim.isVisible ? '' : 'opacity-0'}`}>
+          <div className="max-w-[1600px] mx-auto">
+            {/* Header */}
+            <div className="text-center mb-20">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 uppercase tracking-tight mb-6">
+                Trusted by <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-amber-600">Leading Clients</span>
+              </h2>
+              <div className="w-32 h-2 bg-gradient-to-r from-yellow-500 to-amber-600 mx-auto rounded-full mb-10"></div>
+              <p className="text-gray-600 font-medium text-lg md:text-xl max-w-3xl mx-auto">
+                Our clients, like our people, are our most treasured assets. We nurture every client relationship with commitment, passion, and integrity,
+                which is the reason why most of our clients have been with us throughout our journey.
+              </p>
+            </div>
+
+            {/* Clients Grid */}
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-2 items-center justify-items-center">
+              {[
+                { name: "Reliance", logo: client7 },
+                { name: "Adani", logo: client6 },
+                { name: "NTPC", logo: client5 },
+                { name: "BHEL", logo: client2 },
+                { name: "L&T", logo: client4 },
+                { name: "ABB", logo: "https://upload.wikimedia.org/wikipedia/commons/0/00/ABB_logo.svg" },
+                { name: "Waaree", logo: "https://www.waaree.com/images/waaree-logo.png" },
+                { name: "Tata Power", logo: "https://upload.wikimedia.org/wikipedia/commons/3/36/Tata_Power_logo.svg" },
+                { name: "Sterling & Wilson", logo: "https://upload.wikimedia.org/wikipedia/commons/3/3b/Sterling_and_Wilson_logo.png" },
+                { name: "Welspun", logo: client1 },
+                { name: "GMR", logo: client3 },
+                { name: "Cleantech Solar", logo: client8 },
+                { name: "Hild Energy", logo: client9 },
+                { name: "Svaryu Energy", logo: "https://www.svaryuenergy.com/assets/img/logo.png" },
+                { name: "Mahindra Susten", logo: "https://upload.wikimedia.org/wikipedia/en/a/ad/Mahindra_Susten_logo.jpg" },
+                { name: "Refex", logo: "https://refex.co.in/images/logo.png" },
+                { name: "Siemens", logo: "https://upload.wikimedia.org/wikipedia/commons/5/5f/Siemens-logo.svg" }
+              ].map((client, index) => (
+                <div
+                  key={index}
+                  className={`group relative w-full h-48 md:h-36 shadow-lg flex items-center justify-center bg-white rounded-2xl border border-gray-100 ${clientsAnim.isVisible ? 'anim-up' : ''}`}
+                  style={{ animationDelay: `${(index % 4) * 0.1}s` }}
+                >
+                  <img
+                    src={client.logo}
+                    alt={`${client.name} logo`}
+                    className="w-64 max-h-24 object-contain  group-hover:grayscale-0 transition-all duration-500 transform group-hover:scale-110"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = 'none';
+                      const span = document.createElement('span');
+                      span.className = 'text-gray-400 font-bold text-center text-lg';
+                      span.innerText = client.name;
+                      target.parentElement?.appendChild(span);
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* Bottom Quote */}
+            {/* <div className="mt-24 text-center">
+              <div className="inline-flex items-center space-x-4 bg-yellow-50 px-10 py-5 rounded-full border border-yellow-100 shadow-sm">
+                <Star className="w-6 h-6 text-yellow-500 fill-yellow-500" />
+                <span className="text-gray-800 font-bold text-xl italic uppercase tracking-wider">Empowering Industry Leaders with Sustainable Excellence</span>
+                <Star className="w-6 h-6 text-yellow-500 fill-yellow-500" />
+              </div>
+            </div> */}
+          </div>
+        </div>
+      </section>
+
     </div>
   );
 };

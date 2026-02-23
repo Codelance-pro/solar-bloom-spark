@@ -12,6 +12,7 @@ import Contact from "./pages/Contact";
 import CertificatePage from "./pages/CertificatePage";
 import SustainabilityImpact from "./pages/SustainabilityImpact";
 import Careers from "./pages/Careers";
+import JobDetail from "./pages/JobDetail";
 import Blog from "./pages/Blog";
 import SolarCalculator from "./pages/SolarCaculator";
 import NotFound from "./pages/NotFound";
@@ -68,6 +69,7 @@ const App = () => (
             <Route path="/certificates" element={<CertificatePage />} />
             <Route path="/sustainability" element={<SustainabilityImpact />} />
             <Route path="/career" element={<Careers />} />
+            <Route path="/career/:slug" element={<JobDetail />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/calculator" element={<SolarCalculator />} />
 
