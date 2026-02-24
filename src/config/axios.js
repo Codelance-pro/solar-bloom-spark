@@ -4,8 +4,8 @@ import axios from 'axios';
 // Axios instance
 // --------------------------------------------------
 const axiosInstance = axios.create({
-    baseURL: import.meta.env.VITE_API_BASE_URL || 'https://api.enfros.net/api',
-    //  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8084/api',
+    // baseURL: import.meta.env.VITE_API_BASE_URL || 'https://api.enfros.net/api',
+     baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8084/api',
     withCredentials: false,
     timeout: 30000,
     headers: {

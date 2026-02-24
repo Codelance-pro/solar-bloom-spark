@@ -95,44 +95,24 @@ const Contact: React.FC = () => {
   const offices = [
     {
       id: 1,
-      city: 'New York',
-      country: 'USA',
-      address: '123 Solar Street, Manhattan, NY 10001',
-      phone: '+1 (555) 123-4567',
-      email: 'nyc@enfros.com',
+      city: 'Chennai',
+      country: 'India',
+      address: 'No.6, Indra Priyadarshini Nagar, Perumbakkam, Chennai – 600100',
+      phone: '+91 98765 43210',
+      email: 'info@enfrosindia.com',
       workingHours: 'Mon-Fri: 9AM-6PM EST',
       coordinates: { lat: 40.7128, lng: -74.0060 }
     },
     {
       id: 2,
-      city: 'London',
-      country: 'UK',
-      address: '45 Energy Square, London EC2A 4NE',
-      phone: '+44 20 7946 0958',
-      email: 'london@enfros.com',
+      city: 'Pudukkottai',
+      country: 'India',
+      address: 'No. 14, Bharath Complex,Near Ram Theater, Pudukkottai – 622003',
+      phone: '+91 98765 43210',
+      email: 'info@enfrosindia.com',
       workingHours: 'Mon-Fri: 9AM-6PM GMT',
       coordinates: { lat: 51.5074, lng: -0.1278 }
     },
-    {
-      id: 3,
-      city: 'Dubai',
-      country: 'UAE',
-      address: 'Tower 3, Business Bay, Dubai',
-      phone: '+971 4 123 4567',
-      email: 'dubai@enfros.com',
-      workingHours: 'Sun-Thu: 9AM-6PM GST',
-      coordinates: { lat: 25.2048, lng: 55.2708 }
-    },
-    {
-      id: 4,
-      city: 'Singapore',
-      country: 'Singapore',
-      address: '8 Marina View, Asia Square Tower 1',
-      phone: '+65 6818 1234',
-      email: 'singapore@enfros.com',
-      workingHours: 'Mon-Fri: 9AM-6PM SGT',
-      coordinates: { lat: 1.3521, lng: 103.8198 }
-    }
   ];
 
   // Department contacts
@@ -179,14 +159,14 @@ const Contact: React.FC = () => {
     {
       id: 2,
       title: 'Emergency Support',
-      contact: '+1 (555) 123-9999',
+      contact: '+91 98765 43210',
       icon: <Phone className="w-6 h-6" />,
       responseTime: '24/7 available'
     },
     {
       id: 3,
       title: 'Technical Support',
-      contact: 'tech@enfros.com',
+      contact: 'info@enfrosindia.com',
       icon: <MessageSquare className="w-6 h-6" />,
       responseTime: 'Within 4 hours'
     }
@@ -346,7 +326,7 @@ const Contact: React.FC = () => {
         </div>
 
         {/* Stats Banner */}
-        <div ref={statsAnim.ref} className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+        {/* <div ref={statsAnim.ref} className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
           {[
             { label: 'Support Available', value: '24/7' },
             { label: 'Avg. Response Time', value: '2h' },
@@ -361,7 +341,7 @@ const Contact: React.FC = () => {
               <div className="text-sm text-gray-600">{stat.label}</div>
             </div>
           ))}
-        </div>
+        </div> */}
 
         {/* Main Content Grid */}
         <div className="grid lg:grid-cols-2 gap-12 mb-20 overflow-hidden">
@@ -723,18 +703,18 @@ const Contact: React.FC = () => {
                   <div className="flex items-start">
                     <MapPin className="w-5 h-5 text-yellow-600 mt-1 mr-3 flex-shrink-0" />
                     <div>
-                      <div className="text-gray-900 font-medium">123 Solar Street</div>
-                      <div className="text-gray-500 text-sm">Manhattan, NY 10001</div>
-                      <div className="text-gray-500 text-sm">United States</div>
+                      <div className="text-gray-900 font-medium">Chennai</div>
+                      <div className="text-gray-500 text-sm">No.6, Indra Priyadarshini Nagar, Perumbakkam, Chennai – 600100</div>
+                      <div className="text-gray-500 text-sm">India</div>
                     </div>
                   </div>
                   <div className="flex items-center">
                     <Phone className="w-5 h-5 text-yellow-600 mr-3 flex-shrink-0" />
-                    <span className="text-gray-700">+1 (555) 123-4567</span>
+                    <span className="text-gray-700">+91 98765 43210</span>
                   </div>
                   <div className="flex items-center">
                     <Mail className="w-5 h-5 text-yellow-600 mr-3 flex-shrink-0" />
-                    <span className="text-gray-700">hq@enfros.com</span>
+                    <span className="text-gray-700">info@enfrosindia.com</span>
                   </div>
                   <div className="flex items-center">
                     <Clock className="w-5 h-5 text-yellow-600 mr-3 flex-shrink-0" />
@@ -868,11 +848,11 @@ const Contact: React.FC = () => {
             ))}
           </div>
 
-          <div className="text-center mt-8">
+          {/* <div className="text-center mt-8">
             <button className="px-8 py-3 border border-gray-300 text-gray-700 rounded-lg hover:border-yellow-500 hover:text-yellow-700 hover:bg-yellow-50 transition-all duration-300">
               View All FAQs
             </button>
-          </div>
+          </div> */}
         </section>
 
         {/* Final CTA */}
@@ -891,7 +871,7 @@ const Contact: React.FC = () => {
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <button className="bg-white text-amber-600 px-10 py-4 rounded-xl font-bold text-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 shadow-lg flex items-center justify-center">
                 <Phone className="w-5 h-5 inline mr-3" />
-                Call Now: +1 (555) 123-4567
+                Call Now: +91 98765 43210
               </button>
               <button className="bg-transparent border-2 border-white text-white px-10 py-4 rounded-xl font-bold text-lg hover:bg-white/10 transition-all duration-300 flex items-center justify-center">
                 <Mail className="w-5 h-5 inline mr-3" />
