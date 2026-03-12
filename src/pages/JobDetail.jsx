@@ -207,6 +207,86 @@ const jobsData = {
         applySubject: "Project Manager – Solar EPC",
         applyPhone: "+91 98765 43210",
     },
+    'electrical-engineer': {
+        title: 'Electrical Engineer',
+        subtitle: 'Solar EPC – Maharashtra',
+        icon: '⚡',
+        qualification: "B.Tech – Electrical & Electronics Engineering (EEE)",
+        experience: "4 years",
+        location: "Maharashtra",
+        employmentType: "Full Time",
+        officeHours: "09:00 AM – 06:00 PM",
+        salary: "No bar for the right candidate",
+        responsibilities: [
+            "Execution of Ground Mounted Solar EPC Projects.",
+            " Handling Installation, Testing & Commissioning (I&C) of solar plant electrical systems.",
+            "Managing HT/LT Panels, Inverters, Transformers, and SCADA systems.",
+            "Ensure electrical safety compliance and quality standards at project sites.",
+            "Coordinate with site teams, vendors, and project managers.",
+            "Support project planning, execution, and reporting activities.",
+            "Supervise and guide technical teams during project execution.",
+        ],
+        skills: [
+            "Hands-on experience in Ground Mounted Solar Projects.",
+            "Knowledge of HT/LT Panels, Inverters, Transformers & SCADA.",
+            "Strong understanding of electrical design concepts.",
+            "Experience in Installation, Testing & Commissioning (I&C).",
+            "Team management and project coordination skills.",
+            "Willingness to travel and work at project sites."
+        ],
+        whyJoin: [
+            "Be part of exciting projects in the renewable energy sector.",
+            "Friendly and supportive workplace.",
+            "Opportunities for growth and learning.",
+        ],
+        howToApply: [
+            "Send your resume and cover letter to careers@enfrosindia.com or +91 7418096372",
+            "With the subject line: “Project Manager – Solar EPC"
+        ],
+        applyEmail: "hr@enfros.in",
+        applySubject: "Project Manager – Solar EPC",
+        applyPhone: "+91 98765 43210",
+    },
+    "business-development-manager": {
+        title: 'Business Development Manager',
+        subtitle: 'Solar EPC – Perubakkam , Chennai',
+        icon: '📈',
+        qualification: "MBA – Marketing",
+        experience: "5+ Years in Solar / Renewable Energy Business Development",
+        location: "Perubakkam , Chennai",
+        employmentType: "Full Time",
+        officeHours: "09:00 AM – 06:00 PM",
+        salary: "No bar for the right candidate",
+        responsibilities: [
+            "Manage and grow relationships with IPPs, EPC companies, and strategic partners.",
+            "Identify new solar business opportunities, including Tenders, RFQs, and developer projects.",
+            "Lead the complete sales cycle from prospecting to deal closure.",
+            "Explore new markets and develop strategies for business expansion.",
+            "Provide market intelligence on upcoming projects, pricing trends, and competitors.",
+            "Build and maintain a strong sales pipeline to achieve revenue targets.",
+            "Drive partnerships and collaborations to expand solar EPC business opportunities.",
+        ],
+        skills: [
+            "Proven track record in solar / renewable energy business development.",
+            "Strong negotiation and deal-making skills.",
+            "Excellent communication and presentation abilities.",
+            "Ability to work independently and as part of a team.",
+            "Strong analytical and problem-solving skills.",
+            "Willingness to travel across Tamil Nadu and neighbouring states."
+        ],
+        whyJoin: [
+            "Be part of exciting projects in the renewable energy sector.",
+            "Friendly and supportive workplace.",
+            "Opportunities for growth and learning.",
+        ],
+        howToApply: [
+            "Send your resume and cover letter to careers@enfrosindia.com or +91 7418096372",
+            "With the subject line: “Project Manager – Solar EPC"
+        ],
+        applyEmail: "hr@enfros.in",
+        applySubject: "Project Manager – Solar EPC",
+        applyPhone: "+91 98765 43210",
+    }
 };
 
 // ─── Info Card icons as SVG illustrations ────────────────────────────────────
@@ -359,6 +439,8 @@ const ApplicationForm = ({ jobTitle, applyEmail, applySubject }) => {
                     <option>Civil Site Supervisor – Solar EPC</option>
                     <option>Safety Supervisor – Enfros</option>
                     <option>Quality Engineer – Solar EPC</option>
+                    <option>Electrical engineer – Solar EPC</option>
+                    <option>Business Development Manager – Enfros</option>
                     <option>Other</option>
                 </select>
             </div>

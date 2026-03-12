@@ -24,8 +24,35 @@ import {
   Droplets,
   Phone,
   Mail,
-  MapPin
+  MapPin,
+  Plus,
+  Check
 } from 'lucide-react';
+
+// Import Earthing Images
+import convLightningArrester from '../assets/earthingImages/Conventional Lightning Arrester.jpg';
+import eseLightningArrester from '../assets/earthingImages/ESE Lightning Arrester .jpg';
+import copperBondedRod from '../assets/earthingImages/Copper Bonded Earthing Rod.jpg';
+import copperStrip from '../assets/earthingImages/Copper Strip.jpg';
+import earthingCompound from '../assets/earthingImages/EARTHING COMPOUND.png';
+import earthingChamber from '../assets/earthingImages/Earthing Chamber (RCC & GI Cast Iron).jpg';
+import giEarthingStrip from '../assets/earthingImages/Hot Dip GI Earthing Strip.jpg';
+import cableTray from '../assets/earthingImages/Tray Type Cable Tray.png';
+import chemicalRod from '../assets/earthingImages/61kJFyrV6dL._AC_UF894,1000_QL80_.jpg';
+import maintenanceFreeRod from '../assets/earthingImages/Earthing rod copper bonded.jpg';
+import pitCover from '../assets/earthingImages/Earthing Chamber (RCC & Gi cast iron)(1).jpg';
+import commercialKit from '../assets/earthingImages/ChatGPT Image Feb 5, 2026, 11_24_14 AM.png';
+import lightningSystem from '../assets/earthingImages/ph19871.jpg.webp';
+
+// Import Fencing Images
+import barbedWire from '../assets/fencingImages/Barbed Wire - 1.jpg';
+import concertinaCoil from '../assets/fencingImages/Concertina Coil - 1.jpg';
+import giChainLink from '../assets/fencingImages/GI Chain Link Fence - 1.jpg';
+import pvcChainLink from '../assets/fencingImages/PVC CHAIN LINK - 1.jpg';
+import razorPanel from '../assets/fencingImages/Razor Panel - 1.jpg';
+import tensionWire from '../assets/fencingImages/Tension Wires - 1.jpg';
+import wireMesh from '../assets/fencingImages/Wire Mesh.jpg';
+import fenceGuard from '../assets/fencingImages/5019340_PG1.jpg';
 
 // Type definitions
 interface ProductCategory {
@@ -94,7 +121,7 @@ const useScrollAnimation = () => {
 };
 
 const Products: React.FC = () => {
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [selectedCategory, setSelectedCategory] = useState<string>('Earthing Products');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   // Stats & Refs
@@ -110,52 +137,65 @@ const Products: React.FC = () => {
   const categories: ProductCategory[] = [
     {
       id: 1,
-      name: 'Solar Panels',
-      description: 'High-efficiency photovoltaic panels',
-      icon: <Sun className="w-8 h-8" />,
-      color: 'from-orange-500 to-yellow-500',
-      count: 42
-    },
-    {
-      id: 2,
-      name: 'Inverters',
-      description: 'Power conversion systems',
-      icon: <Zap className="w-8 h-8" />,
-      color: 'from-blue-500 to-purple-500',
-      count: 28
-    },
-    {
-      id: 3,
-      name: 'Mounting Structures',
-      description: 'Installation frameworks',
-      icon: <Grid className="w-8 h-8" />,
-      color: 'from-gray-600 to-gray-700',
-      count: 35
-    },
-    {
-      id: 4,
-      name: 'Cables & Accessories',
-      description: 'Wiring and connectors',
-      icon: <Cable className="w-8 h-8" />,
-      color: 'from-red-500 to-pink-500',
-      count: 56
-    },
-    {
-      id: 5,
-      name: 'Earthing Materials',
+      name: 'Earthing Products',
       description: 'Grounding and safety equipment',
       icon: <Shield className="w-8 h-8" />,
       color: 'from-green-500 to-emerald-500',
-      count: 24
+      count: 14
     },
+
     {
-      id: 6,
-      name: 'Other Components',
-      description: 'Additional solar equipment',
-      icon: <BatteryCharging className="w-8 h-8" />,
-      color: 'from-cyan-500 to-blue-500',
-      count: 18
-    }
+      id: 2,
+      name: 'Fencing Products',
+      description: 'Security and perimeter protection',
+      icon: <Shield className="w-8 h-8" />,
+      color: 'from-slate-500 to-slate-700',
+      count: 8
+    },
+
+    // {
+    //   id: 3,
+    //   name: 'Solar Panels',
+    //   description: 'High-efficiency photovoltaic panels',
+    //   icon: <Sun className="w-8 h-8" />,
+    //   color: 'from-orange-500 to-yellow-500',
+    //   count: 42
+    // },
+
+    // {
+    //   id: 4,
+    //   name: 'Inverters',
+    //   description: 'Power conversion systems',
+    //   icon: <Zap className="w-8 h-8" />,
+    //   color: 'from-blue-500 to-purple-500',
+    //   count: 28
+    // },
+    // {
+    //   id: 5,
+    //   name: 'Mounting Structures',
+    //   description: 'Installation frameworks',
+    //   icon: <Grid className="w-8 h-8" />,
+    //   color: 'from-gray-600 to-gray-700',
+    //   count: 35
+    // },
+    // {
+    //   id: 6,
+    //   name: 'Cables & Accessories',
+    //   description: 'Wiring and connectors',
+    //   icon: <Cable className="w-8 h-8" />,
+    //   color: 'from-red-500 to-pink-500',
+    //   count: 56
+    // },
+
+    // {
+    //   id: 7,
+    //   name: 'Other Components',
+    //   description: 'Additional solar equipment',
+    //   icon: <BatteryCharging className="w-8 h-8" />,
+    //   color: 'from-cyan-500 to-blue-500',
+    //   count: 18
+    // },
+
   ];
 
   // Sample products data
@@ -258,30 +298,7 @@ const Products: React.FC = () => {
       isFeatured: false,
       tags: ['High Quality', 'Certified', 'Durable']
     },
-    {
-      id: 5,
-      name: 'Copper Earthing Rod',
-      category: 'Earthing Materials',
-      description: 'High-quality copper bonded earthing rod for effective grounding and safety.',
-      features: [
-        'Copper Bonded',
-        'Corrosion Resistant',
-        'High Conductivity',
-        'Easy Installation'
-      ],
-      specifications: [
-        { key: 'Diameter', value: '16 mm' },
-        { key: 'Length', value: '2.4 m' },
-        { key: 'Material', value: 'Copper Bonded Steel' },
-        { key: 'Resistance', value: '< 10Ω' }
-      ],
-      price: 24.99,
-      rating: 4.4,
-      reviews: 38,
-      imageUrl: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=400&fit=crop',
-      isFeatured: false,
-      tags: ['Safety', 'Copper', 'High Quality']
-    },
+
     {
       id: 6,
       name: 'Solar Battery 5kWh',
@@ -355,6 +372,503 @@ const Products: React.FC = () => {
       imageUrl: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=600&h=400&fit=crop',
       isFeatured: true,
       tags: ['Hybrid', 'Grid-tie', 'Backup']
+    },
+    {
+      id: 9,
+      name: 'Conventional Lightning Arrester',
+      category: 'Earthing Products',
+      description: 'Conventional Lightning Arresters provide dependable protection against lightning strikes by directing electrical discharge safely to the grounding system.',
+      features: [
+        'Solar Plant Protection',
+        'Industrial Buildings',
+        'Communication Towers',
+      ],
+      specifications: [
+        { key: 'Material', value: 'Electrolytic Copper' },
+        { key: 'Height', value: '1.2 m' },
+        { key: 'Effective Radius', value: '35 m' },
+        { key: 'Standard', value: 'IEC 62305' }
+      ],
+      price: 45.00,
+      rating: 4.5,
+      reviews: 24,
+      imageUrl: convLightningArrester,
+      isFeatured: false,
+      tags: ['Safety', 'Copper', 'Protection']
+    },
+    {
+      id: 10,
+      name: 'ESE Lightning Arrester',
+      category: 'Earthing Products',
+      description: 'ESE Lightning Arrester protects solar power plants from lightning strikes by capturing the lightning discharge and safely transferring the energy to the ground.',
+      features: [
+        'Solar Ground Mounted Power Plants',
+        'Industrial Solar Installations',
+        'Electrical Infrastructure Protection'
+      ],
+      specifications: [
+        { key: 'Radius', value: 'Up to 100 m' },
+        { key: 'Material', value: 'SS 316' },
+        { key: 'Time Gain', value: '60 μs' },
+        { key: 'Weight', value: '4.5 kg' }
+      ],
+      price: 285.00,
+      rating: 4.9,
+      reviews: 18,
+      imageUrl: eseLightningArrester,
+      isFeatured: true,
+      tags: ['Advanced', 'Industrial', 'Reliable']
+    },
+    {
+      id: 11,
+      name: 'Copper Bonded Earthing Rod',
+      category: 'Earthing Products',
+      description: 'Copper Bonded Earthing Rods provide strong and reliable grounding for solar installations with excellent conductivity and corrosion resistance.',
+      features: [
+        'Solar Module Structure ',
+        'Earthing, Inverter & Transformer Earthing',
+        'Solar Plant Grounding Systems',
+      ],
+      specifications: [
+        { key: 'Length', value: '3 m' },
+        { key: 'Diameter', value: '17.2 mm' },
+        { key: 'Coating', value: '250+ Microns' },
+        { key: 'Life Span', value: '25+ Years' }
+      ],
+      price: 38.50,
+      rating: 4.7,
+      reviews: 56,
+      imageUrl: copperBondedRod,
+      isFeatured: false,
+      tags: ['Durable', 'High Quality', 'Standard']
+    },
+    {
+      id: 12,
+      name: 'Pure Copper Strip',
+      category: 'Earthing Products',
+      description: 'Copper Strips provide high electrical conductivity and are widely used in solar grounding and lightning protection systems.',
+      features: [
+        'Inverter Earthing',
+        'Lightning Protection Systems',
+        'Industrial Electrical Installations',
+      ],
+      specifications: [
+        { key: 'Width', value: '25 mm' },
+        { key: 'Thickness', value: '3 mm' },
+        { key: 'Material', value: 'High Grade Copper' },
+        { key: 'Purity', value: '99.9%' }
+      ],
+      price: 12.50,
+      rating: 4.6,
+      reviews: 32,
+      imageUrl: copperStrip,
+      isFeatured: false,
+      tags: ['Network', 'Copper', 'Flexible']
+    },
+    {
+      id: 13,
+      name: 'Advanced Earthing Compound',
+      category: 'Earthing Products',
+      description: 'Earthing Compound improves soil conductivity and reduces earth resistance for effective grounding performance.',
+      features: [
+        'Solar Plant Earthing Systems',
+        'Power Plants & Substations',
+        'Electrical Infrastructure Projects',
+      ],
+      specifications: [
+        { key: 'Weight', value: '25 kg Bag' },
+        { key: 'Resistivity', value: '< 0.12 Ω-m' },
+        { key: 'Type', value: 'Bentonite Based' },
+        { key: 'Shelf Life', value: '2 Years' }
+      ],
+      price: 15.99,
+      rating: 4.8,
+      reviews: 89,
+      imageUrl: earthingCompound,
+      isFeatured: false,
+      tags: ['Maintenance Free', 'Soil Treatment', 'Essential']
+    },
+    {
+      id: 14,
+      name: 'RCC Earthing Chamber',
+      category: 'Earthing Products',
+      description: 'Earthing Chambers are designed to protect earthing electrodes and allow easy inspection and maintenance.',
+      features: [
+        'Solar Plant Earthing Points',
+        'Electrical Infrastructure Projects',
+        'Industrial Grounding Systems',
+      ],
+      specifications: [
+        { key: 'Size', value: '300x300x300 mm' },
+        { key: 'Material', value: 'RCC' },
+        { key: 'Weight', value: '18 kg' },
+        { key: 'Load Capacity', value: '5 Tons' }
+      ],
+      price: 22.00,
+      rating: 4.4,
+      reviews: 28,
+      imageUrl: earthingChamber,
+      isFeatured: false,
+      tags: ['Inspection', 'Safety', 'Durable']
+    },
+    {
+      id: 15,
+      name: 'Hot Dip GI Earthing Strip',
+      category: 'Earthing Products',
+      description: 'Hot Dip Galvanized Earthing Strips are used for effective grounding connections in solar plants and ensure safe discharge of fault currents.',
+      features: [
+        'Solar Structure Earthing',
+        'Electrical Panel Grounding',
+        'Power Distribution Systems',
+      ],
+      specifications: [
+        { key: 'Width', value: '50 mm' },
+        { key: 'Thickness', value: '6 mm' },
+        { key: 'Coating', value: 'Hot Dip Galvanized' },
+        { key: 'Zinc Layer', value: '80-100 Microns' }
+      ],
+      price: 8.50,
+      rating: 4.3,
+      reviews: 41,
+      imageUrl: giEarthingStrip,
+      isFeatured: false,
+      tags: ['GI', 'Budget', 'Protection']
+    },
+    {
+      id: 16,
+      name: 'Perforated Cable Tray',
+      category: 'Earthing Products',
+      description: 'High-quality perforated cable trays for organized and safe routing of solar and earthing cables.',
+      features: [
+        'High Load Capacity',
+        'Excellent Ventilation',
+        'Easy Fitting',
+        'Corrosion Proof'
+      ],
+      specifications: [
+        { key: 'Width', value: '150 mm' },
+        { key: 'Material', value: 'Galvanized Steel' },
+        { key: 'Length', value: '2.5 m' },
+        { key: 'Side Height', value: '50 mm' }
+      ],
+      price: 29.00,
+      rating: 4.5,
+      reviews: 19,
+      imageUrl: cableTray,
+      isFeatured: false,
+      tags: ['Routing', 'Organized', 'Cable Management']
+    },
+    {
+      id: 17,
+      name: 'Chemical Earthing Electrode',
+      category: 'Earthing Products',
+      description: 'Advanced chemical electrode with internal crystalline filling for ultra-low resistance earthing.',
+      features: [
+        'Pipe-in-Pipe Design',
+        'Crystalline Filling',
+        'Maintenance Free',
+        'Long Life'
+      ],
+      specifications: [
+        { key: 'Diameter', value: '80 mm' },
+        { key: 'Length', value: '3 m' },
+        { key: 'Material', value: 'GI with Copper coating' },
+        { key: 'Life', value: '15-20 Years' }
+      ],
+      price: 110.00,
+      rating: 4.7,
+      reviews: 35,
+      imageUrl: chemicalRod,
+      isFeatured: true,
+      tags: ['High Perf', 'Chemical', 'Premium']
+    },
+    {
+      id: 18,
+      name: 'Maintenance-Free Copper Rod',
+      category: 'Earthing Products',
+      description: 'Specialized copper rod designed for maintenance-free earthing in high resistivity soils.',
+      features: [
+        'Solid Core',
+        'Excellent Surface Area',
+        'Uniform Resistance',
+        'Reliable'
+      ],
+      specifications: [
+        { key: 'Material', value: 'Solid Copper Bonded' },
+        { key: 'Length', value: '10 ft' },
+        { key: 'Diameter', value: '16 mm' },
+        { key: 'Standard', value: 'UL 467' }
+      ],
+      price: 52.00,
+      rating: 4.6,
+      reviews: 22,
+      imageUrl: maintenanceFreeRod,
+      isFeatured: false,
+      tags: ['Maintenance Free', 'High Quality']
+    },
+    {
+      id: 19,
+      name: 'Industrial Pit Cover',
+      category: 'Earthing Products',
+      description: 'Cast iron pit covers for heavy industrial areas providing easy access to earthing nodes.',
+      features: [
+        'Cast Iron',
+        'Anti-Skid Surface',
+        'Heavy Duty',
+        'Easy Removal'
+      ],
+      specifications: [
+        { key: 'Material', value: 'Cast Iron / RCC' },
+        { key: 'Diameter', value: '350 mm' },
+        { key: 'Load Class', value: 'C250' },
+        { key: 'Weight', value: '12 kg' }
+      ],
+      price: 18.00,
+      rating: 4.2,
+      reviews: 15,
+      imageUrl: pitCover,
+      isFeatured: false,
+      tags: ['Industrial', 'Heavy Duty', 'Access']
+    },
+    {
+      id: 20,
+      name: 'Complete Earthing Kit',
+      category: 'Earthing Products',
+      description: 'All-in-one commercial earthing kit including electrode, compound, and chamber for quick installation.',
+      features: [
+        'Ready to Install',
+        'Optimized Components',
+        'Cost Saving',
+        'Quality Tested'
+      ],
+      specifications: [
+        { key: 'Electrode', value: '2 m Copper Bonded' },
+        { key: 'Compound', value: '10 kg Bentonite' },
+        { key: 'Chamber', value: 'Standard Size' },
+        { key: 'Warranty', value: '5 Years' }
+      ],
+      price: 89.00,
+      rating: 4.8,
+      reviews: 64,
+      imageUrl: commercialKit,
+      isFeatured: true,
+      tags: ['Kit', 'Commercial', 'Ready-to-use']
+    },
+    {
+      id: 21,
+      name: 'Integrated Lightning System',
+      category: 'Earthing Products',
+      description: 'Complete integrated lightning protection system for tall structures and high-value installations.',
+      features: [
+        'Total Protection',
+        'ISO Certified',
+        'Weather Proof',
+        'Long Service Life'
+      ],
+      specifications: [
+        { key: 'Type', value: 'Integrated' },
+        { key: 'Protection Level', value: 'Level 1' },
+        { key: 'Material', value: 'Composite' },
+        { key: 'Warranty', value: '10 Years' }
+      ],
+      price: 450.00,
+      rating: 4.9,
+      reviews: 12,
+      imageUrl: lightningSystem,
+      isFeatured: false,
+      tags: ['System', 'Comprehensive', 'Premium']
+    },
+    {
+      id: 22,
+      name: 'High-Tensile Barbed Wire',
+      category: 'Fencing Products',
+      description: 'Barbed Wire is a cost-effective security fencing material with sharp barbs spaced along the wire to prevent unauthorized entry. We supply high-quality barbed wire suitable for various perimeter protection applications.',
+      features: [
+        'Agricultural fencing',
+        'Boundary security',
+        'Solar plant fencing',
+        'Industrial and restricted area protection'
+      ],
+      specifications: [
+        { key: 'Material', value: 'Hot Dip GI' },
+        { key: 'Wire Gauge', value: '12 / 14 SWG' },
+        { key: 'Barb Spacing', value: '3-4 inches' },
+        { key: 'Length/Roll', value: '200-400 m' }
+      ],
+      price: 35.00,
+      rating: 4.5,
+      reviews: 42,
+      imageUrl: barbedWire,
+      isFeatured: false,
+      tags: ['Security', 'Galvanized', 'Heavy Duty']
+    },
+    {
+      id: 23,
+      name: 'Concertina Coil Fence',
+      category: 'Fencing Products',
+      description: 'Concertina Coil is a high-security fencing solution made with razor-sharp blades formed into coils, designed to act as a strong deterrent against intrusion. We supply concertina coils for high-security perimeter protection.',
+      features: [
+        ' Solar power plant security',
+        'Industrial premises protection',
+        'Airports and defense areas',
+        'High-security installations'
+      ],
+      specifications: [
+        { key: 'Diameter', value: '450 mm / 600 mm' },
+        { key: 'Blade Type', value: 'BTO-22' },
+        { key: 'Core Wire', value: '2.5 mm High Tensile' },
+        { key: 'Stretch Length', value: '6-8 m' }
+      ],
+      price: 65.00,
+      rating: 4.8,
+      reviews: 28,
+      imageUrl: concertinaCoil,
+      isFeatured: true,
+      tags: ['Anti-Climb', 'Extreme Security']
+    },
+    {
+      id: 24,
+      name: 'GI Chain Link Fence',
+      category: 'Fencing Products',
+      description: 'GI Chain Link Fence is a durable fencing solution made from galvanized steel wire, designed to provide strong and long-lasting perimeter protection. We supply high-quality chain link fencing suitable for various industrial and infrastructure applications.',
+      features: [
+        'Solar power plant perimeter fencing',
+        'Industrial and factory boundaries',
+        'Agricultural land protection',
+        'Residential and commercial security fencing'
+      ],
+      specifications: [
+        { key: 'Material', value: 'GI Wire' },
+        { key: 'Mesh Size', value: '2x2 inch' },
+        { key: 'Wire Gauge', value: '10 / 12 SWG' },
+        { key: 'Height Range', value: '4-8 ft' }
+      ],
+      price: 120.00,
+      rating: 4.6,
+      reviews: 55,
+      imageUrl: giChainLink,
+      isFeatured: false,
+      tags: ['Industrial', 'Versatile', 'Clear View']
+    },
+    {
+      id: 25,
+      name: 'PVC Coated Chain Link',
+      category: 'Fencing Products',
+      description: 'PVC Chain Link Fence consists of galvanized steel wire coated with protective PVC, offering enhanced resistance against rust, weather, and corrosion. We supply reliable fencing solutions suitable for outdoor installations.',
+      features: [
+        'Solar farm fencing',
+        'Parks and garden fencing',
+        'Sports grounds and playgrounds',
+        'Residential and commercial boundaries'
+      ],
+      specifications: [
+        { key: 'Coating', value: 'PVC over GI' },
+        { key: 'Color', value: 'Green / Blue' },
+        { key: 'Service Life', value: '15+ Years' },
+        { key: 'Core Wire', value: '3.0 mm' }
+      ],
+      price: 145.00,
+      rating: 4.7,
+      reviews: 34,
+      imageUrl: pvcChainLink,
+      isFeatured: false,
+      tags: ['Aesthetic', 'Corrosion Proof']
+    },
+    {
+      id: 26,
+      name: 'Professional Razor Panel',
+      category: 'Fencing Products',
+      description: 'Razor Panels are high-security fencing panels integrated with razor wire to provide enhanced perimeter protection. We supply durable razor panels suitable for sensitive and restricted areas.',
+      features: [
+        'Power plants and solar farms',
+        'Industrial security fencing',
+        ' Defense and restricted zones',
+        ' High-security facilities'
+      ],
+      specifications: [
+        { key: 'Panel Size', value: '2x2.5 m' },
+        { key: 'Grip Type', value: 'Riveted' },
+        { key: 'Wire Material', value: 'High Carbon Steel' },
+        { key: 'Blade Size', value: '22 mm' }
+      ],
+      price: 95.00,
+      rating: 4.9,
+      reviews: 15,
+      imageUrl: razorPanel,
+      isFeatured: false,
+      tags: ['Panel', 'Industrial Security']
+    },
+    {
+      id: 27,
+      name: 'High-Tension Core Wires',
+      category: 'Fencing Products',
+      description: 'Tension Wires are strong galvanized wires used to support and tighten chain link fencing systems, ensuring stability and proper alignment of the fence structure.',
+      features: [
+        'Chain link fence installation',
+        'Solar plant fencing support',
+        'Industrial boundary fencing',
+        'Agricultural fencing systems'
+      ],
+      specifications: [
+        { key: 'Material', value: 'High Carbon GI' },
+        { key: 'Diameter', value: '4.0 mm' },
+        { key: 'Tensile Strength', value: '1400 MPa' },
+        { key: 'Coating Class', value: 'Class A' }
+      ],
+      price: 28.00,
+      rating: 4.4,
+      reviews: 19,
+      imageUrl: tensionWire,
+      isFeatured: false,
+      tags: ['Support', 'Infrastructure']
+    },
+    {
+      id: 28,
+      name: 'Rigid Wire Mesh Fence',
+      category: 'Fencing Products',
+      description: 'Wire Mesh is a versatile fencing and screening material made from interwoven steel wires forming a strong grid structure. We supply quality wire mesh suitable for various industrial and construction applications.',
+      features: [
+        'Construction and infrastructure projects',
+        'Industrial and warehouse security',
+        'Agricultural enclosures',
+        'Solar plant protection fencing'
+      ],
+      specifications: [
+        { key: 'Aperture', value: '50x200 mm' },
+        { key: 'Finish', value: 'Powder Coated' },
+        { key: 'Wire Dia', value: '5.0 mm' },
+        { key: 'Warranty', value: '10 Years' }
+      ],
+      price: 75.00,
+      rating: 4.6,
+      reviews: 21,
+      imageUrl: wireMesh,
+      isFeatured: false,
+      tags: ['Rigid', 'Panel', 'Modern']
+    },
+    {
+      id: 29,
+      name: 'Solar Fence Energizer Guard',
+      category: 'Fencing Products',
+      description: 'Specialized protective housing for solar fence energizers, providing weather protection and security.',
+      features: [
+        'Weather Resistant',
+        'Secure Locking',
+        'Wall Mountable',
+        'Ventilated Design'
+      ],
+      specifications: [
+        { key: 'Material', value: 'ABS Polymer' },
+        { key: 'Protection', value: 'IP65' },
+        { key: 'Compatability', value: 'Universal' },
+        { key: 'Size', value: 'Standard' }
+      ],
+      price: 155.00,
+      rating: 4.9,
+      reviews: 10,
+      imageUrl: fenceGuard,
+      isFeatured: true,
+      tags: ['Electronic', 'Guardian', 'Premium']
     }
   ];
 
@@ -494,8 +1008,8 @@ const Products: React.FC = () => {
             <button
               onClick={() => setSelectedCategory('all')}
               className={`px-6 py-2 rounded-lg font-medium transition-all duration-300 ${selectedCategory === 'all'
-                  ? 'bg-gradient-to-r from-yellow-500 to-amber-500 text-white shadow-lg'
-                  : 'bg-white text-gray-700 hover:bg-yellow-50 border border-gray-200'
+                ? 'bg-gradient-to-r from-yellow-500 to-amber-500 text-white shadow-lg'
+                : 'bg-white text-gray-700 hover:bg-yellow-50 border border-gray-200'
                 }`}
             >
               View All
@@ -518,8 +1032,8 @@ const Products: React.FC = () => {
                     {category.icon}
                   </div>
                   <span className={`px-3 py-1 text-sm rounded-full ${selectedCategory === category.name
-                      ? 'bg-yellow-100 text-yellow-800 font-semibold'
-                      : 'bg-gray-100 text-gray-600'
+                    ? 'bg-yellow-100 text-yellow-800 font-semibold'
+                    : 'bg-gray-100 text-gray-600'
                     }`}>
                     {category.count} items
                   </span>
@@ -580,23 +1094,23 @@ const Products: React.FC = () => {
               {filteredProducts.map((product, index) => (
                 <div
                   key={product.id}
-                  className={`group bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-lg hover:shadow-2xl hover:shadow-yellow-200/50 transition-all duration-500 hover:-translate-y-2 ${productsAnim.isVisible ? `animate-scale-in stagger-${index % 4 + 1}` : 'opacity-0'
+                  className={`group bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-lg hover:shadow-2xl hover:shadow-yellow-200/50 transition-all duration-500 hover:-translate-y-2 h-full flex flex-col ${productsAnim.isVisible ? `animate-scale-in stagger-${index % 4 + 1}` : 'opacity-0'
                     }`}
                 >
                   {/* Product Image */}
-                  <div className="relative h-56 overflow-hidden">
+                  <div className="relative h-64 bg-gray-50 overflow-hidden flex items-center justify-center">
                     <img
                       src={product.imageUrl}
                       alt={product.name}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      className="w-full h-full group-hover:scale-110 transition-transform duration-500"
                     />
                     {product.isFeatured && (
-                      <div className="absolute top-4 left-4 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm">
+                      <div className="absolute top-4 left-4 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm z-10">
                         FEATURED
                       </div>
                     )}
                     {product.discount && (
-                      <div className="absolute top-4 right-4 bg-yellow-400 text-yellow-900 text-xs font-bold px-3 py-1 rounded-full shadow-sm">
+                      <div className="absolute top-4 right-4 bg-yellow-400 text-yellow-900 text-xs font-bold px-3 py-1 rounded-full shadow-sm z-10">
                         -{product.discount}%
                       </div>
                     )}
@@ -604,67 +1118,62 @@ const Products: React.FC = () => {
                   </div>
 
                   {/* Product Info */}
-                  <div className="p-6">
-                    {/* Category Badge */}
+                  <div className="p-6 flex flex-col flex-1">
+                    {/* Category Badge & Rating */}
                     <div className="flex items-center justify-between mb-3">
-                      <span className="text-xs font-medium px-3 py-1 rounded-full bg-gray-100 text-gray-600">
+                      <span className="text-[10px] uppercase tracking-wider font-bold px-2 py-1 rounded bg-yellow-50 text-yellow-700 border border-yellow-100">
                         {product.category}
                       </span>
                       <div className="flex items-center">
-                        <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                        <span className="text-gray-900 ml-1 font-medium">{product.rating}</span>
-                        <span className="text-gray-500 text-sm ml-1">({product.reviews})</span>
+                        <Star className="w-3.5 h-3.5 text-yellow-400 fill-current" />
+                        <span className="text-gray-900 ml-1 text-sm font-bold">{product.rating}</span>
                       </div>
                     </div>
 
                     {/* Product Name */}
-                    <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-yellow-600 transition-colors duration-300">
+                    <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-yellow-600 transition-colors duration-300 line-clamp-2 h-14">
                       {product.name}
                     </h3>
 
                     {/* Description */}
-                    <p className="text-gray-600 text-sm mb-4 line-clamp-2">{product.description}</p>
+                    <p className="text-gray-600 text-sm mb-4 line-clamp-3 h-[4.5rem] leading-relaxed">
+                      {product.description}
+                    </p>
 
-                    {/* Features */}
-                    <div className="mb-4">
-                      <div className="flex flex-wrap gap-2">
-                        {product.features.slice(0, 3).map((feature, idx) => (
-                          <span
-                            key={idx}
-                            className="text-xs px-3 py-1 rounded-full bg-yellow-50 text-yellow-800 border border-yellow-100"
-                          >
-                            {feature}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Price */}
-                    <div className="flex items-center justify-between mb-6">
-                      <div>
-                        <div className="flex items-center">
-                          {product.discount && (
-                            <span className="text-gray-400 line-through mr-3">${product.price}</span>
-                          )}
-                          <span className="text-2xl font-bold text-gray-900">
-                            ${product.discount ? (product.price * (1 - product.discount / 100)).toFixed(2) : product.price}
-                          </span>
+                    {/* Features List */}
+                    <div className="mb-6 space-y-2 flex-grow">
+                      {product.features.slice(0, 4).map((feature, index) => (
+                        <div key={index} className="flex items-start gap-2">
+                          <Check className="w-3.5 h-3.5 text-yellow-500 mt-1 flex-shrink-0" />
+                          <span className="text-gray-600 text-xs font-semibold leading-relaxed">{feature}</span>
                         </div>
-                        <div className="text-xs text-gray-500 mt-1">per unit</div>
-                      </div>
-                      <button className="flex items-center justify-center w-10 h-10 bg-yellow-100 rounded-full text-yellow-700 hover:bg-yellow-500 hover:text-white transition-all duration-300 group-hover:scale-110 shadow-sm">
-                        <ShoppingCart className="w-5 h-5" />
-                      </button>
+                      ))}
                     </div>
 
-                    {/* Action Buttons */}
-                    <div className="flex gap-3">
-                      <button className="flex-1 py-2.5 bg-gradient-to-r from-yellow-500 to-amber-600 text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-300 text-sm">
-                        Add to Quote
-                      </button>
-                      <button className="px-4 py-2.5 border border-gray-200 text-gray-700 rounded-lg hover:border-yellow-500 hover:text-yellow-700 hover:bg-yellow-50 transition-all duration-300 text-sm">
-                        Details
-                      </button>
+                    {/* Price and Action */}
+                    <div className="mt-auto">
+                      <div className="flex items-end justify-between mb-4">
+                        {/* <div>
+                          <div className="text-xs text-gray-500 mb-1 font-medium">Starting from</div>
+                          <div className="flex items-center">
+                            <span className="text-2xl font-black text-gray-900">
+                              ${product.discount ? (product.price * (1 - product.discount / 100)).toFixed(2) : product.price}
+                            </span>
+                            {product.discount && (
+                              <span className="text-sm text-gray-400 line-through ml-2">${product.price}</span>
+                            )}
+                          </div>
+                        </div> */}
+                      </div>
+
+                      <div className="flex gap-2">
+                        <button className="flex-1 py-3 bg-yellow-500 text-white font-bold rounded-xl hover:bg-yellow-600 transition-all duration-300 text-sm shadow-md hover:shadow-lg">
+                          Add to Quote
+                        </button>
+                        {/* <button className="p-3 border-2 border-gray-100 text-gray-700 rounded-xl hover:border-yellow-500 hover:text-yellow-600 transition-all duration-300">
+                          <Plus className="w-5 h-5" />
+                        </button> */}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -674,7 +1183,7 @@ const Products: React.FC = () => {
         </section>
 
         {/* Featured Products Section */}
-        <section ref={featuredAnim.ref} className="mb-20">
+        {/* <section ref={featuredAnim.ref} className="mb-20">
           <div className={`flex items-center mb-8 ${featuredAnim.isVisible ? 'animate-fade-in-left' : 'opacity-0'}`}>
             <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg flex items-center justify-center mr-4 shadow-lg">
               <Award className="w-6 h-6 text-white" />
@@ -714,6 +1223,17 @@ const Products: React.FC = () => {
                     </h3>
                     <p className="text-gray-600 mb-6">{product.description}</p>
 
+                    <div className="mb-6 space-y-3">
+                      {product.features.slice(0, 3).map((feature, index) => (
+                        <div key={index} className="flex items-center gap-3">
+                          <div className="w-5 h-5 rounded-full bg-yellow-100 flex items-center justify-center flex-shrink-0">
+                            <Check className="w-3 h-3 text-yellow-600" />
+                          </div>
+                          <span className="text-gray-700 text-sm font-medium">{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+
                     <div className="grid grid-cols-2 gap-4 mb-6">
                       {product.specifications.slice(0, 4).map((spec, idx) => (
                         <div key={idx} className="bg-gray-50 rounded-lg p-3 border border-gray-100">
@@ -737,7 +1257,7 @@ const Products: React.FC = () => {
               </div>
             ))}
           </div>
-        </section>
+        </section> */}
 
         {/* Services Section */}
         <section ref={servicesAnim.ref} className="mb-20">

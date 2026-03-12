@@ -11,7 +11,8 @@ import {
   Youtube,
   ArrowRight,
   Clock,
-  Send
+  Send,
+  MessageCircle
 } from "lucide-react";
 import { useState } from "react";
 
@@ -20,7 +21,7 @@ const Footer = () => {
 
   const handleSubscribe = () => {
     if (email) {
-      
+
       setEmail("");
     }
   };
@@ -50,11 +51,12 @@ const Footer = () => {
   ];
 
   const socialLinks = [
-    { icon: Facebook, href: "#", name: "Facebook" },
-    { icon: Twitter, href: "#", name: "Twitter" },
-    { icon: Instagram, href: "#", name: "Instagram" },
-    { icon: Linkedin, href: "#", name: "LinkedIn" },
-    { icon: Youtube, href: "#", name: "YouTube" }
+    { icon: Facebook, href: "https://www.facebook.com/enfrosindia/", name: "Facebook" },
+    { icon: Instagram, href: "https://www.instagram.com/enfros_india/", name: "Instagram" },
+    { icon: Linkedin, href: "https://www.linkedin.com/company/enfros-india/", name: "LinkedIn" },
+    { icon: Send, href: "https://t.me/EnfrosSolarHub", name: "Telegram" },
+    { icon: MessageCircle, href: "https://whatsapp.com/channel/0029Vb6XfzZ42DcjxnN5tI0F", name: "WhatsApp" },
+    { icon: Youtube, href: "https://www.youtube.com/@EnfrosIndia", name: "YouTube" }
   ];
 
   const certifications = [
@@ -80,7 +82,7 @@ const Footer = () => {
       </div>
 
       {/* Main Footer Content */}
-      <div className="container mx-auto px-4 py-16 relative z-10">
+      <div className=" mx-auto px-4 py-16 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
           {/* Company Info */}
           <div className="lg:col-span-2">
@@ -89,8 +91,8 @@ const Footer = () => {
                 <Sun className="h-8 w-8 text-blue-950" />
               </div>
               <div>
-                <h2 className="text-2xl font-bold text-yellow-800">Enfros India Solutions </h2>
-                <p className="text-sm text-yellow-800">Pvt. Ltd.</p>
+                <h2 className="text-2xl font-bold text-yellow-800">Enfros India Solution Pvt. Ltd. </h2>
+                {/* <p className="text-sm text-yellow-800">Pvt. Ltd.</p> */}
               </div>
             </div>
             <p className="text-black mb-6 leading-relaxed">
@@ -119,30 +121,30 @@ const Footer = () => {
               </div>
               <div className="flex  items-start space-x-3 group">
                 <div className="bg-blue-900/50 p-2 rounded-lg group-hover:bg-yellow-500 transition-colors">
-                  <MapPin className="h-5 w-5 text-yellow-800 group-hover:text-blue-950"  />
+                  <MapPin className="h-5 w-5 text-yellow-800 group-hover:text-blue-950" />
                 </div>
                 <div>
                   <p className="text-sm text-black">Corporate Office</p>
                   <p className="font-semibold text-yellow-800">No.6, Indra Priyadarshini Nagar, Perumbakkam, Chennai – 600100</p>
-                   {/* <div>
+                  {/* <div>
                   <p className="text-sm text-black">Registered Office</p>
                   <p className="font-semibold text-yellow-800">No. 14, Bharath Complex,Near Ram Theater, Pudukkottai – 622003</p>
                 </div>  */}
-                </div> 
+                </div>
                 {/* <div>
                   <p className="text-sm text-black">Registered Office</p>
                   <p className="font-semibold text-yellow-800">No. 14, Bharath Complex,Near Ram Theater, Pudukkottai – 622003</p>
                 </div>                */}
               </div>
 
-   <div className="flex items-start space-x-3 group">
+              <div className="flex items-start space-x-3 group">
                 <div className="bg-blue-900/50 p-2 rounded-lg group-hover:bg-yellow-500 transition-colors">
-                  <MapPin className="h-5 w-5 text-yellow-800 group-hover:text-blue-950"  />
+                  <MapPin className="h-5 w-5 text-yellow-800 group-hover:text-blue-950" />
                 </div>
                 <div>
                   <p className="text-sm text-black">Registered Office</p>
                   <p className="font-semibold text-yellow-800">No. 14, Bharath Complex,Near Ram Theater, Pudukkottai – 622003</p>
-                </div>               
+                </div>
               </div>
 
               <div className="flex items-start space-x-3 group">
@@ -151,7 +153,7 @@ const Footer = () => {
                 </div>
                 <div>
                   <p className="text-sm text-black">Business Hours</p>
-                  <p className="font-semibold text-yellow-800">Mon - Sat: 9AM - 6PM</p>
+                  <p className="font-semibold text-yellow-800">Mon - Sat: 9:00 AM - 6:00 PM</p>
                 </div>
               </div>
             </div>
@@ -226,59 +228,59 @@ const Footer = () => {
         </div>
 
         {/* Certifications */}
-        <div className="border-t border-b border-yellow-500/20 py-6  flex ">
+        <div className="border-t border-b border-yellow-500/20 py-6  flex items-center justify-center ">
 
-           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          {/* Social Media */}
-          <div className="flex items-center space-x-3">
-            <span className="text-black mr-2">Follow Us:</span>
-            {socialLinks.map((social, index) => {
-              const SocialIcon = social.icon;
-              return (
-                <a
+          <div className="flex flex-col md:flex-row items-center justify-between gap-3">
+            {/* Social Media */}
+            <div className="flex items-center space-x-3">
+              <span className="text-black mr-2">Follow Us:</span>
+              {socialLinks.map((social, index) => {
+                const SocialIcon = social.icon;
+                return (
+                  <a
+                    key={index}
+                    href={social.href}
+                    aria-label={social.name}
+                    className="bg-blue-900/50 p-3 rounded-xl hover:bg-yellow-500 hover:scale-110 transition-all duration-300 group"
+                  >
+                    <SocialIcon className="h-5 w-5 text-yellow-800 group-hover:text-blue-950" />
+                  </a>
+                );
+              })}
+            </div>
+
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              {certifications.map((cert, index) => (
+                <div
                   key={index}
-                  href={social.href}
-                  aria-label={social.name}
-                  className="bg-blue-900/50 p-3 rounded-xl hover:bg-yellow-500 hover:scale-110 transition-all duration-300 group"
+                  className="flex items-center  bg-black px-3 py-3 rounded-xl hover:bg-yellow-500 hover:scale-105 transition-all group"
                 >
-                  <SocialIcon className="h-5 w-5 text-yellow-800 group-hover:text-blue-950" />
+                  <span className="text-2xl">{cert.icon}</span>
+                  <span className="font-semibold text-sm text-yellow-400 group-hover:text-blue-950">{cert.name}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Copyright */}
+            <div className="text-center md:text-right">
+              <p className="text-black text-sm">
+                © {new Date().getFullYear()} ENFROS India Solutions Pvt. Ltd. All rights reserved.
+              </p>
+              <div className="flex flex-wrap justify-center md:justify-end gap-4 mt-2">
+                <a href="#privacy" className="text-black hover:text-yellow-800 text-sm transition-colors">
+                  Privacy Policy
                 </a>
-              );
-            })}
-          </div>
-
-           <div className="flex flex-wrap items-center justify-center gap-2">
-            {certifications.map((cert, index) => (
-              <div
-                key={index}
-                className="flex items-center  bg-black px-3 py-3 rounded-xl hover:bg-yellow-500 hover:scale-105 transition-all group"
-              >
-                <span className="text-2xl">{cert.icon}</span>
-                <span className="font-semibold text-sm text-yellow-400 group-hover:text-blue-950">{cert.name}</span>
+                <span className="text-black">•</span>
+                <a href="#terms" className="text-black hover:text-yellow-800 text-sm transition-colors">
+                  Terms of Service
+                </a>
+                <span className="text-black">•</span>
+                <a href="#cookies" className="text-black hover:text-yellow-800 text-sm transition-colors">
+                  Cookie Policy
+                </a>
               </div>
-            ))}
-          </div>
-
-          {/* Copyright */}
-          <div className="text-center md:text-right">
-            <p className="text-black text-sm">
-              © {new Date().getFullYear()} ENFROS India Solutions Pvt. Ltd. All rights reserved.
-            </p>
-            <div className="flex flex-wrap justify-center md:justify-end gap-4 mt-2">
-              <a href="#privacy" className="text-black hover:text-yellow-800 text-sm transition-colors">
-                Privacy Policy
-              </a>
-              <span className="text-black">•</span>
-              <a href="#terms" className="text-black hover:text-yellow-800 text-sm transition-colors">
-                Terms of Service
-              </a>
-              <span className="text-black">•</span>
-              <a href="#cookies" className="text-black hover:text-yellow-800 text-sm transition-colors">
-                Cookie Policy
-              </a>
             </div>
           </div>
-        </div>
         </div>
 
         {/* Social Links & Bottom Bar */}
@@ -292,6 +294,8 @@ const Footer = () => {
                 <a
                   key={index}
                   href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={social.name}
                   className="bg-blue-900/50 p-3 rounded-xl hover:bg-yellow-500 hover:scale-110 transition-all duration-300 group"
                 >

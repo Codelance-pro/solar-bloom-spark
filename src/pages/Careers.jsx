@@ -1,6 +1,24 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Briefcase, Users, Rocket, HeartHandshake, Star, CheckCircle2, Mail, MapPin, Clock, TrendingUp } from "lucide-react";
+import {
+  Briefcase,
+  Users,
+  Rocket,
+  HeartHandshake,
+  Star,
+  CheckCircle2,
+  Mail,
+  MapPin,
+  Clock,
+  TrendingUp,
+  HardHat,
+  ShieldCheck,
+  ClipboardCheck,
+  Target,
+  Zap,
+  Handshake,
+  Building2
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 // Custom Hook for Scroll Animations
@@ -45,6 +63,7 @@ const Careers = () => {
       slug: "civil-engineer",
       location: "Pan India",
       type: "Full-Time",
+      icon: <Building2 className="w-16 h-16 text-blue-500" />,
       desc: "Responsible for planning, designing, and commissioning solar EPC civil works."
     },
     {
@@ -52,6 +71,7 @@ const Careers = () => {
       slug: "civil-site-supervisor",
       location: "Pan India",
       type: "Full-Time",
+      icon: <HardHat className="w-16 h-16 text-orange-500" />,
       desc: "Manage site execution, vendor coordination, and installation quality."
     },
     {
@@ -59,6 +79,7 @@ const Careers = () => {
       slug: "safety-supervisor",
       location: "Chennai",
       type: "Full-Time",
+      icon: <ShieldCheck className="w-16 h-16 text-red-500" />,
       desc: "Enforce HSE policies, identify hazards, and ensure a zero-incident site."
     },
     {
@@ -66,14 +87,32 @@ const Careers = () => {
       slug: "quality-engineer",
       location: "Pan India",
       type: "Full-Time",
+      icon: <ClipboardCheck className="w-16 h-16 text-green-500" />,
       desc: "Conduct QA/QC inspections and ensure compliance with IEC/IS standards."
     },
-      {
+    {
       title: "Project Manager",
       slug: "project-manager",
       location: "Pan India",
       type: "Full-Time",
+      icon: <Target className="w-16 h-16 text-purple-500" />,
       desc: "Responsible for planning, execution, and commissioning of solar EPC projects."
+    },
+    {
+      title: "Electrical engineer",
+      slug: "electrical-engineer",
+      location: "Maharashtra",
+      type: "Full-Time",
+      icon: <Zap className="w-16 h-16 text-yellow-500" />,
+      desc: "We are looking to onboard an experienced– Electrical engineer Solar Ground Mounted (Civil) to take end-to-end ownership of project execution. The ideal candidate should have strong contractor-side execution experience and exposure to EPC/client coordination."
+    },
+    {
+      title: "Business Development Manager",
+      slug: "business-development-manager",
+      location: "Perumbakkam, Chennai",
+      type: "Full-Time",
+      icon: <Handshake className="w-16 h-16 text-cyan-500" />,
+      desc: "We are looking to onboard an experienced Business Development Manager – Solar Ground Mounted (Civil) to take end-to-end ownership of project execution. "
     },
   ];
 
@@ -278,11 +317,7 @@ const Careers = () => {
               >
                 {/* Icon Area */}
                 <div className="mb-6 transform group-hover:scale-110 transition-transform duration-300">
-                  {i === 0 && <Briefcase className="w-16 h-16 text-blue-500" />}
-                  {i === 1 && <Users className="w-16 h-16 text-purple-500" />}
-                  {i === 2 && <TrendingUp className="w-16 h-16 text-green-500" />}
-                  {i === 3 && <Briefcase className="w-16 h-16 text-orange-500" />}
-                  {i > 3 && <Briefcase className="w-16 h-16 text-gray-500" />}
+                  {job.icon}
                 </div>
 
                 {/* Job Title */}

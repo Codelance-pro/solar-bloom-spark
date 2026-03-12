@@ -1,14 +1,12 @@
 import { useState, useEffect } from "react";
 import {
   Menu, X, ChevronDown, LogOut, User, Settings, FileText,
-  Home, Info, Package, Folder, Phone, BookOpen, ShoppingBag,
+  Home, Info, Package, Folder, Phone, BookOpen,
   Calculator
 } from "lucide-react";
-import logo from "/logo(1).png";
 import logo2 from "../assets/enfros-logo.png";
 import { useNavigate } from "react-router-dom";
 
-// User type
 interface UserData {
   role: "admin" | "vendor" | "guest";
   name?: string;
@@ -19,30 +17,29 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isAdminDropdownOpen, setIsAdminDropdownOpen] = useState(false);
-  const [isProjectsDropdownOpen, setIsProjectsDropdownOpen] = useState(false);
+  const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
+  const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
   const [user, setUser] = useState<UserData>({ role: "guest" });
 
   const navigate = useNavigate();
 
-  // Detect scroll
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Load user role from localStorage
   useEffect(() => {
     const savedRole = localStorage.getItem("userRole") as UserData["role"] | null;
     if (savedRole) setUser({ role: savedRole });
   }, []);
 
-  // Navigation helper
   const goToPage = (path: string) => {
     navigate(path);
     setIsOpen(false);
     setIsAdminDropdownOpen(false);
-    setIsProjectsDropdownOpen(false);
+    setIsServicesDropdownOpen(false);
+    setIsMobileServicesOpen(false);
   };
 
   const handleAdminLogin = () => goToPage("/admin/login");
@@ -57,73 +54,223 @@ const Navbar = () => {
 
   const menuItems = [
     { name: "Home", path: "/", icon: <Home className="w-5 h-5" /> },
-    { name: "About Us", path: "/about", icon: <Info className="w-5 h-5" /> },
-    { name: "Services", path: "/services", icon: <Phone className="w-5 h-5" /> },
+    { name: "About", path: "/about", icon: <Info className="w-5 h-5" /> },
+    { name: "Services", path: "/services", icon: <Phone className="w-5 h-5" />, hasDropdown: true },
     { name: "Projects", path: "/projects", icon: <Folder className="w-5 h-5" /> },
     { name: "Products", path: "/products", icon: <Package className="w-5 h-5" /> },
-    { name: "Careers", path: "/career ", icon: <FileText className="w-5 h-5" /> },
+    { name: "Careers", path: "/career", icon: <FileText className="w-5 h-5" /> },
     { name: "Contact", path: "/contact", icon: <Phone className="w-5 h-5" /> },
-    // { name: "SolarCalculator", path: "/calculator", icon: <Calculator className="w-5 h-5" /> },    
-    // { name: "Blogs", path: "/blog", icon: <ShoppingBag className="w-5 h-5" /> },
-
   ];
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
-        ? "bg-transparent backdrop-blur-xl shadow-xl "
-        : "bg-gradient-to-b from-white/50 to-transparent"
-        }`}
-    >
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-20">
+    <>
+      <nav
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
+          ? "bg-white/90 backdrop-blur-xl shadow-lg"
+          : "bg-gradient-to-b from-white/80 to-white/30 backdrop-blur-sm"
+          }`}
+      >
+        <div className="px-4 lg:px-10">
+          <div className="flex items-center justify-between h-20">
 
-          {/* LOGO */}
-          <div className="flex items-center space-x-3 cursor-pointer" onClick={() => navigate("/")}>
-            <img
-              src={logo2}
-              alt="Logo"
-              className="h-20 w-60 p-2  hover:scale-105 transition-transform"
-            />
-          </div>
+            {/* ── LOGO ── */}
+            <div
+              className="shrink-0 space-x-3 cursor-pointer"
+              onClick={() => navigate("/")}
+            >
+              <img
+                src={logo2}
+                alt="Enfros Logo"
+                className="h-20 w-60 p-2 hover:scale-105 transition-transform duration-200"
+              />
+            </div>
 
-          {/* DESKTOP MENU */}
-          <div className="hidden lg:flex items-center space-x-2">
-            {/* {menuItems.map((item) => {
-             
-              if (item.name === "Projects") {
-                return (
-                  <div key={item.name} className="relative">
-                    <button
-                      onClick={() => setIsProjectsDropdownOpen(!isProjectsDropdownOpen)}
-                      className="relative group px-4 py-2 text-gray-300 hover:text-gold transition"
+            {/* ── DESKTOP MENU (centred, pushed away from logo) ── */}
+            <div className="hidden lg:flex items-center  gap-1 space-x-5  ">
+              {menuItems.map((item) => {
+                if (item.hasDropdown) {
+                  return (
+                    <div
+                      key={item.name}
+                      className="relative"
+                      onMouseEnter={() => setIsServicesDropdownOpen(true)}
+                      onMouseLeave={() => setIsServicesDropdownOpen(false)}
                     >
-                      <div className="flex items-center space-x-2">
-                        <span className="text-black font-semibold opacity-70 group-hover:opacity-100">{item.icon}</span>
-                        <span className="text-black font-semibold">{item.name}</span>
+                      <button
+                        onClick={() => goToPage(item.path)}
+                        className="relative group flex items-center gap-1 px-3 py-2 text-gray-800 font-semibold text-lg xl:text-lg hover:text-yellow-600 transition-colors duration-200"
+                      >
+                        {item.name}
                         <ChevronDown
-                          className={`w-4 h-4 text-black transition-transform ${isProjectsDropdownOpen ? "rotate-180" : ""
+                          className={`w-4 h-4 transition-transform duration-300 ${isServicesDropdownOpen ? "rotate-180 text-yellow-500" : ""
                             }`}
                         />
+                        <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
+                      </button>
+
+                      
+                      {isServicesDropdownOpen && (
+                        <div className="absolute top-full left-0 mt-1 w-58 min-w-[220px] bg-white border border-gray-100 rounded-2xl shadow-2xl py-2 z-[60]">
+                          <button
+                            onClick={() => goToPage("/services")}
+                            className="w-full flex items-center gap-3 px-5 py-3 text-sm text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 transition-colors"
+                          >
+                            <Phone className="w-4 h-4 text-yellow-500" />
+                            <span className="font-medium">All Services</span>
+                          </button>
+                          <div className="h-px bg-gray-100 mx-4 my-1" />
+                          <button
+                            onClick={() => goToPage("/calculator")}
+                            className="w-full flex items-center gap-3 px-5 py-3 text-sm text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 transition-colors"
+                          >
+                            <Calculator className="w-4 h-4 text-yellow-500" />
+                            <span className="font-medium">Solar Calculator</span>
+                          </button>
+                          <button
+                            onClick={() => goToPage("/blog")}
+                            className="w-full flex items-center gap-3 px-5 py-3 text-sm text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 transition-colors"
+                          >
+                            <BookOpen className="w-4 h-4 text-yellow-500" />
+                            <span className="font-medium">Blog &amp; Insights</span>
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
+
+                return (
+                  <button
+                    key={item.name}
+                    onClick={() => goToPage(item.path)}
+                    className="relative group px-3 py-2 text-gray-800 font-semibold text-lg xl:text-lg hover:text-yellow-600 transition-colors duration-200"
+                  >
+                    {item.name}
+                    <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-yellow-400 transition-all duration-300 group-hover:w-full" />
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* ── LOGIN / ADMIN BUTTONS (right side) ── */}
+            <div className="hidden lg:flex items-center gap-2 flex-shrink-0">
+              {user.role !== "admin" && (
+                <div className="relative">
+                  <button
+                    onClick={() => setIsAdminDropdownOpen(!isAdminDropdownOpen)}
+                    className="flex items-center gap-2 px-5 py-2 rounded-lg bg-gray-900 text-white text-sm font-medium hover:bg-gray-700 transition-all"
+                  >
+                    <User className="w-4 h-4 text-yellow-400" />
+                    Login
+                    <ChevronDown
+                      className={`w-4 h-4 text-yellow-400 transition-transform ${isAdminDropdownOpen ? "rotate-180" : ""
+                        }`}
+                    />
+                  </button>
+
+                  {isAdminDropdownOpen && (
+                    <div className="absolute right-0 mt-2 w-52 bg-gray-900 border border-gray-700 rounded-xl shadow-xl py-2 z-[60]">
+                      <button
+                        onClick={handleAdminLogin}
+                        className="w-full flex items-center gap-3 px-4 py-3 text-gray-200 hover:text-white hover:bg-gray-800 text-sm transition-colors"
+                      >
+                        <Settings className="w-4 h-4 text-yellow-400" />
+                        Admin Login
+                      </button>
+                      <button
+                        onClick={handleVendorLogin}
+                        className="w-full flex items-center gap-3 px-4 py-3 text-gray-200 hover:text-white hover:bg-gray-800 text-sm transition-colors"
+                      >
+                        <User className="w-4 h-4 text-yellow-400" />
+                        Vendor Login
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {user.role === "admin" && (
+                <button
+                  onClick={() => navigate("/admin-dashboard")}
+                  className="px-5 py-2 text-sm text-white bg-red-700 hover:bg-red-600 rounded-lg transition"
+                >
+                  Admin Panel
+                </button>
+              )}
+
+              {user.role !== "guest" && (
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center gap-1 px-4 py-2 text-sm text-red-400 hover:text-red-300 hover:bg-red-900/20 rounded-lg transition"
+                >
+                  <LogOut className="w-4 h-4" />
+                  Logout
+                </button>
+              )}
+            </div>
+
+            {/* ── MOBILE HAMBURGER ── */}
+            <button
+              className="lg:hidden ml-auto p-2 bg-gray-900 rounded-lg border border-gray-700 flex items-center justify-center"
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label="Toggle menu"
+            >
+              {isOpen
+                ? <X className="w-5 h-5 text-yellow-400" />
+                : <Menu className="w-5 h-5 text-yellow-400" />
+              }
+            </button>
+
+          </div>
+        </div>
+      </nav>
+
+      {/* ── MOBILE MENU OVERLAY ── */}
+      {isOpen && (
+        <div className="fixed inset-0 top-20 z-40 bg-gray-950/98 backdrop-blur-xl overflow-y-auto lg:hidden">
+          <div className="p-5 pb-10 flex flex-col gap-1">
+
+            {/* Nav Items */}
+            {menuItems.map((item) => {
+              if (item.hasDropdown) {
+                return (
+                  <div key={item.name}>
+                    <button
+                      onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
+                      className="w-full flex items-center justify-between px-4 py-4 rounded-xl text-white hover:bg-white/5 transition-colors"
+                    >
+                      <div className="flex items-center gap-3">
+                        <span className="text-yellow-400">{item.icon}</span>
+                        <span className="text-base font-semibold">{item.name}</span>
                       </div>
-                      <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gold transition-all duration-300 group-hover:w-3/4"></span>
+                      <ChevronDown
+                        className={`w-5 h-5 text-gray-400 transition-transform duration-300 ${isMobileServicesOpen ? "rotate-180" : ""
+                          }`}
+                      />
                     </button>
 
-                    {isProjectsDropdownOpen && (
-                      <div className="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-xl shadow-xl py-2 z-50">
+                    {isMobileServicesOpen && (
+                      <div className="ml-4 pl-4 border-l border-gray-700 mb-1 flex flex-col gap-1">
                         <button
-                          onClick={() => goToPage("/projects")}
-                          className="w-full px-4 py-3 text-left text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 flex items-center space-x-2 transition-colors"
+                          onClick={() => goToPage("/services")}
+                          className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition-colors"
                         >
-                          <Folder className="w-4 h-4" />
-                          <span>Projects</span>
+                          <Phone className="w-5 h-5 text-yellow-500" />
+                          <span>All Services</span>
+                        </button>
+                        <button
+                          onClick={() => goToPage("/calculator")}
+                          className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition-colors"
+                        >
+                          <Calculator className="w-5 h-5 text-yellow-500" />
+                          <span>Solar Calculator</span>
                         </button>
                         <button
                           onClick={() => goToPage("/blog")}
-                          className="w-full px-4 py-3 text-left text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 flex items-center space-x-2 transition-colors"
+                          className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition-colors"
                         >
-                          <BookOpen className="w-4 h-4" />
-                          <span>Blog</span>
+                          <BookOpen className="w-5 h-5 text-yellow-500" />
+                          <span>Blog &amp; Insights</span>
                         </button>
                       </div>
                     )}
@@ -131,182 +278,72 @@ const Navbar = () => {
                 );
               }
 
-              // Regular menu items
               return (
                 <button
                   key={item.name}
                   onClick={() => goToPage(item.path)}
-                  className="relative group px-4 py-2 text-gray-300 hover:text-gold transition"
+                  className="w-full flex items-center gap-3 px-4 py-4 rounded-xl text-white hover:bg-white/5 transition-colors"
                 >
-                  <div className="flex items-center space-x-2">
-                    <span className=" text-black font-semibold opacity-70 group-hover:opacity-100">{item.icon}</span>
-                    <span className="text-black font-semibold">{item.name}</span>
-                  </div>
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gold transition-all duration-300 group-hover:w-3/4"></span>
+                  <span className="text-yellow-400">{item.icon}</span>
+                  <span className="text-base font-semibold">{item.name}</span>
                 </button>
               );
-            })} */}
+            })}
 
-            {
-              menuItems.map((item) => {
-                return (
-                  <button
-                    key={item.name}
-                    onClick={() => goToPage(item.path)}
-                    className="relative group px-6 py-2 text-gray-300 hover:text-gold transition"
-                  >
-                    <div className="flex justify-center items-center space-x-10">
-                      {/* <span className=" text-black font-semibold opacity-70 group-hover:opacity-100">{item.icon}</span> */}
-                      <span className="text-black font-semibold text-lg">{item.name}</span>
-                    </div>
-                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
-                  </button>
-                );
-              })
-            }
+            {/* Divider */}
+            <div className="border-t border-gray-800 my-4" />
 
-            {/* ADMIN + VENDOR DROPDOWN (when NOT logged in as admin) */}
-            {user.role !== "admin" && (
-              <div className="relative">
-                <button
-                  onClick={() => setIsAdminDropdownOpen(!isAdminDropdownOpen)}
-                  className="px-5 py-2.5 rounded-lg bg-gray-900 border border-gray-700 hover:border-gold transition-all flex items-center space-x-2 group"
-                >
-                  <User className="w-4 h-4 text-gold" />
-                  <span className="text-white">Login</span>
-                  <ChevronDown
-                    className={`w-4 h-4 text-gold transition-transform ${isAdminDropdownOpen ? "rotate-180" : ""
-                      }`}
-                  />
-                </button>
+            {/* Login section */}
+            <p className="px-4 text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">
+              Login Options
+            </p>
+            <button
+              onClick={handleAdminLogin}
+              className="flex items-center gap-3 px-4 py-4 rounded-xl bg-gray-800/60 text-white hover:bg-gray-800 transition-colors"
+            >
+              <Settings className="w-5 h-5 text-yellow-400" />
+              <span className="font-medium">Admin Login</span>
+            </button>
+            <button
+              onClick={handleVendorLogin}
+              className="flex items-center gap-3 px-4 py-4 rounded-xl bg-gray-800/60 text-white hover:bg-gray-800 transition-colors"
+            >
+              <User className="w-5 h-5 text-yellow-400" />
+              <span className="font-medium">Vendor Login</span>
+            </button>
+            <button
+              onClick={handleVendorRegistration}
+              className="flex items-center gap-3 px-4 py-4 rounded-xl bg-yellow-500 text-gray-900 font-bold hover:bg-yellow-400 transition-colors"
+            >
+              <FileText className="w-5 h-5" />
+              <span>Vendor Registration</span>
+            </button>
 
-                {isAdminDropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-60 bg-black/95 border border-gray-800 rounded-xl shadow-xl backdrop-blur-xl py-2 z-50">
-                    <button
-                      onClick={handleAdminLogin}
-                      className="w-full px-4 py-3 text-left text-gray-300 hover:text-white hover:bg-gray-800/40"
-                    >
-                      🛠 Admin Login
-                    </button>
-                    <button
-                      onClick={handleVendorLogin}
-                      className="w-full px-4 py-3 text-left text-gray-300 hover:text-white hover:bg-gray-800/40"
-                    >
-                      👤 Vendor Login
-                    </button>
-
-                  </div>
-                )}
-              </div>
-            )}
-
-            {/* ADMIN PANEL BUTTON (visible only to admin) */}
-            {user.role === "admin" && (
-              <button
-                onClick={() => navigate("/admin-dashboard")}
-                className="px-5 py-2.5 text-white bg-red-900/40 border border-red-600 rounded-lg hover:bg-red-900/60 transition"
-              >
-                Admin Panel
-              </button>
-            )}
-
-            {/* LOGOUT */}
+            {/* Logout */}
             {user.role !== "guest" && (
-              <button
-                onClick={handleLogout}
-                className="ml-2 px-5 py-2 text-red-300 hover:text-red-200 hover:bg-red-900/20 rounded-lg transition"
-              >
-                Logout
-              </button>
-            )}
-          </div>
-
-          {/* MOBILE MENU BUTTON */}
-          <button
-            className="lg:hidden p-2 bg-gray-900 rounded-lg border border-gray-700"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            {isOpen ? <X className="text-gold" /> : <Menu className="text-gold" />}
-          </button>
-        </div>
-
-        {/* MOBILE MENU */}
-        {isOpen && (
-          <div className="lg:hidden py-6 border-t border-gray-800 bg-black/95 backdrop-blur-xl">
-            <div className="flex flex-col space-y-2">
-
-              {menuItems.map((item) => (
-                <button
-                  key={item.name}
-                  onClick={() => goToPage(item.path)}
-                  className="flex items-center space-x-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800/40 rounded-lg"
-                >
-                  {/* {item.icon} */}
-                  <span>{item.name}</span>
-                </button>
-              ))}
-
-              {/* Blog Link in Mobile Menu */}
-              <button
-                onClick={() => goToPage("/blog")}
-                className="flex items-center space-x-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800/40 rounded-lg ml-4"
-              >
-                <BookOpen className="w-5 h-5" />
-                <span>Blog</span>
-              </button>
-
-              {/* LOGIN DROPDOWN FOR MOBILE */}
-              <div className="border-t border-gray-800 pt-4">
-                <h3 className="text-gold text-sm uppercase px-4">Login Options</h3>
-
-                <button
-                  onClick={handleAdminLogin}
-                  className="w-full px-4 py-3 text-left text-gray-300 hover:bg-gray-800/40 rounded-lg"
-                >
-                  🛠 Admin Login
-                </button>
-                <button
-                  onClick={handleVendorLogin}
-                  className="w-full px-4 py-3 text-left text-gray-300 hover:bg-gray-800/40 rounded-lg"
-                >
-                  👤 Vendor Login
-                </button>
-                <button
-                  onClick={handleVendorRegistration}
-                  className="w-full px-4 py-3 text-left text-gray-300 hover:bg-gray-800/40 rounded-lg"
-                >
-                  📝 Vendor Registration
-                </button>
-              </div>
-
-              {/* LOGOUT FOR MOBILE */}
-              {user.role !== "guest" && (
+              <>
+                <div className="border-t border-gray-800 my-4" />
                 <button
                   onClick={handleLogout}
-                  className="px-4 py-3 text-left text-red-400 hover:bg-red-900/30 rounded-lg mt-4"
+                  className="flex items-center gap-3 px-4 py-4 rounded-xl border border-red-900/50 text-red-400 hover:bg-red-900/20 transition-colors"
                 >
-                  Logout
+                  <LogOut className="w-5 h-5" />
+                  <span className="font-medium">Logout Account</span>
                 </button>
-              )}
-            </div>
+              </>
+            )}
           </div>
-        )}
-      </div>
+        </div>
+      )}
 
-      {/* CLICK OUTSIDE DROPDOWN TO CLOSE */}
+      {/* Click-outside to close admin dropdown */}
       {isAdminDropdownOpen && (
         <div
-          className="fixed inset-0 z-40"
+          className="fixed inset-0 z-[55]"
           onClick={() => setIsAdminDropdownOpen(false)}
         />
       )}
-      {isProjectsDropdownOpen && (
-        <div
-          className="fixed inset-0 z-40"
-          onClick={() => setIsProjectsDropdownOpen(false)}
-        />
-      )}
-    </nav>
+    </>
   );
 };
 

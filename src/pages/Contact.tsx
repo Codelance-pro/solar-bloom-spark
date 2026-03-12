@@ -17,7 +17,8 @@ import {
   Twitter,
   Linkedin,
   Instagram,
-  MessageCircle
+  MessageCircle,
+  Youtube
 } from 'lucide-react';
 
 interface FormData {
@@ -100,7 +101,7 @@ const Contact: React.FC = () => {
       address: 'No.6, Indra Priyadarshini Nagar, Perumbakkam, Chennai – 600100',
       phone: '+91 98765 43210',
       email: 'info@enfrosindia.com',
-      workingHours: 'Mon-Fri: 9AM-6PM EST',
+      workingHours: 'Mon-Sat: 9AM-6PM EST',
       coordinates: { lat: 40.7128, lng: -74.0060 }
     },
     {
@@ -110,7 +111,7 @@ const Contact: React.FC = () => {
       address: 'No. 14, Bharath Complex,Near Ram Theater, Pudukkottai – 622003',
       phone: '+91 98765 43210',
       email: 'info@enfrosindia.com',
-      workingHours: 'Mon-Fri: 9AM-6PM GMT',
+      workingHours: 'Mon-Sat: 9AM-6PM GMT',
       coordinates: { lat: 51.5074, lng: -0.1278 }
     },
   ];
@@ -718,7 +719,7 @@ const Contact: React.FC = () => {
                   </div>
                   <div className="flex items-center">
                     <Clock className="w-5 h-5 text-yellow-600 mr-3 flex-shrink-0" />
-                    <span className="text-gray-700">Mon-Fri: 9:00 AM - 6:00 PM EST</span>
+                    <span className="text-gray-700">Mon-Sat: 9:00 AM - 6:00 PM EST</span>
                   </div>
                 </div>
               </div>
@@ -727,10 +728,8 @@ const Contact: React.FC = () => {
                 <h3 className="text-xl font-bold text-gray-900 mb-4">Visiting Hours</h3>
                 <div className="space-y-3">
                   {[
-                    { day: 'Monday - Friday', time: '9:00 AM - 6:00 PM' },
-                    { day: 'Saturday', time: '10:00 AM - 4:00 PM' },
+                    { day: 'Monday - Saturday', time: '9:00 AM - 6:00 PM' },
                     { day: 'Sunday', time: 'Closed' },
-                    { day: 'Public Holidays', time: 'Closed' }
                   ].map((schedule, index) => (
                     <div key={index} className="flex justify-between items-center py-2 border-b border-gray-100 last:border-0">
                       <span className="text-gray-600">{schedule.day}</span>
@@ -754,14 +753,18 @@ const Contact: React.FC = () => {
               </p>
               <div className="flex flex-wrap gap-4">
                 {[
-                  { name: 'Facebook', icon: <Facebook className="w-6 h-6" />, color: 'from-blue-600 to-blue-700' },
-                  { name: 'Twitter', icon: <Twitter className="w-6 h-6" />, color: 'from-cyan-500 to-blue-500' },
-                  { name: 'LinkedIn', icon: <Linkedin className="w-6 h-6" />, color: 'from-blue-700 to-blue-800' },
-                  { name: 'Instagram', icon: <Instagram className="w-6 h-6" />, color: 'from-purple-600 to-pink-600' }
+                  { name: 'Facebook', icon: <Facebook className="w-6 h-6" />, color: 'from-blue-600 to-blue-700', href: 'https://www.facebook.com/enfrosindia/' },
+                  { name: 'Instagram', icon: <Instagram className="w-6 h-6" />, color: 'from-purple-600 to-pink-600', href: 'https://www.instagram.com/enfros_india/' },
+                  { name: 'LinkedIn', icon: <Linkedin className="w-6 h-6" />, color: 'from-blue-700 to-blue-800', href: 'https://www.linkedin.com/company/enfros-india/' },
+                  { name: 'YouTube', icon: <Youtube className="w-6 h-6" />, color: 'from-red-600 to-red-700', href: 'https://www.youtube.com/@EnfrosIndia' },
+                  { name: 'Telegram', icon: <Send className="w-6 h-6" />, color: 'from-sky-500 to-sky-600', href: 'https://t.me/EnfrosSolarHub' },
+                  { name: 'WhatsApp', icon: <MessageCircle className="w-6 h-6" />, color: 'from-green-500 to-green-600', href: 'https://whatsapp.com/channel/0029Vb6XfzZ42DcjxnN5tI0F' }
                 ].map((social) => (
                   <a
                     key={social.name}
-                    href="#"
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className={`group flex items-center px-6 py-3 rounded-xl bg-gradient-to-r ${social.color} text-white font-medium hover:shadow-lg hover:scale-105 transition-all duration-300`}
                   >
                     <span className="mr-3">{social.icon}</span>

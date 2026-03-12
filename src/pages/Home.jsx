@@ -3,14 +3,14 @@ import { ArrowRight, Sun, Zap, Phone, Mail, MapPin, Award, Shield, Clock, Chevro
 import { useState, useEffect } from "react";
 import heroImage from "@/assets/hero-solar.jpg";
 import logoImage from "@/assets/logohome.png";
-import solar_landing_match_logo from "@/assets/animated.png";
-import solar1 from "../assets/solar1.jpg"
-import solar2 from "../assets/solar2.jpg"
-import solar3 from "../assets/solar3.jpg"
-import solar4 from "../assets/solar4.jpg"
-import solar5 from "../assets/solar5.png"
+import solar_landing_match_logo from "@/assets/Imgae.png!sw800.png";
+import solar1 from "../assets/Utility-Scale Solar Power Plants.jpg"
+import solar2 from "../assets/Agriculture & Farming Solar Solutions.jpg"
+import solar3 from "../assets/Warehouse & Industrial Rooftop Solar.jpg"
+import solar4 from "../assets/Villas & Residential Solar Systems.jpg"
+import solar5 from "../assets/Manufacturing Unit Solar Installations.jpg"
 import solar6 from "../assets/solar6.JPG"
-import solar7 from "../assets/solar7.jpg";
+import solar7 from "../assets/Landscape & Open-Area Solar Projects.jpg";
 // import solar8 from "@/assets/solar8.JPG";
 // import solar9 from "@/assets/solar9.JPG";
 import solar10 from "../assets/solar10.jpg";
@@ -33,6 +33,7 @@ import client12 from "../assets/client12.jpeg";
 import client13 from "../assets/client13.jpeg";
 import client14 from "../assets/client14.jpeg";
 import client15 from "../assets/client15.jpeg";
+import client16 from "../assets/client16.png";
 
 
 
@@ -255,12 +256,12 @@ const Home = () => {
   const SlideIcon = bannerSlides[currentSlide].icon;
 
   const workflowSteps = [
-    { number: "2", icon: "🤝", title: "Quality Practices", position: "top" },
-    { number: "1", icon: "⚙️", title: "Integrity", position: "bottom" },
-    { number: "4", icon: "🧑‍💼", title: "Excellence Through Innovation", position: "top" },
-    { number: "3", icon: "💡", title: "Professionalism", position: "bottom" },
-    { number: "6", icon: "🎧", title: "Lifelong Relationship", position: "top" },
-    { number: "5", icon: "💰", title: "Customer Services", position: "bottom" },
+    { number: "1", icon: "🤝", title: "Quality Practices", position: "top" },
+    { number: "2", icon: "⚙️", title: "Integrity", position: "bottom" },
+    { number: "3", icon: "🧑‍💼", title: "Excellence Through Innovation", position: "top" },
+    { number: "4", icon: "💡", title: "Professionalism", position: "bottom" },
+    { number: "5", icon: "🎧", title: "Lifelong Relationship", position: "top" },
+    { number: "6", icon: "💰", title: "Customer Services", position: "bottom" },
     { number: "7", icon: "🔗", title: "Prompt Delivery", position: "top" },
     { number: "8", icon: "🧩", title: "Exhaustive Wide Variety", position: "bottom" }
   ];
@@ -567,96 +568,97 @@ const Home = () => {
       </section> */}
 
       {/* Combined About & Why Choose Us Section */}
-      <section className="py-20 md:py-32 bg-white relative overflow-hidden">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-12">
-          <div className="max-w-[1600px] mx-auto">
-            <div className="flex items-center justify-center lg:justify-start">
-              {/* Left Column: Image/Graphic - Fixed to left edge */}
-              <div className="hidden lg:block w-[400px] xl:w-[500px] 2xl:w-[550px] flex-shrink-0 relative about-image animate-fade-in-up">
-                <img
-                  src={solar_landing_match_logo}
-                  alt="Enfros Solar Ecosystem"
-                  className="w-full h-auto object-contain hover:scale-105 transition-transform duration-500 drop-shadow-xl"
-                />
-                {/* Decorative background blob */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-br from-yellow-50 to-amber-100 rounded-full blur-3xl -z-10 opacity-60"></div>
-              </div>
+      <section className="py-20 md:py-32  bg-white relative overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-12ms-center justify-center">
+            <div className="max-w-[1800px] mx-auto md:mx-auto px-4 sm:px-6 lg:px-12">
+          <div className="flex items-center justify-between lg:justify-between">
+            {/* Left Column: Image/Graphic - Fixed to left edge */}
+            <div className="hidden lg:block w-[400px] xl:w-[500px] 2xl:w-[550px] flex-shrink-0 relative about-image animate-fade-in-up">
+              <img
+                src={solar_landing_match_logo}
+                alt="Enfros Solar Ecosystem"
+                className="w-full h-auto object-contain hover:scale-105 transition-transform duration-500 drop-shadow-xl"
+              />
+              {/* Decorative background blob */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-br from-yellow-50 to-amber-100 rounded-full blur-3xl -z-10 opacity-60"></div>
+            </div>
 
-              {/* Right Column: Content - Centered */}
-              <div className="flex-1 flex justify-center lg:justify-start lg:pl-12 xl:pl-16 2xl:pl-20">
-                <div className="max-w-2xl px-4 sm:px-6 lg:px-8 space-y-5 animate-slide-in-right">
+            {/* Right Column: Content - Centered */}
+            <div className="flex justify-center lg:justify-start lg:pl-12 xl:pl-16 2xl:pl-20">
+              <div className="max-w-2xl px-4 sm:px-6 lg:px-8 space-y-5 animate-slide-in-right">
 
 
-                  {/* Mobile Image */}
-                  <div className="lg:hidden mb-8">
-                    <img
-                      src={solar_landing_match_logo}
-                      alt="Enfros Solar Ecosystem"
-                      className="w-full max-w-md mx-auto h-auto object-contain drop-shadow-lg"
-                    />
-                  </div>
-
-                  {/* About Header */}
-                  <div>
-                    <div className="flex items-center space-x-2 text-yellow-600 font-bold uppercase tracking-widest text-sm mb-2">
-                      <Leaf className="w-4 h-4" />
-                      <span>About Our Company</span>
-                    </div>
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 leading-none tracking-tight mb-4 uppercase">
-                      ENFROS INDIA SOLUTION <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-amber-600">PRIVATE LIMITED</span>
-                    </h2>
-                  </div>
-
-                  {/* Description */}
-                  <div className="text-gray-700 text-base md:text-lg leading-relaxed space-y-3 font-medium">
-                    <p>
-                      Enfros is a leading renewable energy service provider specializing in sustainable power solutions. Since 2008, we have been actively involved in solar, wind, and energy storage projects. Our expertise spans project setup, execution, and investment models.
-                    </p>
-                    <p>
-                      As an ISO-certified contractor, we deliver efficient EPC services, I&C, and BOS solutions. We have completed over 2000 MW of projects, aiming to be the premier service provider in the industry.
-                    </p>
-                  </div>
-
-                  {/* Why Choose Us */}
-                  <div className="pt-4">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4 font-sans">Why Choose Us?</h3>
-                    <ul className="space-y-2">
-                      {[
-                        "Over 16+ years of experience in the renewable sector",
-                        "Successfully executed large-scale projects (2000+ MW)",
-                        "Strong expertise in project management & engineering",
-                        "Trusted by leading suppliers and vendors",
-                        "ISO-Certified Company"
-                      ].map((item, index) => (
-                        <li key={index} className="flex items-start">
-                          <div className="flex-shrink-0 mt-1">
-                            <div className="w-5 h-5 rounded-full bg-yellow-100 flex items-center justify-center border border-yellow-300">
-                              <CheckCircle2 className="w-3 h-3 text-yellow-700" />
-                            </div>
-                          </div>
-                          <div className="ml-3">
-                            <span className="text-base font-semibold text-gray-800">{item}</span>
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Decorative Bottom Graphic */}
-                  <div className="absolute bottom-0 right-0 hidden lg:block opacity-20 pointer-events-none">
-                    {/* Reuse an icon or simple graphic to mimic the reference's turbines if possible, or just a nice flare */}
-                    <Sun className="w-64 h-64 text-yellow-400 -mb-20 -mr-20 animate-spin-slow" style={{ animationDuration: '60s' }} />
-                  </div>
-
+                {/* Mobile Image */}
+                <div className="lg:hidden mb-8">
+                  <img
+                    src={solar_landing_match_logo}
+                    alt="Enfros Solar Ecosystem"
+                    className="w-full max-w-md mx-auto h-auto object-contain drop-shadow-lg"
+                  />
                 </div>
+
+                {/* About Header */}
+                <div>
+                  <div className="flex items-center space-x-2 text-yellow-600 font-bold uppercase tracking-widest text-sm mb-2">
+                    <Leaf className="w-4 h-4" />
+                    <span>About Our Company</span>
+                  </div>
+                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 leading-none tracking-tight mb-4 uppercase">
+                    ENFROS INDIA SOLUTION <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-amber-600">PRIVATE LIMITED</span>
+                  </h2>
+                </div>
+
+                {/* Description */}
+                <div className="text-gray-700 text-base md:text-lg leading-relaxed space-y-3 font-medium">
+                  <p>
+                    ENFROS is a renewable energy service provider specializing in solar power solutions. With over 15  years of combined
+                    With experience in solar and renewable energy, our directors lead the way.
+                  </p>
+                  <p>
+                    We have successfully completed construction projects totaling over   2000   MW,   including   Installation   & Commissioning (I&C) and Balance of System (BOS). Our goal is to become the LEADING EPC SERVICE PROVIDER in the solar power plant industry.
+                  </p>
+                </div>
+
+                {/* Why Choose Us */}
+                <div className="pt-4">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4 font-sans">Why Choose Us?</h3>
+                  <ul className="space-y-2">
+                    {[
+                      "Over 16+ years of experience in the renewable sector",
+                      "Successfully executed large-scale projects (2000+ MW)",
+                      "Strong expertise in project management & engineering",
+                      "Trusted by leading suppliers and vendors",
+                      "ISO-Certified Company"
+                    ].map((item, index) => (
+                      <li key={index} className="flex items-start">
+                        <div className="flex-shrink-0 mt-1">
+                          <div className="w-5 h-5 rounded-full bg-yellow-100 flex items-center justify-center border border-yellow-300">
+                            <CheckCircle2 className="w-3 h-3 text-yellow-700" />
+                          </div>
+                        </div>
+                        <div className="ml-3">
+                          <span className="text-base font-semibold text-gray-800">{item}</span>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Decorative Bottom Graphic */}
+                <div className="absolute bottom-0 right-0 hidden lg:block opacity-20 pointer-events-none">
+                  {/* Reuse an icon or simple graphic to mimic the reference's turbines if possible, or just a nice flare */}
+                  <Sun className="w-64 h-64 text-yellow-400 -mb-20 -mr-20 animate-spin-slow" style={{ animationDuration: '60s' }} />
+                </div>
+
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section >
 
-      {/* What We Can Do Section */}
-      <section className="py-20 md:py-32 bg-white relative overflow-hidden text-center lg:text-left">
+      {/* What We Can Do Section */ }
+      < section className = "py-20 md:py-32 bg-white relative overflow-hidden text-center lg:text-left" >
         <div className="container mx-auto px-4 sm:px-6 lg:px-12">
           <div className="max-w-[1600px] mx-auto">
             {/* Header */}
@@ -744,14 +746,14 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section >
 
 
 
 
 
-      {/* How Do We Work Section */}
-      <section className="py-24 md:py-36 bg-gradient-to-br from-amber-50 via-yellow-50 to-amber-100 relative overflow-hidden">
+  {/* How Do We Work Section */ }
+  < section className = "py-24 md:py-36 bg-gradient-to-br from-amber-50 via-yellow-50 to-amber-100 relative overflow-hidden" >
         <div className="container mx-auto sm:px-6 lg:px-12">
           <div className="max-w-[1600px] mb-20 mx-auto">
             {/* Header */}
@@ -777,8 +779,8 @@ const Home = () => {
               <div className="hidden lg:flex items-center justify-between relative">
                 {/* Start Badge */}
                 <div className="z-20">
-                  <div className="w-32 h-32 bg-gradient-to-br from-yellow-500 to-amber-600 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-2xl hover:scale-105 transition-transform duration-300">
-                    Start
+                  <div className="w-40 h-40 bg-gradient-to-br from-yellow-500 to-amber-600 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-2xl hover:scale-105 transition-transform duration-300">
+                    <p className="text-center">Understanding Your Needs</p>
                   </div>
                 </div>
 
@@ -825,8 +827,8 @@ const Home = () => {
 
                 {/* Finish Badge */}
                 <div className="z-20">
-                  <div className="w-32 h-32 bg-gradient-to-br from-amber-600 to-yellow-700 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-2xl hover:scale-105 transition-transform duration-300">
-                    Finish
+                  <div className="w-40 h-40 bg-gradient-to-br from-amber-600 to-yellow-700 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-2xl hover:scale-105 transition-transform duration-300">
+                    <p className="text-center">Successful Execution</p>
                   </div>
                 </div>
               </div>
@@ -899,76 +901,77 @@ const Home = () => {
         .workflow-step:nth-child(6) { animation-delay: 0.6s; }
         .workflow-step:nth-child(7) { animation-delay: 0.7s; }
       `}</style>
-      </section>
+      </section >
 
-      {/* Trusted Clients Section */}
-      <section className="py-24 md:py-36 bg-white relative overflow-hidden border-t border-gray-100">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-12">
-          <div className="max-w-[1600px] mx-auto">
-            {/* Header */}
-            <div className="text-center mb-20">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 uppercase tracking-tight mb-6">
-                Trusted by <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-amber-600">Leading Clients</span>
-              </h2>
-              <div className="w-32 h-2 bg-gradient-to-r from-yellow-500 to-amber-600 mx-auto rounded-full mb-10"></div>
-              <p className="text-gray-600 font-medium text-lg md:text-xl max-w-3xl mx-auto">
-                Our clients, like our people, are our most treasured assets. We nurture every client relationship with commitment, passion, and integrity,
-                which is the reason why most of our clients have been with us throughout our journey.
-              </p>
-            </div>
+  {/* Trusted Clients Section */ }
+  < section className = "py-24 md:py-36 bg-white relative overflow-hidden border-t border-gray-100" >
+    <div className="container mx-auto px-4 sm:px-6 lg:px-12">
+      <div className="max-w-[1600px] mx-auto">
+        {/* Header */}
+        <div className="text-center mb-20">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 uppercase tracking-tight mb-6">
+            Trusted by <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-amber-600">Leading Clients</span>
+          </h2>
+          <div className="w-32 h-2 bg-gradient-to-r from-yellow-500 to-amber-600 mx-auto rounded-full mb-10"></div>
+          <p className="text-gray-600 font-medium text-lg md:text-xl max-w-3xl mx-auto">
+            Our clients, like our people, are our most treasured assets. We nurture every client relationship with commitment, passion, and integrity,
+            which is the reason why most of our clients have been with us throughout our journey.
+          </p>
+        </div>
 
-            {/* Clients Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-2 items-center justify-items-center">
-              {[
-                { name: "Reliance", logo: client7 },
-                { name: "Adani", logo: client6 },
-                { name: "NTPC", logo: client5 },
-                { name: "BHEL", logo: client2 },
-                { name: "L&T", logo: client4 },
-                { name: "ABB", logo: "https://upload.wikimedia.org/wikipedia/commons/0/00/ABB_logo.svg" },
-                { name: "Waaree", logo: client14 },
-                { name: "Tata Power", logo: client13 },
-                { name: "Sterling & Wilson", logo: client10 },
-                { name: "Welspun", logo: client1 },
-                { name: "GMR", logo: client3 },
-                { name: "Cleantech Solar", logo: client8 },
-                { name: "Hild Energy", logo: client9 },
-                { name: "Svaryu Energy", logo: client12 },
-                { name: "Mahindra Susten", logo: client15 },
-                { name: "Refex", logo: client11 },
-                { name: "Siemens", logo: "https://upload.wikimedia.org/wikipedia/commons/5/5f/Siemens-logo.svg" }
-              ].map((client, index) => (
-                <div
-                  key={index}
-                  className="group relative w-full h-48 md:h-36 shadow-lg flex items-center justify-center  bg-white rounded-2xl border border-gray-100 "
-                >
-                  <img
-                    src={client.logo}
-                    alt={`${client.name} logo`}
-                    className="w-64 max-h-24 object-contain  group-hover:grayscale-0 transition-all duration-500 transform group-hover:scale-110"
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                      const span = document.createElement('span');
-                      span.className = 'text-gray-400 font-bold text-center text-lg';
-                      span.innerText = client.name;
-                      e.target.parentNode.appendChild(span);
-                    }}
-                  />
-                </div>
-              ))}
+        {/* Clients Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 items-center justify-items-center">
+          {[
+            { name: "Reliance", logo: client7 },
+            { name: "Adani", logo: client6 },
+            { name: "NTPC", logo: client5 },
+            { name: "BHEL", logo: client2 },
+            { name: "L&T", logo: client4 },
+            { name: "ABB", logo: "https://upload.wikimedia.org/wikipedia/commons/0/00/ABB_logo.svg" },
+            { name: "Waaree", logo: client14 },
+            { name: "Tata Power", logo: client13 },
+            { name: "Sterling & Wilson", logo: client10 },
+            { name: "Welspun", logo: client1 },
+            { name: "GMR", logo: client3 },
+            { name: "Cleantech Solar", logo: client8 },
+            { name: "Hild Energy", logo: client9 },
+            { name: "Svaryu Energy", logo: client12 },
+            { name: "Mahindra Susten", logo: client15 },
+            { name: "Refex", logo: client11 },
+            { name: "Siemens", logo: "https://upload.wikimedia.org/wikipedia/commons/5/5f/Siemens-logo.svg" },
+            { name: "Amaraja", logo: client16 }
+          ].map((client, index) => (
+            <div
+              key={index}
+              className="group relative w-full h-48 md:h-36 shadow-lg flex items-center justify-center  bg-white rounded-2xl border border-gray-100 "
+            >
+              <img
+                src={client.logo}
+                alt={`${client.name} logo`}
+                className="w-64 max-h-24 object-contain  group-hover:grayscale-0 transition-all duration-500 transform group-hover:scale-110"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                  const span = document.createElement('span');
+                  span.className = 'text-gray-400 font-bold text-center text-lg';
+                  span.innerText = client.name;
+                  e.target.parentNode.appendChild(span);
+                }}
+              />
             </div>
+          ))}
+        </div>
 
-            {/* Bottom Quote */}
-            <div className="mt-24 text-center">
-              <div className="inline-flex items-center space-x-4 bg-yellow-50 px-10 py-5 rounded-full border border-yellow-100 shadow-sm">
-                <Star className="w-6 h-6 text-yellow-500 fill-yellow-500" />
-                <span className="text-gray-800 font-bold text-xl italic uppercase tracking-wider">Empowering Industry Leaders with Sustainable Excellence</span>
-                <Star className="w-6 h-6 text-yellow-500 fill-yellow-500" />
-              </div>
-            </div>
+        {/* Bottom Quote */}
+        <div className="mt-24 text-center">
+          <div className="inline-flex items-center space-x-4 bg-yellow-50 px-10 py-5 rounded-full border border-yellow-100 shadow-sm">
+            <Star className="w-6 h-6 text-yellow-500 fill-yellow-500" />
+            <span className="text-gray-800 font-bold text-xl italic uppercase tracking-wider">Empowering Industry Leaders with Sustainable Excellence</span>
+            <Star className="w-6 h-6 text-yellow-500 fill-yellow-500" />
           </div>
         </div>
-      </section>
+      </div>
+    </div>
+      </section >
 
     </>
   );

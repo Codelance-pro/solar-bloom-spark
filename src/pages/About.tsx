@@ -35,6 +35,7 @@ import client12 from "../assets/client12.jpeg";
 import client13 from "../assets/client13.jpeg";
 import client14 from "../assets/client14.jpeg";
 import client15 from "../assets/client15.jpeg";
+import client16 from "../assets/client16.png";
 
 // Intersection Observer Hook for scroll animations
 const useScrollAnimation = () => {
@@ -67,10 +68,10 @@ const About: React.FC = () => {
   const clientsAnim = useScrollAnimation();
 
   const teamMembers = [
-    { id: 1, name: "KARTHICK RAMAIAH", role: "Managing Director", description: "Expertly leading Enfros with proven project expertise", imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face" },
-    { id: 2, name: "IGNASI", role: "Director - Operation", description: "AI & Machine Learning expert", imageUrl: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=400&fit=crop&crop=face" },
-    { id: 3, name: "JEGANIDHI KRISHNAN", role: "Director - Technical", description: "Operations management specialist", imageUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face" },
-    { id: 4, name: "S.SHANTHI", role: "Director - Commercial", description: "Product development leader", imageUrl: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&h=400&fit=crop&crop=face" },
+    { id: 1, name: "KARTHICK RAMAIAH", role: "Managing Director", description: "Expertly leading Enfros with proven project expertise", imageUrl: "" },
+    { id: 2, name: "IGNASI", role: "Director - Operation", description: "AI & Machine Learning expert", imageUrl: "" },
+    { id: 3, name: "JEGANIDHI KRISHNAN", role: "Director - Technical", description: "Operations management specialist", imageUrl: "" },
+    { id: 4, name: "S.SHANTHI", role: "Director - Commercial", description: "Product development leader", imageUrl: "" },
   ];
 
   const coreValues = [
@@ -527,7 +528,7 @@ const About: React.FC = () => {
             </div>
 
             {/* Clients Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-2 items-center justify-items-center">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 items-center justify-items-center">
               {[
                 { name: "Reliance", logo: client7 },
                 { name: "Adani", logo: client6 },
@@ -545,7 +546,8 @@ const About: React.FC = () => {
                 { name: "Svaryu Energy", logo: client12 },
                 { name: "Mahindra Susten", logo: client11 },
                 { name: "Refex", logo: client15 },
-                { name: "Siemens", logo: "https://upload.wikimedia.org/wikipedia/commons/5/5f/Siemens-logo.svg" }
+                { name: "Siemens", logo: "https://upload.wikimedia.org/wikipedia/commons/5/5f/Siemens-logo.svg" },
+                { name: "Amaraja", logo: client16 }
               ].map((client, index) => (
                 <div
                   key={index}
